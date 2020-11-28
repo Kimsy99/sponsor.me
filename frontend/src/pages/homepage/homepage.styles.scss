@@ -1,0 +1,48 @@
+// .header {
+//   height: 70px;
+//   width: 100%;
+//   display: flex;
+//   justify-content: space-between; //so they will spaced out as possible
+//   margin-bottom: 25px;
+
+//   .logo-container {
+//     height: 100%;
+//     width: 70px;
+//     padding-left: 25px;
+//   }
+
+//   .options {
+//     width: 50%;
+//     height: 100%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: flex-end; //always on the end
+
+//     .option {
+//       padding: 10px 15px;
+//       cursor: pointer;
+//     }
+//   }
+// }
+.home-page{
+  .intro-section{
+    // align-items: center;
+    // text-align: center;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fill, minmax(450px,42vw));
+    justify-content: center;
+    align-items: space-between;
+    padding: 10px 0 40px 0;
+    .intro-image{
+      max-width: 1000px;
+      width: 100%;
+      height: auto;
+    }
+    .intro-text{
+      justify-self: center;
+      align-self: center;
+      text-align: center;
+    }
+  }
+}
