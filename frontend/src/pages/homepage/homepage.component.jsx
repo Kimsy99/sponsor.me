@@ -15,6 +15,46 @@ const testData = [
     currentFund: 12,
     produceBy: 'Kim Sheng Yong',
   },
+  {
+    id: 1,
+    imageUrl: 'https://i.imgur.com/zm10H4x.jpg',
+    name: 'Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing dust',
+    description:
+      'Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing dust',
+    targetFund: 123,
+    currentFund: 12,
+    produceBy: 'Kim Sheng Yong',
+  },
+  {
+    id: 1,
+    imageUrl: 'https://i.imgur.com/zm10H4x.jpg',
+    name: 'Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing dust',
+    description:
+      'Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing dust',
+    targetFund: 123,
+    currentFund: 12,
+    produceBy: 'Kim Sheng Yong',
+  },
+  {
+    id: 1,
+    imageUrl: 'https://i.imgur.com/zm10H4x.jpg',
+    name: 'Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing dust',
+    description:
+      'Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing dust',
+    targetFund: 123,
+    currentFund: 12,
+    produceBy: 'Kim Sheng Yong',
+  },
+  {
+    id: 1,
+    imageUrl: 'https://i.imgur.com/zm10H4x.jpg',
+    name: 'Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing dust',
+    description:
+      'Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing dust',
+    targetFund: 123,
+    currentFund: 12,
+    produceBy: 'Kim Sheng Yong',
+  },
 ];
 
 const HomePage = () => (
@@ -31,7 +71,31 @@ const HomePage = () => (
         </p>
       </div>
     </div>
-    <ProjectItem key={testData[0].id} data={testData[0]} />
+    <div className='preview-items'>
+      <h1>Hot Projects</h1>
+      <div className='preview-item-container'>
+        <ProjectItem
+          key={testData[0].id}
+          data={testData[0]}
+          className='item1'
+        />
+        <ProjectItem
+          key={testData[1].id}
+          data={testData[1]}
+          className='item2'
+        />
+        <ProjectItem
+          key={testData[2].id}
+          data={testData[2]}
+          className='item3'
+        />
+        <ProjectItem
+          key={testData[3].id}
+          data={testData[3]}
+          className='item4'
+        />
+      </div>
+    </div>
   </div>
 );
 export default HomePage;

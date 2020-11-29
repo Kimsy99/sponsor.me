@@ -1,5 +1,6 @@
 import React from 'react';
 import './project-item.styles.scss';
+import BackProjectButton from '../back-project-button/back-project-button.component';
 
 const ProjectItem = (props) => {
   const { name, targetFund, currentFund, imageUrl, produceBy } = props.data;
@@ -15,13 +16,14 @@ const ProjectItem = (props) => {
         </span> */}
         <span>{(currentFund / targetFund) * 100}% funded</span>
         <span>By {produceBy}</span>
-        <span
-        // className='custom-button'
-        // onClick={() => addItem(item)}
-        // inverted
+        <BackProjectButton
+          type='submit'
+          // className='custom-button'
+          // onClick={() => addItem(item)}
+          // inverted
         >
           Back Project
-        </span>
+        </BackProjectButton>
       </div>
     </div>
   );

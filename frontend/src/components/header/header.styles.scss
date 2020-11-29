@@ -10,6 +10,13 @@
     height: 100%;
     width: 70px;
     padding-left: 25px;
+
+    .logo {
+      pointer-events: none;
+    }
+   
+    
+      
   }
 
   .options {
@@ -23,5 +30,18 @@
       padding: 10px 15px;
       cursor: pointer;
     }
+  }
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: App-logo-spin infinite 10s linear;
   }
 }

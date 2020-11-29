@@ -45,4 +45,33 @@
       text-align: center;
     }
   }
+  .preview-items{
+    
+    .preview-item-container{
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+      justify-items: center;
+      
+      // grid-template-rows: 1fr 1fr 1fr;
+      // grid-template-areas: 
+      //   "side1 bigItem side1"
+      //   "side 1bigItem side2"
+      //   // "bigItem side2"
+      ;
+      // .item1{
+      //   grid-area: bigItem;
+      // }
+      // .item2{
+      //   grid-area: side1;
+      // }
+      // .item3{
+      //   grid-area: side2;
+      // }
+      // .item4{
+      //   grid-area: side3;
+      // }
+    }
+  }
+
 }
