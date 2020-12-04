@@ -1,0 +1,48 @@
+.preview-items{
+  padding: 20px 60px;
+  
+}
+.preview-item-container{
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  justify-items: center;
+
+}
+.project-item{
+  margin-top: 10px;
+  max-width: 500px;
+  /* // width: 50%; */
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  align-items: center;
+  background-color: #EBEBEB;
+  border: 15px solid transparent;
+  border-radius: 12px;
+  padding: 5px;
+  
+}
+.image{
+  width: 30vw;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 5px;
+}
+.project-footer{
+  width: 100%;
+  height: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+} 
+.name{
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+.target-fund{
+  font-size: 18px;
+    /* // width: 90%; */
+}

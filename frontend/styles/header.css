@@ -1,0 +1,57 @@
+
+body {
+  font-family: 'Segoe UI';
+  /* padding: 20px 60px; */
+  background-color: #f5f5f5;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+*{
+  box-sizing: border-box;
+}
+
+.header {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; 
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+.logo-container {
+  height: 100%;
+  width: 70px;
+  padding-left: 25px;
+}
+.logo {
+    pointer-events: none;
+  }
+.options {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  
+}
+.option {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: App-logo-spin infinite 10s linear;
+  }
+}
+

@@ -1,3 +1,0 @@
-# https://www.robotstxt.org/robotstxt.html
-sponsorme.model.User-agent: *
-Disallow:

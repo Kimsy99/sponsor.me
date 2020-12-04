@@ -1,0 +1,21 @@
+
+.intro-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: baseline;
+  padding: 10px 0 40px 0;
+}
+.intro-image{
+  max-width: 700px;
+  width: 100%;
+  height: auto;
+}
+.intro-text{
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+}
+  
