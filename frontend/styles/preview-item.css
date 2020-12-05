@@ -1,5 +1,5 @@
 .preview-items{
-  padding: 20px 60px;
+  padding: 40px 60px;
   
 }
 .preview-item-container{
@@ -7,12 +7,12 @@
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
   justify-items: center;
-
+  justify-content: center;
 }
 .project-item{
   margin-top: 10px;
   max-width: 500px;
-  /* // width: 50%; */
+  width: 80%;
   min-width: 300px;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,6 @@
   border: 15px solid transparent;
   border-radius: 12px;
   padding: 5px;
-  
 }
 .image{
   width: 30vw;
@@ -45,4 +44,9 @@
 .target-fund{
   font-size: 18px;
     /* // width: 90%; */
+}
+@media(max-width: 600px){
+  .project-item{
+    width: 300px;
+  }
 }
