@@ -4,23 +4,29 @@
     <title>Sponsor.me</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../styles/header.css" />
     <link rel="stylesheet" href="../styles/preview-item.css" />
     <link rel="stylesheet" href="../styles/footer.css" />
-    <link rel="stylesheet" href="./project.css" />
+    <link rel="stylesheet" href="../styles/project.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
     <div class="header">
       <a href="../index.html" class="logo-container">
         <img class="logo" src="../assets/logo.svg" />
       </a>
       <div class="options">
         <a class="option" href="./project/project.html"> Explore </a>
+        <div class="option">
+          <input type="text" class="search-bar" placeholder="Search.." name="search">
+          <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+        </div>
         <a class="option" href="./signup-signin/sign-up-sign-in.html">
           Sign in
         </a>
       </div>
     </div>
-  </head>
-  <body>
     <div class="project-header">
       <div class="header-text">
         <h1>All Projects</h1>
@@ -32,7 +38,19 @@
       </div>
     </div>
     <div class="preview-items">
-      <h1>Hot Projects</h1>
+      <h1>All Projects</h1>
+      <div class="preview-items-filter text-center">
+        <ul class="filter-list">
+          <li class="active">All</li>
+          <li>Tech</li>
+          <li>Design</li>
+          <li>Film</li>
+          <li>Arts</li>
+          <li>Publish</li>
+          <li>Food</li>
+          <li>Games</li>
+          <li>Others</li>
+      </div>
       <div class="preview-item-container">
         <div class="project-item">
           <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
@@ -106,4 +124,6 @@
       </div>
     </div>
   </footer>
+
+  <script src="../js/script.js"></script>
 </html>

@@ -1,0 +1,50 @@
+.sign-up, .sign-in{
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+}
+.title{
+  margin: 10px 0
+  }
+.buttons{
+  display: flex;
+  justify-content: space-between;
+}
+.form-input-label{
+  color: grey;
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 300ms ease all;
+
+  /* &.shrink{
+    @include shirkLabel();
+  } */
+}
+.group{
+  position: relative;
+  margin: 45px 0;
+}
+.form-input{
+  background: none;
+  background-color: white;
+  color: grey;
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width:100%;
+  border:none;
+  border-radius: 0;
+  border-bottom: 1px solid grey;
+  margin: 25px 0;
+  border-radius: 15px;
+}
+.sign-in-and-sign-up{
+  width: 850px;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px auto
+}

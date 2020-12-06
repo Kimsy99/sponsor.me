@@ -43,6 +43,12 @@ a{
   padding: 10px 15px;
   cursor: pointer;
 }
+.search-bar{
+  width: 10vw;
+}
+search-button{
+  width: 2vw;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
