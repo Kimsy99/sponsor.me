@@ -1,0 +1,170 @@
+.project-item{
+  padding: 20px 10vw 20px 10vw;
+}
+.project-item-details{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* padding: 20px 10vw 20px 10vw; */
+}
+.image-slider{
+  width:50%;
+  min-width:400px;
+  /* overflow:hidden; */
+  position: relative;
+}
+.heading-image{
+  width: 100%;
+  height: auto;
+}
+.project-item-description-header{
+  padding-left: 20px;
+  width:50%;
+  min-width:400px;
+}
+.funding-bar{
+  border: 1px solid black;
+  height: 20px;
+  border-radius: 20px;
+}
+.funding-bar-color{
+  background-color: #FF8A65;
+  height: 19px;
+  width: 50%;
+  border-radius: 20px;
+}
+.project-item-details, .project-item-progress{
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  /* border: 1px solid #dddddd;
+  border-radius: 30px; */
+  /* padding: 4px; */
+  /* margin: 0 0 60px; */
+}
+/* .project-item-details button{
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 4px;
+  margin: 0 0 60px;
+} */
+.project-item-details button{
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  color: #888888;
+  margin-right: 10px;
+  border-radius: 25px;
+  padding: 10px;
+  padding: 10 20px;
+  /* min-width: 30px; */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: 0px; margin: 0 0 60px;
+}
+.project-item-details button.active,
+.project-item-details button:hover{
+  background-color: #FF8A65;
+  color: black;
+  font-weight: bold;
+}
+.progress-item{
+  background-color: #FAFAFA;
+  padding: 10px;
+  border: 1px solid #C7C7C7;
+  border-radius: 30px;
+  /* margin-left: 20px ; */
+}
+.details-container{
+  display: grid;
+  grid-gap: 10px;
+  padding: 0 50px 50px 50px;
+  grid-template-areas: 
+    "progress progress progress perk"
+    "content content content perk"
+    "content content content perk"
+    "content content content perk"
+    "content content content perk"
+    "content content content perk"
+    "content content content perk"
+    "content content content perk"
+    "content content content perk"
+    "content content content perk";
+}
+.project-item-progress{
+  grid-area: progress;
+  align-self: center;
+  /* justify-self: stretch; */
+  justify-content: space-evenly;
+}
+.campaign-details{
+  grid-area: content;
+  padding-right: 10px;
+  /* visibility: hidden; */
+  
+}
+.perks-items{
+  grid-area: perk;
+}
+.perk-item{
+  background-color: #C7C7C7;
+  padding: 10px;
+  border: 5px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  width:250px;
+}
+.project-item-container{
+  display: block;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+
+
+/* accordion */
+.questions-list{
+  display: flex;
+  flex-direction: column;
+}
+.question{
+  grid-area: content;
+  width:100%;
+  align-self: center;
+  justify-self: center;
+}
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  width:80%;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+  width:80%;
+}

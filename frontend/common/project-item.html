@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sponsor.me</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <!-- <link rel="stylesheet" href="../styles/preview-item.css" /> -->
+    <link rel="stylesheet" href="../styles/footer.css" />
+    <link rel="stylesheet" href="../styles/project.css" />
+    <link rel="stylesheet" href="../styles/project-item.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <div class="header">
+      <a href="../index.html" class="logo-container">
+        <img class="logo" src="../assets/logo.svg" />
+      </a>
+      <div class="options">
+        <a class="option" href="../common/project.html"> Explore </a>
+        <div class="option">
+          <input
+            type="text"
+            class="search-bar"
+            placeholder="Search.."
+            name="search"
+          />
+          <button type="submit" class="search-button">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+        <a class="option" href="../common/sign-in-sign-up.html"> Sign in </a>
+        <div class="dropdown">
+          <i class="fa fa-user dropbtn" aria-hidden="true"></i>
+          <div class="dropdown-content">
+            <div class="account">
+              Your Account
+              <hr />
+              <a href="">My Projects</a>
+              <a href="">Saved Project</a>
+              <a href="">Profile</a>
+              <a href="">Settings</a>
+            </div>
+            <br />
+            <div class="create-project">
+              Created Projects
+              <hr />
+              <a>
+                <div class="mini-project-preview">
+                  <img
+                    src="./assets/project-categories-header-image/all.jpg"
+                    alt=""
+                  />
+                  <div class="mini-project-preview-content">
+                    <h5>Title about the project</h5>
+                    <h6>65% funded</h6>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </head>
+  <body>
+    <div class="project-item">
+      <div class="project-item-details">
+        <div class="image-slider">
+          <img
+            class="heading-image"
+            src="../assets/project-moft-image/moftFloatImage 1.png"
+            alt=""
+          />
+        </div>
+        <div class="project-item-description-header">
+          <h1>Moft Float</h1>
+          <p>
+            A slim stand&case that provides adjustable height and unlimited
+            angles. Taking your iPad Pro to next-level height and experience.
+          </p>
+          <h6>Created by Moft</h6>
+          <div class="funding-details">
+            <h3>MYR 40,000</h3>
+            <span>by 349 backers</span>
+            <div class="funding-bar">
+              <div class="funding-bar-color"></div>
+            </div>
+            <p>50% of MYR 80,000 goal</p>
+            <button>Back Project</button>
+            <button>Save</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="">
+          <ul class="project-item-details">
+            <button
+              class="tablinks"
+              onclick="openCity(event, 'campaign')"
+              id="defaultOpen"
+            >
+              Campaign
+            </button>
+            <button class="tablinks" onclick="openCity(event, 'faq')">
+              FAQ
+            </button>
+            <button class="tablinks" onclick="openCity(event, 'comments')">
+              Comments
+            </button>
+            <button class="tablinks" onclick="openCity(event, 'team')">
+              Team
+            </button>
+          </ul>
+        </div>
+        <div class="details-container">
+          <div class="project-item-progress">
+            <!-- <img src="../assets/project-moft-image/progress_bar.svg" alt="" /> -->
+            <div class="project-item-container">
+              <img
+                class="progress-item concept"
+                src="../assets/project-moft-image/concept-done.svg"
+                alt=""
+              />
+              <p>Concept</p>
+            </div>
+            <div class="project-item-container">
+              <img
+                class="progress-item prototype"
+                src="../assets/project-moft-image/prototype-done.svg"
+                alt=""
+              />
+              <p>Prototype</p>
+            </div>
+            <div class="project-item-container">
+              <img
+                class="progress-item production"
+                src="../assets/project-moft-image/production.svg"
+                alt=""
+              />
+              <p>Production</p>
+            </div>
+            <div class="project-item-container">
+              <img
+                class="progress-item shipping"
+                src="../assets/project-moft-image/shipping.svg"
+                alt=""
+              />
+              <p>Shipping</p>
+            </div>
+          </div>
+          <div id="campaign" class="campaign-details tab-content">
+            <h3>Story</h3>
+            <p>
+              The iPad Pro sits alone atop of the tablet game. For a tablet,
+              it’s as close to perfection as you’re going to get, but it is
+              still missing one major feature: A powerful stand&case to match
+              its capabilities. Until now, the most portable stands and cases
+              did not offer eye-level viewing and adjustable angles for
+              ergonomic working. Your iPad Pro is your next computer and it
+              deserves a well-prepared stand&case.
+            </p>
+            <br />
+            <p>
+              It brings you a game-changing mobile experience while working with
+              the iPad Pro. Most importantly, it's still lightweight as MOFT
+              product always does. MOFT Float is crafted with a built-in stand.
+              It remains consistent with the MOFT "invisible design" philosophy
+              of providing more functions and protections while remaining the
+              same slim design. Floatable when you need it and make it invisible
+              when you don't. Created with our unique "FLOAT" design, MOFT Float
+              can elevate your screen up to 3.15 inches. It takes home the crown
+              of the tallest portable stand&case on the market, allowing you to
+              work anywhere without neck and shoulder pain. Besides the
+              adjustable angle&height, The MOFT Float also provides 3 different
+              modes that take your iPad Pro to the next level, helping you use
+              your iPad Pro in many creative ways.
+            </p>
+            <h3>Risk and challenges</h3>
+            <p>
+              The iPad Pro sits alone atop of the tablet game. For a tablet,
+              it’s as close to perfection as you’re going to get, but it is
+              still missing one major feature: A powerful stand&case to match
+              its capabilities. Until now, the most portable stands and cases
+              did not offer eye-level viewing and adjustable angles for
+              ergonomic working. Your iPad Pro is your next computer and it
+              deserves a well-prepared stand&case.
+            </p>
+            <br />
+            <p>
+              It brings you a game-changing mobile experience while working with
+              the iPad Pro. Most importantly, it's still lightweight as MOFT
+              product always does. MOFT Float is crafted with a built-in stand.
+              It remains consistent with the MOFT "invisible design" philosophy
+              of providing more functions and protections while remaining the
+              same slim design. Floatable when you need it and make it invisible
+              when you don't. Created with our unique "FLOAT" design, MOFT Float
+              can elevate your screen up to 3.15 inches. It takes home the crown
+              of the tallest portable stand&case on the market, allowing you to
+              work anywhere without neck and shoulder pain. Besides the
+              adjustable angle&height, The MOFT Float also provides 3 different
+              modes that take your iPad Pro to the next level, helping you use
+              your iPad Pro in many creative ways.
+            </p>
+          </div>
+          <div id="faq" class="faq-details tab-content">
+            <h3>FAQs</h3>
+            <div class="questions-list">
+              <div class="question">
+                <button class="accordion">
+                  Which iPads are compatible with MOFT Float?
+                </button>
+                <div class="panel">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+              </div>
+              <div class="question">
+                <button class="accordion">How do I pick the size?</button>
+                <div class="panel">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+              </div>
+              <div class="question">
+                <button class="accordion">
+                  How high does MOFT Float raise the iPad screen?
+                </button>
+                <div class="panel">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+              </div>
+              <div class="question">
+                <button class="accordion">
+                  How much does MOFT Float weigh?
+                </button>
+                <div class="panel">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+              </div>
+              <div class="question">
+                <button class="accordion">What is MOFT Float made of?</button>
+                <div class="panel">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="comments" class="tab-content">adsfasd</div>
+          <div id="team" class="tab-content">team</div>
+          <div class="perks-items">
+            <h3>Select a Perk</h3>
+            <a href="https://www.google.com/"
+              ><div class="perk-item">
+                <h2>MYR 139</h2>
+                <h6>MOFT Float - Early Bird</h6>
+                <p>You will get Moft Float x 1</p>
+                <h6>Estimated Delivery</h6>
+                <h5>10 backers</h5>
+              </div></a
+            >
+            <a href="https://www.google.com/"
+              ><div class="perk-item">
+                <h2>MYR 139</h2>
+                <h6>MOFT Float - Early Bird</h6>
+                <p>You will get Moft Float x 1</p>
+                <h6>Estimated Delivery</h6>
+                <h5>10 backers</h5>
+              </div></a
+            >
+            <a href="https://www.google.com/"
+              ><div class="perk-item">
+                <h2>MYR 139</h2>
+                <h6>MOFT Float - Early Bird</h6>
+                <p>You will get Moft Float x 1</p>
+                <h6>Estimated Delivery</h6>
+                <h5>10 backers</h5>
+              </div></a
+            >
+            <a href="https://www.google.com/"
+              ><div class="perk-item">
+                <h2>MYR 139</h2>
+                <h6>MOFT Float - Early Bird</h6>
+                <p>You will get Moft Float x 1</p>
+                <h6>Estimated Delivery</h6>
+                <h5>10 backers</h5>
+              </div></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <div class="footer">
+      <div class="footer-item-container">
+        <div class="menu-items">
+          <div class="menu-item">
+            <img class="icon" src="../assets/footer-image/Home.svg" />
+            <span>Home</span>
+          </div>
+          <div class="menu-item">
+            <img class="icon" src="../assets/footer-image/Projects.svg" />
+            <span>Projects</span>
+          </div>
+          <div class="menu-item">
+            <img class="icon" src="../assets/footer-image/Account.svg" />
+            <span>Account</span>
+          </div>
+          <div class="menu-item">
+            <img class="icon" src="../assets/footer-image/Help.svg" />
+            <span>Help</span>
+          </div>
+        </div>
+        <div class="description">
+          <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>
+          <p class="copyright">Sponsor.me © 2020</p>
+          <p class="tnc">Terms of Service - Privacy Policy</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/project-item.js"></script>
+  <script>
+    document.getElementById('defaultOpen').click();
+  </script>
+</html>

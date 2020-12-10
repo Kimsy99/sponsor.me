@@ -66,50 +66,63 @@
   </head>
   <body>
     <div class="sign-in-and-sign-up">
-      <div class="sign-in">
-        <h2 class="title">I had an account</h2>
-        <span>Sign in with your email and password</span>
-        <form onSubmit="{this.handleSubmit}">
-          <div class="group">
-            <input class="form-input" type="email" placeholder="Email" />
-            <!-- <label class="form-input-label">Email</label> -->
-          </div>
-          <div class="group">
-            <input class="form-input" type="password" placeholder="Password" />
-            <!-- <label class="form-input-label">Password</label> -->
-          </div>
-          <div class="buttons">
-            <button>Sign In</button>
-          </div>
-        </form>
+      <div class="module-border-wrap">
+        <div class="sign-in">
+          <h2 class="title">I had an account</h2>
+          <span>Sign in with your email and password</span>
+          <form onSubmit="{this.handleSubmit}">
+            <div class="group">
+              <input class="form-input" type="email" placeholder="Email" />
+              <!-- <label class="form-input-label">Email</label> -->
+            </div>
+            <div class="group">
+              <input
+                class="form-input"
+                type="password"
+                placeholder="Password"
+              />
+              <!-- <label class="form-input-label">Password</label> -->
+            </div>
+            <div class="buttons">
+              <button>Sign In</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="sign-up">
-        <h2 class="title">I dont have an account</h2>
-        <span>Sign up with your email and password</span>
-        <form class="sign-up-form" onSubmit="{this.handleSubmit}">
-          <!-- <input type="text" placeholder="User Name" />
+
+      <div class="module-border-wrap">
+        <div class="sign-up">
+          <h2 class="title">I dont have an account</h2>
+          <span>Sign up with your email and password</span>
+          <form class="sign-up-form" onSubmit="{this.handleSubmit}">
+            <!-- <input type="text" placeholder="User Name" />
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
           <input type="password" placeholder="Confirm Password" /> -->
-          <div class="group">
-            <input class="form-input" type="text" placeholder="User Name" />
-          </div>
-          <div class="group">
-            <input class="form-input" type="email" placeholder="Email" />
-            <!-- <label class="form-input-label">Email</label> -->
-          </div>
-          <div class="group">
-            <input class="form-input" type="password" placeholder="Password" />
-          </div>
-          <div class="group">
-            <input
-              class="form-input"
-              type="password"
-              placeholder="Confirm Password"
-            />
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
+            <div class="group">
+              <input class="form-input" type="text" placeholder="User Name" />
+            </div>
+            <div class="group">
+              <input class="form-input" type="email" placeholder="Email" />
+              <!-- <label class="form-input-label">Email</label> -->
+            </div>
+            <div class="group">
+              <input
+                class="form-input"
+                type="password"
+                placeholder="Password"
+              />
+            </div>
+            <div class="group">
+              <input
+                class="form-input"
+                type="password"
+                placeholder="Confirm Password"
+              />
+            </div>
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
       </div>
     </div>
   </body>
