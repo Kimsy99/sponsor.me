@@ -58,3 +58,23 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 }
+
+//comment box
+let commentBox = document.getElementById('insert-comment');
+let addCommentBtn = document.getElementById('add-comment');
+let closeBtn = document.getElementsByClassName('close')[0];
+let submitComment = document.getElementById('submitComment');
+
+addCommentBtn.onclick = function () {
+  commentBox.style.display = 'block';
+};
+closeBtn.onclick = function () {
+  console.log('closebtn triggered');
+  commentBox.style.display = 'none';
+};
+//click outside windows to close it
+window.onclick = function (event) {
+  if (event.target == commentBox) {
+    commentBox.style.display = 'none';
+  }
+};
