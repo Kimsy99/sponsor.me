@@ -59,7 +59,9 @@
                   </div>
                 </div>
               </a>
-              <a class="add-new-project"> &#43; Add New Project </a>
+              <a class="add-new-project">
+                &#43; Add New Project
+              </a>
             </div>
           </div>
         </div>
@@ -67,47 +69,94 @@
     </div>
   </head>
   <body>
-    <div class="preview-item-container">
-      <div class="project-item">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-        <div class="project-footer">
-          <span class="name"
-            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-            dust</span
-          >
-          <span class="target-fund">Target Fund: 12</span>
-          <span class="funded-percentage">12% funded</span>
-          <span>By Kim Labs</span>
-          <button type="submit">View Details</button>
-        </div>
-      </div>
+    <div class="new-project-item">
+      <h1>Edit Project</h1>
+      <form action="">
+        <label for="pname">Project Name</label>
+        <input
+          type="text"
+          id="pname"
+          name="projectname"
+          placeholder="Project name.."
+          required="true"
+        />
 
-      <div class="project-item">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-        <div class="project-footer">
-          <span class="name"
-            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-            dust</span
-          >
-          <span class="target-fund">Target Fund: 12</span>
-          <span class="funded-percentage">12% funded</span>
-          <span>By Kim Labs</span>
-          <button type="submit">View Details</button>
-        </div>
-      </div>
-      <div class="project-item">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-        <div class="project-footer">
-          <span class="name"
-            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-            dust</span
-          >
-          <span class="target-fund">Target Fund: 12</span>
-          <span class="funded-percentage">12% funded</span>
-          <span>By Kim Labs</span>
-          <button type="submit">View Details</button>
-        </div>
-      </div>
+        <label for="pdescription">Project Description</label>
+        <input
+          type="text"
+          id="project-description"
+          name="project-description"
+          placeholder="Project description.."
+          required="true"
+        />
+
+        <label for="img">Select image:</label>
+        <input
+          type="file"
+          id="img"
+          name="img"
+          accept="image/*"
+          required="true"
+        />
+
+        <label for="Target Amount">Project Target Amount</label>
+        <input
+          type="number"
+          id="target-amount"
+          name="target-amount"
+          placeholder="Eg. 4000"
+          min="5"
+          required="true"
+        />
+
+        <label for="category">Category</label>
+        <select id="category" name="category">
+          <option value="tech">Tech</option>
+          <option value="design">Design</option>
+          <option value="Film">Film</option>
+          <option value="Arts">Arts</option>
+          <option value="Publish">Publish</option>
+          <option value="food">Food</option>
+          <option value="Games">Games</option>
+          <option value="others">Others</option>
+        </select>
+
+        <label for="stage">Current Stage of project</label>
+        <select id="stage" name="stage">
+          <option value="concept">Concept</option>
+          <option value="prototype">Prototype</option>
+          <option value="production">Production</option>
+          <option value="shipping">Shipping</option>
+        </select>
+
+        <label for="Story">Project Story</label><br />
+        <div id="image-text-box" contenteditable></div>
+        <!-- <button id="save">Save</button> -->
+
+        <!--faqs-->
+        <label for="Story">Frequently Asked Questions</label>
+        <div class="multi-field-wrapper">
+          <div class="multi-fields">
+            <div class="multi-field">
+              <input type="text" name="stuff[]" class="">
+              <textarea
+                  rows="10"
+                  cols="50"
+                  name="comment"
+                  form="usrform"
+                  style=" width: 80%"
+                ></textarea>
+              <button type="button" class="remove-field">Remove</button>
+            </div>
+          </div>
+        <button type="button" class="add-field">Add field</button><br><br>
+
+
+        <label for="Story">Team Details</label><br />
+        <div id="image-text-box" contenteditable></div>
+        <input id="submit" type="submit" value="Submit" />
+        
+      </form>
     </div>
   </body>
   <footer>

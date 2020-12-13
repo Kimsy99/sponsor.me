@@ -31,15 +31,15 @@
           </button>
         </div>
         <a class="option" href="../common/sign-in-sign-up.html"> Sign in </a>
-        <div class="dropdown">
+        <div class="dropdown" onclick="toggleProfile()">
           <i class="fa fa-user dropbtn" aria-hidden="true"></i>
-          <div class="dropdown-content">
+          <div class="dropdown-content" id="dropdown-content">
             <div class="account">
               Your Account
               <hr />
               <a href="./my-projects.html">My Projects</a>
               <a href="">Saved Project</a>
-              <a href="">Profile</a>
+              <a href="./profile.html">Profile</a>
               <a href="">Settings</a>
             </div>
             <br />
@@ -157,4 +157,5 @@
   </footer>
 
   <script src="../js/script.js"></script>
+  <script src="../js/toggleProfile.js"></script>
 </html>

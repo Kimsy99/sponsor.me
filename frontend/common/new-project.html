@@ -32,15 +32,15 @@
           </button>
         </div>
         <a class="option" href="../common/sign-in-sign-up.html"> Sign in </a>
-        <div class="dropdown">
+        <div class="dropdown" onclick="toggleProfile()">
           <i class="fa fa-user dropbtn" aria-hidden="true"></i>
-          <div class="dropdown-content">
+          <div class="dropdown-content" id="dropdown-content">
             <div class="account">
               Your Account
               <hr />
               <a href="./my-projects.html">My Projects</a>
               <a href="">Saved Project</a>
-              <a href="">Profile</a>
+              <a href="./profile.html">Profile</a>
               <a href="">Settings</a>
             </div>
             <br />
@@ -59,9 +59,7 @@
                   </div>
                 </div>
               </a>
-              <a class="add-new-project">
-                &#43; Add New Project
-              </a>
+              <a class="add-new-project"> &#43; Add New Project </a>
             </div>
           </div>
         </div>
@@ -138,24 +136,29 @@
         <div class="multi-field-wrapper">
           <div class="multi-fields">
             <div class="multi-field">
-              <input type="text" name="stuff[]" class="">
+              <input
+                type="text"
+                name="stuff[]"
+                class=""
+                placeholder="Question"
+              />
               <textarea
-                  rows="10"
-                  cols="50"
-                  name="comment"
-                  form="usrform"
-                  style=" width: 80%"
-                ></textarea>
+                rows="10"
+                cols="50"
+                name="comment"
+                form="usrform"
+                style="width: 80%"
+                placeholder="Answer"
+              ></textarea>
               <button type="button" class="remove-field">Remove</button>
             </div>
           </div>
-        <button type="button" class="add-field">Add field</button><br><br>
-
+        </div>
+        <button type="button" class="add-field">Add field</button><br /><br />
 
         <label for="Story">Team Details</label><br />
         <div id="image-text-box" contenteditable></div>
         <input id="submit" type="submit" value="Submit" />
-        
       </form>
     </div>
   </body>
@@ -191,4 +194,5 @@
 
   <script src="../js/script.js"></script>
   <script src="../js/faq-text-field.js"></script>
+  <script src="../js/toggleProfile.js"></script>
 </html>

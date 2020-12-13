@@ -24,15 +24,15 @@
           Sign in
         </a>
         
-        <div class="dropdown">
+        <div class="dropdown" onclick="toggleProfile()">
           <i class="fa fa-user dropbtn" aria-hidden="true" ></i>
-          <div class="dropdown-content">
+          <div class="dropdown-content" id="dropdown-content">
             <div class="account">
             Your Account
             <hr>
-            <a href="./my-projects.html">My Projects</a>
+            <a href="./common/my-projects.html">My Projects</a>
             <a href="">Saved Project</a>
-            <a href="">Profile</a>
+            <a href="./common/profile.html">Profile</a>
             <a href="">Settings</a>
           </div>
           <br>
@@ -99,7 +99,7 @@
               dust</span
             >
             <span class="target-fund">Target Fund: 12</span>
-            <span>12% funded</span>
+            <span class="funded-percentage">12% funded</span>
             <span>By Kim Labs</span>
             <button type="submit">Back Project</button>
           </div>
@@ -113,7 +113,7 @@
               dust</span
             >
             <span class="target-fund">Target Fund: 12</span>
-            <span>12% funded</span>
+            <span class="funded-percentage">12% funded</span>
             <span>By Kim Labs</span>
             <button type="submit">Back Project</button>
           </div>
@@ -126,7 +126,7 @@
               dust</span
             >
             <span class="target-fund">Target Fund: 12</span>
-            <span>12% funded</span>
+            <span class="funded-percentage">12% funded</span>
             <span>By Kim Labs</span>
             <button type="submit">Back Project</button>
           </div>
@@ -163,5 +163,6 @@
       </div>
     </div>
   </footer>
-  <script src="../js/script.js"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/toggleProfile.js"></script>
 </html>
