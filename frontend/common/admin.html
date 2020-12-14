@@ -9,10 +9,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/preview-item.css" />
+    <!-- <link rel="stylesheet" href="../styles/preview-item.css" /> -->
     <link rel="stylesheet" href="../styles/footer.css" />
     <link rel="stylesheet" href="../styles/project.css" />
-    <link rel="stylesheet" href="../styles/new-project.css" />
+    <link rel="stylesheet" href="../styles/project-item.css" />
+    <link rel="stylesheet" href="../styles/edit-button.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <div class="header">
       <a href="../index.html" class="logo-container">
@@ -20,17 +21,7 @@
       </a>
       <div class="options">
         <a class="option" href="../common/project.html"> Explore </a>
-        <div class="option">
-          <input
-            type="text"
-            class="search-bar"
-            placeholder="Search.."
-            name="search"
-          />
-          <button type="submit" class="search-button">
-            <i class="fa fa-search"></i>
-          </button>
-        </div>
+
         <a class="option" href="../common/sign-in-sign-up.html"> Sign in </a>
         <div class="dropdown" onclick="toggleProfile()">
           <i class="fa fa-user dropbtn" aria-hidden="true"></i>
@@ -59,7 +50,9 @@
                   </div>
                 </div>
               </a>
-               <a href="./common/new-project.html" class="add-new-project"> &#43; Add New Project </a>
+              <a href="new-project.html" class="add-new-project">
+                &#43; Add New Project
+              </a>
             </div>
           </div>
         </div>
@@ -67,48 +60,7 @@
     </div>
   </head>
   <body>
-    <div class="preview-item-container">
-      <div class="project-item">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-        <div class="project-footer">
-          <span class="name"
-            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-            dust</span
-          >
-          <span class="target-fund">Target Fund: 12</span>
-          <span class="funded-percentage">12% funded</span>
-          <span>By Kim Labs</span>
-          <button type="submit">View Details</button>
-        </div>
-      </div>
-
-      <div class="project-item">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-        <div class="project-footer">
-          <span class="name"
-            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-            dust</span
-          >
-          <span class="target-fund">Target Fund: 12</span>
-          <span class="funded-percentage">12% funded</span>
-          <span>By Kim Labs</span>
-          <button type="submit">View Details</button>
-        </div>
-      </div>
-      <div class="project-item">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-        <div class="project-footer">
-          <span class="name"
-            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-            dust</span
-          >
-          <span class="target-fund">Target Fund: 12</span>
-          <span class="funded-percentage">12% funded</span>
-          <span>By Kim Labs</span>
-          <button type="submit">View Details</button>
-        </div>
-      </div>
-    </div>
+    <table></table>
   </body>
   <footer>
     <div class="footer">
@@ -139,8 +91,9 @@
       </div>
     </div>
   </footer>
-
-  <script src="../js/script.js"></script>
-  <script src="../js/faq-text-field.js"></script>
+  <script src="../js/project-item.js"></script>
+  <script>
+    document.getElementById('defaultOpen').click();
+  </script>
   <script src="../js/toggleProfile.js"></script>
 </html>

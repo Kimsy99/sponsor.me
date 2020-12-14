@@ -6,9 +6,11 @@
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  /* grid-template-rows: repeat(2, 1fr); */
   justify-items: center;
   justify-content: center;
 }
+
 .project-item{
   margin-top: 10px;
   max-width: 500px;
@@ -24,6 +26,9 @@
   /* padding: 5px; */
   border-top: 0px;
 }
+/* .project-item:first-child {
+  grid-row: 1/-1;
+} */
 .image{
   width: 30vw;
   height: auto;
