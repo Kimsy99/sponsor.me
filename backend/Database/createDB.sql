@@ -1,20 +1,20 @@
-create schema sponsorme authorization 'root';
+create schema sponsorme;
 
 create table user
 (
-    user_id             int             not null    auto_increment,
-    user_name           varchar(50)     not null,
-    profile_picture     mediumblob,
-    user_password       varchar(30)     not null,
-    email               varchar(40)     not null,
+    user_id                 int             not null    auto_increment,
+    username               varchar(50)     not null,
+    profile_picture_name    VARCHAR(100)    DEFAULT 'default_user_icon',
+    user_password           varchar(30)     not null,
+    email                   varchar(40)     not null,
     unique(username, email),
-    primary key(user_id),
+    primary key(user_id)
 );
 
 create table project
 (
     project_id          int             not null    auto_increment,
-    project_name        varchar(50)     not null,
+    project_name        varchar(100)    not null,
     funding_goal        decimal(10, 2)  not null,
     small_description   mediumtext,
     category            enum('tech', 'design', 'film', 'art', 'publish', 'food', 'game')    not null,
@@ -23,36 +23,18 @@ create table project
     primary key(project_id),
     foreign key(creator_id) 
         references user(user_id)
-        on delete cascade,
+        on delete cascade
 );
 
 create TABLE project_picture
 (
-    picture_id      INT         NOT NULL    AUTO_INCREMENT,
-    project_id      INT         NOT NULL,
-    picture         mediumblob  not null,
+    picture_id      INT             NOT NULL    AUTO_INCREMENT,
+    project_id      INT             NOT NULL,
+    picture_name    VARCHAR(100)    not null,
     primary key(picture_id),
     foreign key(project_id)
         references project(project_id)
-        on delete cascade,
-);
-
-create table backed_project
-(
-    id              INT     NOT NULL    AUTO_INCREMENT,
-    backer_id       INT     NOT NULL,
-    project_id      INT     NOT NULL,
-    perk_id         INT     NOT NULL,
-    primary key(id),
-    foreign key(backer_id) 
-        REFERENCES user(user_id)
-        ON DELETE SET NULL,
-    foreign key(project_id) 
-        REFERENCES project(project_id)
-        ON DELETE CASCADE,
-    foreign key(perk_id)
-        REFERENCES perk(perk_id)
-        ON DELETE RESTRICT,
+        on delete cascade
 );
 
 create table campaign
@@ -63,7 +45,7 @@ create table campaign
     primary key(project_id),
     foreign key(project_id)
         references project(project_id)
-        on delete cascade,
+        on delete cascade
 );
 
 create table faq
@@ -75,7 +57,7 @@ create table faq
     primary key(question_id),
     foreign key(project_id) 
         REFERENCES project(project_id)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
 );
 
 create table comment
@@ -95,7 +77,7 @@ create table comment
         ON DELETE CASCADE,
     foreign key(parent_comment)
         REFERENCES comment(comment_id)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
 );
 
 create table perk
@@ -108,10 +90,16 @@ create table perk
     primary key(perk_id),
     foreign key(project_id) 
         REFERENCES project(project_id)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
 );
 
-
+create table item
+(
+    item_id             INT             AUTO_INCREMENT,
+    item_name           VARCHAR(50)     NOT NULL,
+    option_type         enum('size', 'color', 'storage')    not null,
+    primary key(item_id)
+);
 
 create table reward_item
 (
@@ -123,18 +111,7 @@ create table reward_item
         ON DELETE CASCADE,
     foreign key(item_id) 
         REFERENCES item(item_id)
-        ON DELETE CASCADE,
-);
-
-create table item
-(
-    item_id             INT             AUTO_INCREMENT,
-    item_name           VARCHAR(50)     NOT NULL,
-    option_type         enum('size', 'color', 'storage')    not null,
-    primary key(item_id),
-    foreign key(item_id) 
-        references reward_item(item_id)
-        on delete cascade,
+        ON DELETE CASCADE
 );
 
 create table item_option
@@ -145,5 +122,28 @@ create table item_option
     primary key(option_id),
     foreign key(item_id) 
         REFERENCES item(item_id)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
 );
+
+create table backed_project
+(
+    id              INT     NOT NULL    AUTO_INCREMENT,
+    backer_id       INT,
+    project_id      INT     NOT NULL,
+    perk_id         INT     NOT NULL,
+    primary key(id),
+    foreign key(backer_id) 
+        REFERENCES user(user_id)
+        ON DELETE SET NULL,
+    foreign key(project_id) 
+        REFERENCES project(project_id)
+        ON DELETE CASCADE,
+    foreign key(perk_id)
+        REFERENCES perk(perk_id)
+        ON DELETE RESTRICT
+);
+
+alter table item
+add foreign key(item_id) 
+        references reward_item(item_id)
+        on delete cascade;
