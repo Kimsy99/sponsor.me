@@ -8,8 +8,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="../styles/header.css" />
     <link rel="stylesheet" href="./admin.css" />
+    <link rel="stylesheet" href="./admin-users.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--Load the AJAX API-->
     <script
@@ -110,7 +117,7 @@
     </svg>
     <header class="page-header">
       <nav>
-        <a href="" class="logo-container">
+        <a href="./admin.html" class="logo-container">
           <img class="logo" src="../../assets/logo.svg" />
         </a>
         <button
@@ -127,7 +134,7 @@
             <h3>Admin</h3>
           </li>
           <li>
-            <a href="#projects_trend">
+            <a href="admin.html#projects_trend">
               <svg>
                 <use xlink:href="#projects"></use>
               </svg>
@@ -143,7 +150,7 @@
             </a>
           </li> -->
           <li>
-            <a href="#users_trend">
+            <a href="admin.html#users_trend">
               <svg>
                 <use xlink:href="#users"></use>
               </svg>
@@ -151,7 +158,7 @@
             </a>
           </li>
           <li>
-            <a href="#new_users_trend">
+            <a href="admin.html#new_users_trend">
               <svg>
                 <use xlink:href="#trends"></use>
               </svg>
@@ -228,31 +235,136 @@
           </div>
         </div>
       </div>
-      <div class="grid">
-        <article id="projects_trend">
-          <a href="./admin-projects.html">
-            <h1>Projects</h1>
-            <h3>Total projects on platform: 32</h3>
-            <div id="project_chart"></div>
-          </a>
-        </article>
-        <article id="users_trend">
-          <a href="./admin-users.html">
-            <h1>Users</h1>
-            <h3>Total users: 523</h3>
-            <div id="users_chart"></div
-          ></a>
-        </article>
-        <article id="new_users_trend">
-          <h1>New Users trends</h1>
-          <h3>Total users: 523</h3>
-          <div id="new_users_chart"></div>
-        </article>
-        <article>asdfasd</article>
-        <article>asdfasdf</article>
-        <article>asdfasdfa</article>
-        <article>asdfasdfas</article>
-        <article>asdfasd</article>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Project ID</th>
+              <th>Project Name</th>
+              <th>Funding Goal</th>
+              <th>Current Funding</th>
+              <th>Funding %</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Creator</th>
+              <th>Creation Date</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <a href="../../common/project-item.html"></a> -->
+            <tr onclick="document.location = './admin-project-item.html'">
+              <td>2</td>
+              <td>
+                'MOFT Float: Invisible Stand&Case for iPad Pro&New iPad Air'
+              </td>
+              <td>50000</td>
+              <td>3000</td>
+              <td>12.3%</td>
+              <td>
+                A slim stand&case that provides adjustable height and unlimited
+                angles. Taking your iPad Pro to next-level height and
+                experience.
+              </td>
+              <td>Tech</td>
+              <td>MOFT Labs</td>
+              <td>2020-12-15</td>
+              <td class="delete">
+                <a href="">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </td>
+            </tr>
+            <tr onclick="document.location = '../../common/project-item.html'">
+              <td>2</td>
+              <td>
+                'MOFT Float: Invisible Stand&Case for iPad Pro&New iPad Air'
+              </td>
+              <td>50000</td>
+              <td>3000</td>
+              <td>12.3%</td>
+              <td>
+                A slim stand&case that provides adjustable height and unlimited
+                angles. Taking your iPad Pro to next-level height and
+                experience.
+              </td>
+              <td>Tech</td>
+              <td>MOFT Labs</td>
+              <td>2020-12-15</td>
+              <td class="delete">
+                <a href="">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </td>
+            </tr>
+            <tr onclick="document.location = '../../common/project-item.html'">
+              <td>2</td>
+              <td>
+                'MOFT Float: Invisible Stand&Case for iPad Pro&New iPad Air'
+              </td>
+              <td>50000</td>
+              <td>3000</td>
+              <td>12.3%</td>
+              <td>
+                A slim stand&case that provides adjustable height and unlimited
+                angles. Taking your iPad Pro to next-level height and
+                experience.
+              </td>
+              <td>Tech</td>
+              <td>MOFT Labs</td>
+              <td>2020-12-15</td>
+              <td class="delete">
+                <a href="">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </td>
+            </tr>
+            <tr onclick="document.location = '../../common/project-item.html'">
+              <td>2</td>
+              <td>
+                'MOFT Float: Invisible Stand&Case for iPad Pro&New iPad Air'
+              </td>
+              <td>50000</td>
+              <td>3000</td>
+              <td>12.3%</td>
+              <td>
+                A slim stand&case that provides adjustable height and unlimited
+                angles. Taking your iPad Pro to next-level height and
+                experience.
+              </td>
+              <td>Tech</td>
+              <td>MOFT Labs</td>
+              <td>2020-12-15</td>
+              <td class="delete">
+                <a href="">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </td>
+            </tr>
+            <tr onclick="document.location = '../../common/project-item.html'">
+              <td>2</td>
+              <td>
+                'MOFT Float: Invisible Stand&Case for iPad Pro&New iPad Air'
+              </td>
+              <td>50000</td>
+              <td>3000</td>
+              <td>12.3%</td>
+              <td>
+                A slim stand&case that provides adjustable height and unlimited
+                angles. Taking your iPad Pro to next-level height and
+                experience.
+              </td>
+              <td>Tech</td>
+              <td>MOFT Labs</td>
+              <td>2020-12-15</td>
+              <td class="delete">
+                <a href="">
+                  <i class="fas fa-trash-alt"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <footer class="page-footer"></footer>
     </div>
