@@ -3,10 +3,12 @@ create schema sponsorme;
 create table user
 (
     user_id                 int             not null    auto_increment,
-    username               varchar(50)     not null,
+    username                varchar(50)     not null,
     profile_picture_name    VARCHAR(100)    DEFAULT 'default_user_icon',
-    user_password           varchar(30)     not null,
+    password_hash           varchar(128)    not null,
+    salt                    VARCHAR(512)    NOT NULL,
     email                   varchar(40)     not null,
+    registration_date       DATE            NOT NULL,
     unique(username, email),
     primary key(user_id)
 );
@@ -16,7 +18,7 @@ create table project
     project_id          int             not null    auto_increment,
     project_name        varchar(100)    not null,
     funding_goal        decimal(10, 2)  not null,
-    small_description   mediumtext,
+    small_description   text,
     category            enum('tech', 'design', 'film', 'art', 'publish', 'food', 'game')    not null,
     creator_id          int             not null,
     creation_date       date            not null,
@@ -39,9 +41,9 @@ create TABLE project_picture
 
 create table campaign
 (
-    project_id          INT         NOT NULL,
+    project_id          INT             NOT NULL,
     project_status      enum('concept', 'prototype', 'production', 'shipping')      not null,
-    story               LONGTEXT    not null,
+    story               mediumTEXT      not null,
     primary key(project_id),
     foreign key(project_id)
         references project(project_id)
@@ -53,7 +55,7 @@ create table faq
     question_id         INT         AUTO_INCREMENT,
     project_id          INT         NOT NULL,
     question            TINYTEXT    NOT NULL,
-    answer              MEDIUMTEXT  NOT NULL,
+    answer              TEXT        NOT NULL,
     primary key(question_id),
     foreign key(project_id) 
         REFERENCES project(project_id)
@@ -65,7 +67,7 @@ create table comment
     comment_id          INT             AUTO_INCREMENT,
     project_id          INT             NOT NULL,
     user_id             INT             NOT NULL,
-    comment             MEDIUMTEXT      NOT NULL,
+    comment             TEXT            NOT NULL,
     parent_comment      INT,
     comment_date        DATE            NOT NULL,
     primary key(comment_id),
@@ -86,7 +88,7 @@ create table perk
     project_id          INT             NOT NULL,
     title               VARCHAR(100)    NOT NULL,
     price               DECIMAL(10, 2)  NOT NULL,
-    description         TINYTEXT,
+    description         TEXT,
     primary key(perk_id),
     foreign key(project_id) 
         REFERENCES project(project_id)
@@ -97,8 +99,11 @@ create table item
 (
     item_id             INT             AUTO_INCREMENT,
     item_name           VARCHAR(50)     NOT NULL,
-    option_type         enum('size', 'color', 'storage')    not null,
-    primary key(item_id)
+    project_id          int             NOT NULL,
+    primary key(item_id),
+    FOREIGN KEY(project_id)
+        REFERENCES project(project_id)
+        on DELETE CASCADE
 );
 
 create table reward_item
@@ -143,7 +148,15 @@ create table backed_project
         ON DELETE RESTRICT
 );
 
-alter table item
-add foreign key(item_id) 
-        references reward_item(item_id)
-        on delete cascade;
+-- admin
+create table admin
+(
+    admin_id                int             not null    auto_increment,
+    name                    varchar(50)     not null,
+    password_hash           varchar(128)    not null,
+    salt                    VARCHAR(512)    NOT NULL,
+    email                   varchar(40)     not null,
+    unique(name, email),
+    primary key(admin_id)
+);
+
