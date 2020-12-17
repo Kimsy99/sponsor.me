@@ -72,9 +72,16 @@ closeBtn.onclick = function () {
   console.log('closebtn triggered');
   commentBox.style.display = 'none';
 };
+submitComment.onclick = function () {
+  console.log('closebtn triggered');
+  commentBox.style.display = 'none';
+};
 //click outside windows to close it
 window.onclick = function (event) {
   if (event.target == commentBox) {
     commentBox.style.display = 'none';
   }
 };
+function replyPopUp() {
+  commentBox.style.display = 'block';
+}

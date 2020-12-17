@@ -1,6 +1,7 @@
 $('.multi-field-wrapper').each(function () {
   var $wrapper = $('.multi-fields', this);
   $('.add-field', $(this)).click(function (e) {
+    console.log('add new field');
     $('.multi-field:first-child', $wrapper)
       .clone(false)
       .appendTo($wrapper)

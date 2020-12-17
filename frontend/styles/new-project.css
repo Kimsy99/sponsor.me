@@ -32,11 +32,11 @@ input[type=submit]:hover {
   /* justify-content: center; */
   margin:0 auto;
 }
-#image-text-box {
+/* #image-text-box {
   width: 100%;
   min-height: 300px;
   height: auto;
   padding: 10px;
   border: 1px solid #aaaaaa;
-}
-#image-text-box img { width:500px; height: auto  }
+}*/
+/* #image-text-box { width:500px; height: auto  }  */
