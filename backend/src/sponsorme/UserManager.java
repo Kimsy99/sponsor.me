@@ -1,12 +1,11 @@
 package sponsorme;
 
-import com.sun.istack.internal.NotNull;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Objects;
 
+import org.jetbrains.annotations.NotNull;
 import sponsorme.model.User;
 import sponsorme.store.UserStore;
 import sponsorme.util.MathHelper;
