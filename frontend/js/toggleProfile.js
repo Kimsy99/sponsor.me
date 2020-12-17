@@ -2,7 +2,6 @@ let dropdownContent = document.getElementById('dropdown-content');
 let dropdown = document.getElementsByClassName('dropbtn')[0];
 
 window.onclick = function (event) {
-  console.log(event.target);
   if (
     event.target !== dropdownContent &&
     event.target !== dropdown &&

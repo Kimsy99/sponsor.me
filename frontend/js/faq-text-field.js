@@ -3,14 +3,17 @@ $('.multi-field-wrapper').each(function () {
   $('.add-field', $(this)).click(function (e) {
     console.log('add new field');
     $('.multi-field:first-child', $wrapper)
-      .clone(false)
+      .clone(true)
       .appendTo($wrapper)
       .find('input, textarea')
-      .val('')
-      .focus();
+      .val('');
   });
   $('.multi-field .remove-field', $wrapper).click(function () {
-    if ($('.multi-field', $wrapper).length > 1)
+    console.log('herer');
+    if ($('.multi-field', $wrapper).length > 1) {
+      console.log('remove fields');
+      console.log($(this).parent('.multi-field'));
       $(this).parent('.multi-field').remove();
+    }
   });
 });
