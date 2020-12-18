@@ -183,8 +183,103 @@ VALUES
 --category    enum('tech', 'design', 'film', 'art', 'publish', 'food', 'game')    not null,
 
 INSERT into campaign (project_id, project_status, story)
+VALUES
+(
+    20,
+    'concept',
+    '<div id="campaign" class="campaign-details tab-content" style="display: block;">
+            <h3>Story</h3>
+            <p>
+              The iPad Pro sits alone atop of the tablet game. For a tablet,
+              it’s as close to perfection as you’re going to get, but it is
+              still missing one major feature: A powerful stand&amp;case to match
+              its capabilities. Until now, the most portable stands and cases
+              did not offer eye-level viewing and adjustable angles for
+              ergonomic working. Your iPad Pro is your next computer and it
+              deserves a well-prepared stand&amp;case.
+            </p>
+            <br>
+            <p>
+              It brings you a game-changing mobile experience while working with
+              the iPad Pro. Most importantly, it''s still lightweight as MOFT
+              product always does. MOFT Float is crafted with a built-in stand.
+              It remains consistent with the MOFT "invisible design" philosophy
+              of providing more functions and protections while remaining the
+              same slim design. Floatable when you need it and make it invisible
+              when you don''t. Created with our unique "FLOAT" design, MOFT Float
+              can elevate your screen up to 3.15 inches. It takes home the crown
+              of the tallest portable stand&amp;case on the market, allowing you to
+              work anywhere without neck and shoulder pain. Besides the
+              adjustable angle&amp;height, The MOFT Float also provides 3 different
+              modes that take your iPad Pro to the next level, helping you use
+              your iPad Pro in many creative ways.
+            </p>
+            <h3>Risk and challenges</h3>
+            <p>
+              The iPad Pro sits alone atop of the tablet game. For a tablet,
+              it’s as close to perfection as you’re going to get, but it is
+              still missing one major feature: A powerful stand&amp;case to match
+              its capabilities. Until now, the most portable stands and cases
+              did not offer eye-level viewing and adjustable angles for
+              ergonomic working. Your iPad Pro is your next computer and it
+              deserves a well-prepared stand&amp;case.
+            </p>
+            <br>
+            <p>
+              It brings you a game-changing mobile experience while working with
+              the iPad Pro. Most importantly, it''s still lightweight as MOFT
+              product always does. MOFT Float is crafted with a built-in stand.
+              It remains consistent with the MOFT "invisible design" philosophy
+              of providing more functions and protections while remaining the
+              same slim design. Floatable when you need it and make it invisible
+              when you don''t. Created with our unique "FLOAT" design, MOFT Float
+              can elevate your screen up to 3.15 inches. It takes home the crown
+              of the tallest portable stand&amp;case on the market, allowing you to
+              work anywhere without neck and shoulder pain. Besides the
+              adjustable angle&amp;height, The MOFT Float also provides 3 different
+              modes that take your iPad Pro to the next level, helping you use
+              your iPad Pro in many creative ways.
+            </p>
+          </div>'
+);
 
 --project_status    enum('concept', 'prototype', 'production', 'shipping')      not null,
+
+update project
+set team = 
+    '<div id="team" class="tab-content" style="display: block;">
+            <h3>About</h3>
+            <p>
+              Short description of the team <br>
+              MOFT stands for “Mobile Office for Travelers”. <br><br>We
+              design innovative, easy-to-use productivity accessories enabling
+              people to be more efficient with less equipment via unique, smart
+              design. <br><br>MOFT aims to transform individuals'' devices to
+              work their way, giving them the ability to explore life’s
+              adventures while maintaining their productivity. <br><br>We
+              make the world your office.
+            </p>
+            <h3>Team</h3>
+            <div class="team-members">
+              <div class="member">
+                <img src="../assets/project-categories-header-image/all.jpg" alt="" width="300" height="300">
+                <p>Kim Sheng Yong</p>
+              </div>
+              <div class="member">
+                <img src="../assets/project-categories-header-image/all.jpg" alt="" width="300" height="300">
+                <p>Kim Sheng Yong</p>
+              </div>
+              <div class="member">
+                <img src="../assets/project-categories-header-image/all.jpg" alt="" width="300" height="300">
+                <p>Kim Sheng Yong</p>
+              </div>
+            </div>
+            <div>
+              <h3>Contact</h3>
+              <p>Email: absdf@gmail.com</p>
+            </div>
+    </div>'
+;
 
 /*
 INSERT into faq (project_id, question, answer)
@@ -358,6 +453,7 @@ VALUES
 ;
 */
 
+/*
 INSERT into item (item_name, project_id)
 VALUES
     ('MOFT Float', 20),
@@ -403,75 +499,138 @@ VALUES
     ('4 more keys for your friends', 36),
     ('Physical game (in a BOX!)', 36)
 ;
+*/
 
---option_type   enum('size', 'color', 'storage')    not null,
-
+/*
 INSERT into reward_item(perk_id, item_id)
 VALUES
-    (1, 1),
-    (2, 1),
-    (3, 1),
-    (3, 2),
-    (4, 3),
-    (4, 4),
-    (5, 4),
-    (5, 5),
-    (6, 6),
-    (6, 7),
-    (7, 6),
-    (7, 7),
-    (8, 6),
-    (8, 7),
-    (8, 8),
-    (9, 9),
-    (9, 10),
-    (10, 9),
-    (10, 10),
-    (10, 11),
-    (10, 12),
-    (11, 13),
-    (12, 13),
-    (12, 14),
-    (12, 15),
-    (16, 16),
-    (17, 17),
-    (17, 18),
-    (18, 17),
-    (18, 18),
-    (18, 19),
-    (18, 20),
-    (19, 21),
-    (20, 21),
-    (20, 22),
-    (20, 23),
-    (21, 24),
-    (21, 25),
-    (22, 24),
-    (22, 25),
-    (22, 26),
-    (23, 27),
-    (24, 28),
-    (26, 29),
-    (26, 30),
-    (26, 31),
-    (44, 32),
-    (44, 33),
-    (44, 34),
-    (44, 35),
-    (44, 36),
-    (45, 37),
-    (45, 38),
-    (45, 39),
-    (45, 40),
-    (45, 41),
-    (45, 42)
+    (1, 127),
+    (2, 127),
+    (3, 127),
+    (3, 128),
+    (4, 129),
+    (4, 130),
+    (5, 130),
+    (5, 131),
+    (6, 132),
+    (6, 133),
+    (7, 132),
+    (7, 133),
+    (8, 132),
+    (8, 133),
+    (8, 134),
+    (9, 135),
+    (9, 136),
+    (10, 135),
+    (10, 136),
+    (10, 137),
+    (10, 138),
+    (11, 139),
+    (12, 139),
+    (12, 140),
+    (12, 141),
+    (16, 142),
+    (17, 143),
+    (17, 144),
+    (18, 143),
+    (18, 144),
+    (18, 145),
+    (18, 146),
+    (19, 147),
+    (20, 147),
+    (20, 148),
+    (20, 149),
+    (21, 150),
+    (21, 151),
+    (22, 150),
+    (22, 151),
+    (22, 152),
+    (23, 153),
+    (24, 154),
+    (26, 155),
+    (26, 156),
+    (26, 157),
+    (44, 158),
+    (44, 159),
+    (44, 160),
+    (44, 161),
+    (44, 162),
+    (45, 163),
+    (45, 164),
+    (45, 165),
+    (45, 166),
+    (45, 167),
+    (45, 168)
 ;
+*/
 
-
-
-
+/*
 INSERT into item_option (item_id, option_provided)
+VALUES
+    (127, 'MOFT Float 11"'),
+    (127, 'MOFT Float 12.9"'),
+    (128, 'US layout'),
+    (128, 'British layout')
+;
+*/
 
-INSERT into backed_project (backer_id, project_id, perk_id)
-
+/*
+INSERT into backed_project (backer_id, project_id, perk_id, backed_amount)
+VALUES
+    -- (1, 20, 3, 0),
+    -- (2, 20, 3, 0),
+    -- (3, 20, 2, 0),
+    -- (4, 20, 1, 8999),
+    -- (2, 0, 4, 0),
+    -- (4, 0, 4, 0),
+    -- (5, 0, 4, 0),
+    -- (3, 0, 5, 0),
+    -- (11, 0, 5, 0),
+    (1, 0, 8, 0),
+    (3, 0, 7, 0),
+    (11, 0, 6, 88888),
+    (1, 0, 10, 0),
+    (2, 0, 10, 0),
+    (3, 0, 9, 0),
+    (4, 0, 10, 0),
+    (11, 0, 12, 88888),
+    (2, 0, 11, 0),
+    (5, 0, 12, 0),
+    (1, 0, 14, 0),
+    (2, 0, 16, 0),
+    (3, 0, 16, 0),
+    (11, 0, 15, 88888),
+    (5, 0, 16, 0),
+    (3, 0, 18, 0),
+    (11, 0, 17, 88888),
+    (5, 0, 18, 0),
+    (11, 0, 20, 88888),
+    (5, 0, 19, 0),
+    (4, 0, 19, 3478),
+    (1, 0, 21, 0),
+    (2, 0, 22, 0),
+    (3, 0, 22, 0),
+    (11, 0, 21, 88888),
+    (5, 0, 23, 0),
+    (2, 0, 24, 0),
+    (3, 0, 24, 0),
+    (11, 0, 24, 88888),
+    (3, 0, 25, 0),
+    (11, 0, 26, 88888),
+    (5, 0, 26, 0),
+    (11, 0, 27, 88888),
+    (1, 0, 41, 0),
+    (2, 0, 41, 0),
+    (11, 0, 42, 0),
+    (1, 0, 35, 0),
+    (2, 0, 42, 0),
+    (11, 0, 36, 0),
+    (1, 0, 44, 0),
+    (2, 0, 45, 0),
+    (1, 0, 38, 0),
+    (3, 0, 37, 0),
+    (3, 0, 39, 0),
+    (3, 0, 40, 0)
+;
+*/
 

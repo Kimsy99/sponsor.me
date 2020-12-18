@@ -22,6 +22,7 @@ create table project
     category            enum('tech', 'design', 'film', 'art', 'publish', 'food', 'game')    not null,
     creator_id          int             not null,
     creation_date       date            not null,
+    team                text,
     primary key(project_id),
     foreign key(creator_id) 
         references user(user_id)
@@ -98,7 +99,7 @@ create table perk
 create table item
 (
     item_id             INT             AUTO_INCREMENT,
-    item_name           VARCHAR(50)     NOT NULL,
+    item_name           VARCHAR(100)    NOT NULL,
     project_id          int             NOT NULL,
     primary key(item_id),
     FOREIGN KEY(project_id)
@@ -132,10 +133,11 @@ create table item_option
 
 create table backed_project
 (
-    id              INT     NOT NULL    AUTO_INCREMENT,
+    id              INT             NOT NULL    AUTO_INCREMENT,
     backer_id       INT,
-    project_id      INT     NOT NULL,
-    perk_id         INT     NOT NULL,
+    project_id      INT             NOT NULL,
+    perk_id         INT             NOT NULL,
+    backed_amount   DECIMAL(10,2)   NOT NULL,
     primary key(id),
     foreign key(backer_id) 
         REFERENCES user(user_id)
@@ -147,6 +149,66 @@ create table backed_project
         REFERENCES perk(perk_id)
         ON DELETE RESTRICT
 );
+
+create TRIGGER Backed_amount_check
+Before insert on backed_project
+for each ROW
+if new.backed_amount < (
+                            select price
+                            from perk
+                            where perk_id = new.perk_id
+                        )
+then set new.backed_amount = (
+                                select price
+                                from perk
+                                where perk_id = new.perk_id
+                            );
+                            END IF;
+
+create TRIGGER Backed_amount_update_check
+Before update on backed_project
+for each ROW
+if new.backed_amount < (
+                            select price
+                            from perk
+                            where perk_id = new.perk_id
+                        )
+then set new.backed_amount = (
+                                select price
+                                from perk
+                                where perk_id = new.perk_id
+                            );
+                            END IF;
+
+create TRIGGER Backed_project_insertion_check
+Before insert on backed_project
+for each ROW
+if new.project_id != (
+                            select project_id
+                            from perk
+                            where perk_id = new.perk_id
+                        )
+then set new.project_id = (
+                                select project_id
+                                from perk
+                                where perk_id = new.perk_id
+                            );
+END IF;
+
+create TRIGGER Backed_project_update_check
+Before update on backed_project
+for each ROW
+if new.project_id != (
+                            select project_id
+                            from perk
+                            where perk_id = new.perk_id
+                        )
+then set new.project_id = (
+                                select project_id
+                                from perk
+                                where perk_id = new.perk_id
+                            );
+END IF;
 
 -- admin
 create table admin
