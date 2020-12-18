@@ -1,0 +1,16 @@
+.perks-item{
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+.perks-item-template{
+  display: none;
+}
+.add-perk{
+  background-color: var(--main-color);
+  width: 200px;
+  height: 30px;
+  font-size: 15px;
+  text-align: center;
+}

@@ -3,8 +3,10 @@ $('.option-types-wrapper').each(function () {
   console.log($wrapper);
   $('.add-field', $(this)).click(function (e) {
     console.log('add new field');
-    $('.multi-field:first-child', $wrapper)
-      .clone(true)
+    $('.multi-field-template')
+      .clone()
+      .removeClass('multi-field-template')
+      .addClass('multi-field')
       .appendTo($wrapper)
       .find('input, textarea')
       .val('');
@@ -25,9 +27,10 @@ $('.reward-wrapper').each(function () {
     console.log('add new field');
     $('.reward-item-template')
       .clone()
+      // .css('display', 'block')
+      .show()
       .removeClass('reward-item-template')
       // .addClass('reward-item')
-      .show()
       .appendTo($wrapper)
       .find('input')
       .val('');
