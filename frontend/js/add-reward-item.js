@@ -2,13 +2,14 @@ $('.option-types-wrapper').each(function () {
   var $wrapper = $('.option-types', this);
   console.log($wrapper);
   $('.add-field', $(this)).click(function (e) {
-    console.log('add new field');
+    console.log('add new item');
     $('.multi-field-template')
       .clone()
       .removeClass('multi-field-template')
-      .addClass('multi-field')
+      // .addClass('multi-field')
+      .show()
       .appendTo($wrapper)
-      .find('input, textarea')
+      .find('input')
       .val('');
   });
   $('.multi-field .remove-field', $wrapper).click(function () {
@@ -35,7 +36,7 @@ $('.reward-wrapper').each(function () {
       .find('input')
       .val('');
   });
-  $('.multi-field .remove-field', $wrapper).click(function () {
+  $('.multi-field .fa-window-close', $wrapper).click(function () {
     if ($('.multi-field', $wrapper).length > 1)
       $(this).parent('.multi-field').remove();
   });

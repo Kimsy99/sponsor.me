@@ -14,3 +14,7 @@
   font-size: 15px;
   text-align: center;
 }
+.fa-window-close{
+  float: right;
+  cursor: pointer;
+ }

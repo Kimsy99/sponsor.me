@@ -2,12 +2,28 @@
   padding: 20px 10vw 20px 10vw;
 }
 
-.project-item-details{
+.project-item-info{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   /* padding: 20px 10vw 20px 10vw; */
+  padding-bottom: 5%;
+  border-bottom: 1px solid black;
+}
+.back-project-button{
+  width: 30%;
+  min-width: 200px;
+  padding: 10px;
+  border: 2px solid var(--main-color);
+  border-radius: 10px;
+  font-size: 18px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+.back-project-button:hover{
+  background-color: var(--main-color);
+  color: white;
 }
 .image-slider{
   width:50%;
@@ -15,6 +31,7 @@
   /* overflow:hidden; */
   position: relative;
 }
+
 .heading-image{
   width: 100%;
   height: auto;
@@ -34,6 +51,9 @@
   height: 19px;
   width: 50%;
   border-radius: 20px;
+}
+.project-item-content{
+  padding-top: 5%;
 }
 .project-item-details, .project-item-progress{
   margin: 0;
@@ -76,6 +96,13 @@
   background-color: #FF8A65;
   color: black;
   font-weight: bold;
+}
+.funding-details button{
+  border: 2px solid var(--main-color);
+  border-radius: 10px;
+  font-size: 18px;
+  margin-top: 10px;
+  transition: 0.3s;
 }
 .progress-item{
   background-color: #FAFAFA;
