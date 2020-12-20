@@ -1,0 +1,146 @@
+
+:root {
+  --main-color: #FF8A65;
+  --green: #4CAF50;
+  --bg-grey: #f5f5f5;
+}
+
+body {
+  font-family: 'Segoe UI';
+  /* padding: 20px 60px; */
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+*{
+  box-sizing: border-box;
+}
+
+.header {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; 
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+.logo-container {
+  height: 100%;
+  width: 70px;
+  padding-left: 25px;
+}
+.logo {
+    pointer-events: none;
+  }
+.options {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  
+}
+.option {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.search-bar{
+  width: 10vw;
+}
+search-button{
+  width: 2vw;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: App-logo-spin infinite 10s linear;
+  }
+}
+.dropbtn {
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  width: 260px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 20px;
+  right: 0;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #FF8A65;} */
+
+/* .dropdown:hover .dropdown-content {display: block;}*/ */
+
+.dropdown:hover .dropbtn {background-color: #FF8A65;} 
+
+.mini-project-preview{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+}
+.mini-project-preview img{
+  width:100px;
+  /* height: 60px; */
+  height: auto;
+  /* align-items: center; */
+}
+.mini-project-preview-content{
+  padding-left: 2px;
+}
+.mini-project-preview h5{
+  margin: 0；
+}
+.mini-project-preview h6{
+  margin: 0;
+  font-weight: bold;
+  color: green;
+}
+.add-new-project{
+  width: 100%;
+  align-items: center;
+  cursor: pointer;
+}
+.add-new-project:hover{
+  background-color: #fff;
+}
+.mini-project-title{
+  display: block;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.project-footer button{
+  width: 100%;
+}
