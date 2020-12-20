@@ -194,67 +194,28 @@
           <div id="faq" class="faq-details tab-content">
             <h3>FAQs</h3>
             <div class="questions-list">
+              <%
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection conn2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+                Statement stm2 = conn2.createStatement();
+                String sql2 = "select * from faq\n" +
+                        "where project_id = 20";
+                ResultSet rs2 = stm2.executeQuery(sql2);
+                while(rs2.next()){
+              %>
               <div class="question">
                 <button class="accordion">
-                  Which iPads are compatible with MOFT Float?
+                  <%=rs2.getString("question")%>
                 </button>
                 <div class="panel">
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    <%=rs2.getString("answer")%>
                   </p>
                 </div>
               </div>
-              <div class="question">
-                <button class="accordion">How do I pick the size?</button>
-                <div class="panel">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                </div>
-              </div>
-              <div class="question">
-                <button class="accordion">
-                  How high does MOFT Float raise the iPad screen?
-                </button>
-                <div class="panel">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                </div>
-              </div>
-              <div class="question">
-                <button class="accordion">
-                  How much does MOFT Float weigh?
-                </button>
-                <div class="panel">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                </div>
-              </div>
-              <div class="question">
-                <button class="accordion">What is MOFT Float made of?</button>
-                <div class="panel">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                </div>
-              </div>
+              <%
+                }
+              %>
             </div>
           </div>
           <div id="comments" class="tab-content">
@@ -279,6 +240,18 @@
               <li>
                 <div class="comments-list">
                   <ul class="comments-list">
+                    <%
+                      Class.forName("com.mysql.jdbc.Driver");
+                      Connection conn3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+                      Statement stm3 = conn3.createStatement();
+                      String sql3 = "select comment_id, comment.user_id, comment, parent_comment, comment_date as cd, username, profile_picture_name\n" +
+                              "from comment left join user\n" +
+                              "on comment.user_id = user.user_id\n" +
+                              "where project_id=20 and parent_comment is null";
+                      ResultSet rs3 = stm3.executeQuery(sql3);
+                      while(rs3.next()){
+//                        if(rs3.getInt("parent_comment")>0){
+                    %>
                     <li class="comment">
                       <div class="avatar">
                         <img
@@ -290,22 +263,29 @@
                       </div>
                       <div class="comment-content">
                         <header class="comment-content-header">
-                          <a href="" class="user-link">Username</a>
+                          <a href="" class="user-link"><%=rs3.getString("username")%></a>
                           -
-                          <span class="pubdate">posted on 28/2/2020</span>
+                          <span class="pubdate">posted on <%=rs3.getDate("cd")%></span>
                         </header>
                         <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
+                          <%=rs3.getString("comment")%>
                         </p>
                         <button class="add-reply" onclick="replyPopUp()">
                           Reply
                         </button>
                       </div>
                       <ul class="comments-list children">
+                        <%
+                          Class.forName("com.mysql.jdbc.Driver");
+                          Connection conn4 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+                          Statement stm4 = conn4.createStatement();
+                          String sql4 = "select comment_id, comment.user_id, comment, parent_comment, comment_date as cds, username, profile_picture_name\n" +
+                                  "from comment left join user\n" +
+                                  "on comment.user_id = user.user_id\n" +
+                                  "where project_id=20 and parent_comment is not null";
+                          ResultSet rs4 = stm4.executeQuery(sql4);
+                          while(rs4.next()){
+                        %>
                         <li class="comment">
                           <div class="avatar">
                             <img
@@ -317,239 +297,55 @@
                           </div>
                           <div class="comment-content">
                             <header>
-                              <a href="" class="user-link">Username</a>
+                              <a href="" class="user-link"><%=rs4.getString("username")%></a>
                               -
-                              <span class="pubdate"></span>
+                              <span class="pubdate"><%=rs4.getDate("cds")%></span>
                             </header>
                             <p>
-                              Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit, sed do eiusmod tempor incididunt
-                              ut labore et dolore magna aliqua. Ut enim ad minim
-                              veniam, quis nostrud exercitation ullamco laboris
-                              nisi ut aliquip ex ea commodo consequat.
+                              <%=rs4.getString("comment")%>
                             </p>
                           </div>
-                          <ul class="comments-list children">
-                            <li class="comment">
-                              <div class="avatar"></div>
-                              <div class="comment-content"></div>
-                              <ul class="comments-list children"></ul>
-                            </li>
-                          </ul>
                         </li>
+                        <%
+                          }
+                        %>
                       </ul>
                     </li>
-                    <li class="comment">
-                      <div class="avatar">
-                        <img
-                          src="../assets/project-categories-header-image/all.jpg"
-                          alt="AvatarPic"
-                          width="55"
-                          height="55"
-                        />
-                      </div>
-                      <div class="comment-content">
-                        <header class="comment-content-header">
-                          <a href="" class="user-link">Username</a>
-                          -
-                          <span class="pubdate">posted on 28/2/2020</span>
-                        </header>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                        <button class="add-reply" onclick="replyPopUp()">
-                          Reply
-                        </button>
-                      </div>
-                      <ul class="comments-list children">
-                        <li class="comment">
-                          <div class="avatar">
-                            <img
-                              src="../assets/project-categories-header-image/all.jpg"
-                              alt="AvatarPic"
-                              width="55"
-                              height="55"
-                            />
-                          </div>
-                          <div class="comment-content">
-                            <header>
-                              <a href="" class="user-link">Username</a>
-                              -
-                              <span class="pubdate"></span>
-                            </header>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit, sed do eiusmod tempor incididunt
-                              ut labore et dolore magna aliqua. Ut enim ad minim
-                              veniam, quis nostrud exercitation ullamco laboris
-                              nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                          </div>
-                          <ul class="comments-list children">
-                            <li class="comment">
-                              <div class="avatar"></div>
-                              <div class="comment-content"></div>
-                              <ul class="comments-list children"></ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="comment">
-                      <div class="avatar">
-                        <img
-                          src="../assets/project-categories-header-image/all.jpg"
-                          alt="AvatarPic"
-                          width="55"
-                          height="55"
-                        />
-                      </div>
-                      <div class="comment-content">
-                        <header class="comment-content-header">
-                          <a href="" class="user-link">Username</a>
-                          -
-                          <span class="pubdate">posted on 28/2/2020</span>
-                        </header>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                        <button class="add-reply" onclick="replyPopUp()">
-                          Reply
-                        </button>
-                      </div>
-                      <ul class="comments-list children">
-                        <li class="comment">
-                          <div class="avatar">
-                            <img
-                              src="../assets/project-categories-header-image/all.jpg"
-                              alt="AvatarPic"
-                              width="55"
-                              height="55"
-                            />
-                          </div>
-                          <div class="comment-content">
-                            <header>
-                              <a href="" class="user-link">Username</a>
-                              -
-                              <span class="pubdate"></span>
-                            </header>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit, sed do eiusmod tempor incididunt
-                              ut labore et dolore magna aliqua. Ut enim ad minim
-                              veniam, quis nostrud exercitation ullamco laboris
-                              nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                          </div>
-                          <ul class="comments-list children">
-                            <li class="comment">
-                              <div class="avatar"></div>
-                              <div class="comment-content"></div>
-                              <ul class="comments-list children"></ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
+                    <%
+                      }
+                    %>
                   </ul>
                 </div>
               </li>
             </div>
           </div>
-<%--          <div id="team" class="tab-content">--%>
-<%--            <h3>About</h3>--%>
-<%--            <p>--%>
-<%--              Short description of the team <br />--%>
-<%--              MOFT stands for “Mobile Office for Travelers”. <br /><br />We--%>
-<%--              design innovative, easy-to-use productivity accessories enabling--%>
-<%--              people to be more efficient with less equipment via unique, smart--%>
-<%--              design. <br /><br />MOFT aims to transform individuals' devices to--%>
-<%--              work their way, giving them the ability to explore life’s--%>
-<%--              adventures while maintaining their productivity. <br /><br />We--%>
-<%--              make the world your office.--%>
-<%--            </p>--%>
-<%--            <h3>Team</h3>--%>
-<%--            <div class="team-members">--%>
-<%--              <div class="member">--%>
-<%--                <img--%>
-<%--                  src="../assets/project-categories-header-image/all.jpg"--%>
-<%--                  alt=""--%>
-<%--                  width="300"--%>
-<%--                  height="300"--%>
-<%--                />--%>
-<%--                <p>Kim Sheng Yong</p>--%>
-<%--              </div>--%>
-<%--              <div class="member">--%>
-<%--                <img--%>
-<%--                  src="../assets/project-categories-header-image/all.jpg"--%>
-<%--                  alt=""--%>
-<%--                  width="300"--%>
-<%--                  height="300"--%>
-<%--                />--%>
-<%--                <p>Kim Sheng Yong</p>--%>
-<%--              </div>--%>
-<%--              <div class="member">--%>
-<%--                <img--%>
-<%--                  src="../assets/project-categories-header-image/all.jpg"--%>
-<%--                  alt=""--%>
-<%--                  width="300"--%>
-<%--                  height="300"--%>
-<%--                />--%>
-<%--                <p>Kim Sheng Yong</p>--%>
-<%--              </div>--%>
-<%--            </div>--%>
-<%--            <div>--%>
-<%--              <h3>Contact</h3>--%>
-<%--              <p>Email: absdf@gmail.com</p>--%>
-<%--            </div>--%>
-<%--          </div>--%>
-          <%=rs.getString("team")%>
+          <div id="team" class="tab-content">
+            <%=rs.getString("team")%>
+          </div>
+
           <div class="perks-items">
             <h3>Select a Perk</h3>
-            <a href="https://www.google.com/"
+            <%
+              Class.forName("com.mysql.jdbc.Driver");
+              Connection conn5 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+              Statement stm5 = conn5.createStatement();
+              String sql5 = "select p.perk_id, title, price, description, count(*) as backerCount\n" +
+                      "from perk as p left join backed_project as bp\n" +
+                      "on p.perk_id = bp.perk_id and p.project_id = bp.project_id\n" +
+                      "where p.project_id = 20\n" +
+                      "group by p.perk_id";
+              ResultSet rs5 = stm5.executeQuery(sql5);
+              while(rs5.next()){
+            %>
+            <a href=""
               ><div class="perk-item">
-                <h2>MYR 139</h2>
-                <h6>MOFT Float - Early Bird</h6>
-                <p>You will get Moft Float x 1</p>
-                <h6>Estimated Delivery</h6>
-                <h5>10 backers</h5>
+                <h2>MYR <%=rs5.getBigDecimal("price")%></h2>
+                <h6><%=rs5.getString("title")%></h6>
+                <p><%=rs5.getString("description")%></p>
+                <h5><%=rs5.getInt("backerCount")%> backers</h5>
               </div></a
             >
-            <a href="https://www.google.com/"
-              ><div class="perk-item">
-                <h2>MYR 139</h2>
-                <h6>MOFT Float - Early Bird</h6>
-                <p>You will get Moft Float x 1</p>
-                <h6>Estimated Delivery</h6>
-                <h5>10 backers</h5>
-              </div></a
-            >
-            <a href="https://www.google.com/"
-              ><div class="perk-item">
-                <h2>MYR 139</h2>
-                <h6>MOFT Float - Early Bird</h6>
-                <p>You will get Moft Float x 1</p>
-                <h6>Estimated Delivery</h6>
-                <h5>10 backers</h5>
-              </div></a
-            >
-            <a href="https://www.google.com/"
-              ><div class="perk-item">
-                <h2>MYR 139</h2>
-                <h6>MOFT Float - Early Bird</h6>
-                <p>You will get Moft Float x 1</p>
-                <h6>Estimated Delivery</h6>
-                <h5>10 backers</h5>
-              </div></a
-            >
+            <%}%>
           </div>
         </div>
       </div>
