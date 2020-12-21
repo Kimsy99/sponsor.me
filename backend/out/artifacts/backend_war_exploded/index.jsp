@@ -9,6 +9,9 @@
 <html>
   <head>
     <title>$Title$</title>
+    <a href="./common/project.jsp">
+      Project Page
+    </a>
   </head>
   <body>
   $END$

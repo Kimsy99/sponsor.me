@@ -1,3 +1,9 @@
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.DriverManager" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.math.RoundingMode" %>
+<%@ page import="java.math.BigDecimal" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -59,7 +65,7 @@
   <body>
     <div class="project-header">
       <div class="header-text">
-        <h1>All Projects</h1>
+        <h1>Crowdfunding Projects</h1>
         <p>
           We are a crowdfunding platform for University Students focus on
           creativity. Student may start any creative project here to start to
@@ -83,46 +89,32 @@
         </ul>
       </div>
       <div class="preview-item-container">
-        <a class="project-item tech">
+        <%
+          Class.forName("com.mysql.jdbc.Driver");
+          Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+          Statement stm = conn.createStatement();
+          String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username\n" +
+                  "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
+                  "left join user as u ON p.creator_id = u.user_id\n" +
+                  "group by p.project_id";
+          ResultSet rs = stm.executeQuery(sql);
+          while(rs.next())
+          {
+            BigDecimal percentage = rs.getBigDecimal("amount").divide(rs.getBigDecimal("funding_goal"),1, RoundingMode.CEILING);
+        %>
+            <a class="project-item <%=rs.getString("category")%>" href="./project-item.jsp?pid=<%=rs.getInt("pid")%>">
           <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
           <div class="project-footer">
             <span class="name"
-              >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-              dust</span
+              ><%=rs.getString("project_name")%></span
             >
-            <span class="target-fund">Target Fund: 12</span>
-            <span class="funded-percentage">12% funded</span>
-            <span>By Kim Labs</span>
+            <span class="target-fund">Target Fund: MYR <%=rs.getBigDecimal("funding_goal")%></span>
+            <span class="funded-percentage"><%=percentage%>% funded</span>
+            <span>By <%=rs.getString("username")%></span>
             <button type="submit">Back Project</button>
-          </div>
-        </a>
+          </div></a>
 
-        <a class="project-item design">
-          <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-          <div class="project-footer">
-            <span class="name"
-              >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-              dust</span
-            >
-            <span class="target-fund">Target Fund: 12</span>
-            <span class="funded-percentage">12% funded</span>
-            <span>By Kim Labs</span>
-            <button type="submit">Back Project</button>
-          </div>
-        </a>
-        <a class="project-item publish">
-          <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-          <div class="project-footer">
-            <span class="name"
-              >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-              dust</span
-            >
-            <span class="target-fund">Target Fund: 12</span>
-            <span class="funded-percentage">12% funded</span>
-            <span>By Kim Labs</span>
-            <button type="submit">Back Project</button>
-          </div>
-        </a>
+        <%}%>
       </div>
     </div>
   </body>
@@ -156,6 +148,82 @@
     </div>
   </footer>
 
-  <script src="../js/script.js"></script>
-  <script src="../js/toggleProfile.js"></script>
+  <script>
+    filterSelection('all');
+
+    function removeClass(element, name) {
+      let arr1 = element.className.split(' ');
+      let arr2 = name.split(' ');
+      for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+          arr1.splice(arr1.indexOf(arr2[i]), 1);
+        }
+      }
+      element.className = arr1.join(' ');
+    }
+
+    function addClass(element, name) {
+      let arr1 = element.className.split(' ');
+      let arr2 = name.split(' ');
+      for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) {
+          element.className += ' ' + arr2[i];
+        }
+      }
+    }
+
+    function filterSelection(filter) {
+      console.log('filter');
+      let filterDiv = document.getElementsByClassName('project-item');
+      if (filter === 'all') filter = '';
+      for (let i = 0; i < filterDiv.length; ++i) {
+        removeClass(filterDiv[i], 'show');
+        if (filterDiv[i].className.indexOf(filter) > -1) {
+          addClass(filterDiv[i], 'show');
+        }
+      }
+    }
+
+    (function ($) {
+      'use strict';
+
+      jQuery(window).on('load', function () {
+        jQuery('.filter-list button').on('click', function () {
+          jQuery('.filter-list button').removeClass('active');
+          jQuery(this).addClass('active');
+        });
+      });
+    })(jQuery);
+
+  </script>
+<%--  toggle profile--%>
+  <script>
+    let dropdownContent = document.getElementById('dropdown-content');
+    let dropdown = document.getElementsByClassName('dropbtn')[0];
+
+    window.onclick = function (event) {
+      if (
+              event.target !== dropdownContent &&
+              event.target !== dropdown &&
+              dropdownContent.style.display === 'block'
+      ) {
+        console.log('close');
+        dropdownContent.style.display = 'none';
+        dropdown.style.backgroundColor = '#f1f1f1';
+      }
+    };
+    function toggleProfile() {
+      console.log('pressed');
+      if (document.getElementById('dropdown-content').style.display != 'block') {
+        document.getElementById('dropdown-content').style.display = 'block';
+        document.getElementsByClassName('dropdown')[0].style.backgroundColor =
+                '#FF8A65';
+      } else {
+        document.getElementById('dropdown-content').style.display = 'none';
+        document.getElementsByClassName('dropdown')[0].style.backgroundColor =
+                '#f1f1f1';
+      }
+    }
+
+  </script>
 </html>

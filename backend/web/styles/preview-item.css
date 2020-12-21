@@ -1,6 +1,6 @@
 .preview-items{
   padding: 40px 60px;
-  
+
 }
 .preview-item-container{
   display: grid;
@@ -26,6 +26,17 @@
   padding: 15px;
   border-top: 0px;
   cursor: pointer;
+  box-shadow:
+          0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+          0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+          0 12.5px 10px rgba(0, 0, 0, 0.06),
+          0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+          0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+          0 100px 80px rgba(0, 0, 0, 0.12);
+  transition: transform .2s; /* Animation */
+}
+.project-item:hover{
+  transform: scale(1.1);
 }
 .project-item button{
   width: 40%;
@@ -52,7 +63,8 @@
   grid-row: 1/-1;
 } */
 .image{
-  width: 30vw;
+  width: 20vw;
+  max-width: 100%;
   height: auto;
   background-size: cover;
   background-position: center;
@@ -64,14 +76,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-} 
+}
 .name{
   font-size: 24px;
   margin-bottom: 15px;
 }
 .target-fund{
   font-size: 18px;
-    /* // width: 90%; */
+  /* // width: 90%; */
 }
 @media(max-width: 600px){
   .project-item{

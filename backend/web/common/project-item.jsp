@@ -82,7 +82,7 @@
               "ON project.creator_id = user.user_id\n" +
               "left join campaign\n" +
               "ON project.project_id = campaign.project_id\n" +
-              "where project.project_id = 20";
+              "where project.project_id = " + request.getParameter("pid");
       ResultSet rs = stm.executeQuery(sql);
       rs.next();
     %>
@@ -137,20 +137,23 @@
         </div>
         <%
           String concept="", prototype = "", production="", shipping="";
-          switch (rs.getString("project_status")) {
-            case "concept":
-              concept = "-done";
-              break;
-            case "prototype":
-              prototype = "-done";
-              break;
-            case "production":
-              production = "-done";
-              break;
-            case "shipping":
-              shipping = "-done";
-              break;
-          }
+//          String stage = rs.getString("project_status");
+//          switch (stage) {
+//            case "concept":
+//              concept = "-done";
+//              break;
+//            case "prototype":
+//              prototype = "-done";
+//              break;
+//            case "production":
+//              production = "-done";
+//              break;
+//            case "shipping":
+//              shipping = "-done";
+//              break;
+//            default:
+//              break;
+//          }
         %>
         <div class="details-container">
           <div class="project-item-progress">
@@ -199,7 +202,7 @@
                 Connection conn2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
                 Statement stm2 = conn2.createStatement();
                 String sql2 = "select * from faq\n" +
-                        "where project_id = 20";
+                        "where project_id = " + request.getParameter("pid");
                 ResultSet rs2 = stm2.executeQuery(sql2);
                 while(rs2.next()){
               %>
@@ -244,13 +247,14 @@
                       Class.forName("com.mysql.jdbc.Driver");
                       Connection conn3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
                       Statement stm3 = conn3.createStatement();
-                      String sql3 = "select comment_id, comment.user_id, comment, parent_comment, comment_date as cd, username, profile_picture_name\n" +
+                      String sql3 = "select  comment_id, comment.user_id, comment, parent_comment, comment_date as cd, username, profile_picture_name\n" +
                               "from comment left join user\n" +
                               "on comment.user_id = user.user_id\n" +
-                              "where project_id=20 and parent_comment is null";
+                              "where project_id="+ request.getParameter("pid")+" and parent_comment is null";
                       ResultSet rs3 = stm3.executeQuery(sql3);
                       while(rs3.next()){
 //                        if(rs3.getInt("parent_comment")>0){
+                        int pcid = rs3.getInt("comment_id");
                     %>
                     <li class="comment">
                       <div class="avatar">
@@ -276,13 +280,14 @@
                       </div>
                       <ul class="comments-list children">
                         <%
+
                           Class.forName("com.mysql.jdbc.Driver");
                           Connection conn4 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
                           Statement stm4 = conn4.createStatement();
                           String sql4 = "select comment_id, comment.user_id, comment, parent_comment, comment_date as cds, username, profile_picture_name\n" +
                                   "from comment left join user\n" +
                                   "on comment.user_id = user.user_id\n" +
-                                  "where project_id=20 and parent_comment is not null";
+                                  "where project_id="+ request.getParameter("pid")+" and parent_comment is not null and parent_comment = " + pcid;
                           ResultSet rs4 = stm4.executeQuery(sql4);
                           while(rs4.next()){
                         %>
@@ -332,7 +337,7 @@
               String sql5 = "select p.perk_id, title, price, description, count(*) as backerCount\n" +
                       "from perk as p left join backed_project as bp\n" +
                       "on p.perk_id = bp.perk_id and p.project_id = bp.project_id\n" +
-                      "where p.project_id = 20\n" +
+                      "where p.project_id = "+ request.getParameter("pid")+"\n" +
                       "group by p.perk_id";
               ResultSet rs5 = stm5.executeQuery(sql5);
               while(rs5.next()){
