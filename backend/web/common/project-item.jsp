@@ -137,23 +137,26 @@
         </div>
         <%
           String concept="", prototype = "", production="", shipping="";
-//          String stage = rs.getString("project_status");
-//          switch (stage) {
-//            case "concept":
-//              concept = "-done";
-//              break;
-//            case "prototype":
-//              prototype = "-done";
-//              break;
-//            case "production":
-//              production = "-done";
-//              break;
-//            case "shipping":
-//              shipping = "-done";
-//              break;
-//            default:
-//              break;
-//          }
+          String stage = rs.getString("project_status");
+          if(stage != null){
+              switch (stage) {
+                  case "concept":
+                      concept = "-done";
+                      break;
+                  case "prototype":
+                      prototype = "-done";
+                      break;
+                  case "production":
+                      production = "-done";
+                      break;
+                  case "shipping":
+                      shipping = "-done";
+                      break;
+                  default:
+                      break;
+              }
+          }
+
         %>
         <div class="details-container">
           <div class="project-item-progress">

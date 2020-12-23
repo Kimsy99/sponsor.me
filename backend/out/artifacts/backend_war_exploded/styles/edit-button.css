@@ -1,17 +1,23 @@
 .edit-content{
-  width: 200px;
+  width: 80%;
   margin: 0 auto;
   /* background-color: red; */
   text-align: center;
-  border: 2px solid #FF8A65;
+  border: 2px solid var(--green);
+  padding: 5px;
+  border-radius: 20px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  transition: 0.3s ease-in-out;
 }
 .edit-content span{
   /* text-align: center; */
   align-self: center;
-  
+
   /* justify-self: center; */
+}
+.edit-content:hover{
+  background-color: var(--green);
 }

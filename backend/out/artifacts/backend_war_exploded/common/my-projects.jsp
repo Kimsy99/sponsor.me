@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="../styles/preview-item.css" />
     <link rel="stylesheet" href="../styles/footer.css" />
     <link rel="stylesheet" href="../styles/project.css" />
-    <link rel="stylesheet" href="../styles/new-project.css" />
-    <link rel="stylesheet" href="../styles/profile.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <div class="header">
       <a href="../index.html" class="logo-container">
@@ -67,15 +65,10 @@
       </div>
     </div>
   </head>
-  <body>
-    <div class="profile-container">
-    <div class="profile-avatar">
-      <img src="../assets/homepage-intro-illustration.png" alt="" />
-      <h1>Kim Sheng Yong</h1>
-      <p>Backed 1 projects</p>
-    </div>
-    <div class="preview-item-container">
-      <div class="project-item">
+  <body >
+    <h1 style="padding-left: 80px">All my projects</h1>
+    <div class="preview-item-container" style="margin: 20px;">
+      <a class="project-item" href="./my-project-item.jsp?pid=20">
         <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
         <div class="project-footer">
           <span class="name"
@@ -85,11 +78,11 @@
           <span class="target-fund">Target Fund: 12</span>
           <span class="funded-percentage">12% funded</span>
           <span>By Kim Labs</span>
-          <a href="./edit-project.html"><button type="submit">View Details</button></a>
+          <button type="submit">Edit Details</button>
         </div>
-      </div>
+      </a>
 
-      <div class="project-item">
+      <a class="project-item" href="./my-project-item.jsp?pid=20">
         <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
         <div class="project-footer">
           <span class="name"
@@ -99,10 +92,10 @@
           <span class="target-fund">Target Fund: 12</span>
           <span class="funded-percentage">12% funded</span>
           <span>By Kim Labs</span>
-          <a href="./edit-project.html"><button type="submit">View Details</button></a>
+          <button type="submit">Edit Details</button>
         </div>
-      </div>
-      <div class="project-item">
+      </a>
+      <a class="project-item" href="./my-project-item.jsp?pid=20">
         <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
         <div class="project-footer">
           <span class="name"
@@ -112,11 +105,10 @@
           <span class="target-fund">Target Fund: 12</span>
           <span class="funded-percentage">12% funded</span>
           <span>By Kim Labs</span>
-          <a href="./edit-project.html"><button type="submit">View Details</button></a>
+          <button type="submit">Edit Details</button>
         </div>
-      </div>
+      </a>
     </div>
-  </div>
   </body>
   <footer>
     <div class="footer">

@@ -1,3 +1,7 @@
+.profile-container{
+  margin: 20px 0;
+}
+
 .profile-avatar{
   margin: 50px 0 15px;
   display: flex;

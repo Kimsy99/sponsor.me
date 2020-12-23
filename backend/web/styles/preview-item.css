@@ -5,7 +5,7 @@
 .preview-item-container{
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   /* grid-template-rows: repeat(2, 1fr); */
   justify-items: center;
   justify-content: center;
@@ -15,7 +15,7 @@
   display: none;
   margin-top: 10px;
   width: 80%;
-  max-width: 500px;
+  max-width: 400px;
   min-width: 300px;
   flex-direction: column;
   height: auto;
@@ -112,8 +112,7 @@
   color: #888888;
   margin-right: 10px;
   border-radius: 25px;
-  padding: 10px;
-  padding: 10 20px;
+  padding: 10px 20px;
   /* min-width: 30px; */
   cursor: pointer;
   transition: all 0.3s ease-in-out;

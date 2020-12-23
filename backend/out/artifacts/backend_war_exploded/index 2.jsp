@@ -1,9 +1,3 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.math.BigDecimal" %>
-<%@ page import="java.math.RoundingMode" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,16 +11,16 @@
   <link rel="stylesheet" href="styles/footer.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <div class="header">
-    <a href="index.jsp" class="logo-container">
+    <a href="index.html" class="logo-container">
       <img class="logo" src="./assets/logo.svg" />
     </a>
     <div class="options">
-      <a class="option" href="./common/project.jsp"> Explore </a>
+      <a class="option" href="./common/project.html"> Explore </a>
       <div class="option">
         <input type="text" class="search-bar" placeholder="Search.." name="search">
         <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
       </div>
-      <a class="option" href="./common/sign-in-sign-up.jsp">
+      <a class="option" href="./common/sign-in-sign-up.html">
         Sign in
       </a>
 
@@ -36,9 +30,9 @@
           <div class="account">
             Your Account
             <hr>
-            <a href="./common/my-projects.jsp">My Projects</a>
+            <a href="./common/my-projects.html">My Projects</a>
             <a href="">Saved Project</a>
-            <a href="./common/profile.jsp">Profile</a>
+            <a href="./common/profile.html">Profile</a>
             <a href="">Settings</a>
           </div>
           <br>
@@ -54,7 +48,7 @@
                 </div>
               </div>
             </a>
-            <a href="./common/new-project.jsp" class="add-new-project">
+            <a href="./common/new-project.html" class="add-new-project">
               &#43; Add New Project
             </a>
           </div>
@@ -78,7 +72,7 @@
       creativity. Student may start any creative project here to start to
       get fundings
     </p>
-    <a href="./common/new-project.jsp"><button>Start Project</button></a>
+    <a href="./common/new-project.html"><button>Start Project</button></a>
   </div>
 </div>
 <div class="preview-items">
@@ -97,34 +91,76 @@
     </ul>
   </div>
   <div class="preview-item-container">
-    <%
-      Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
-      Statement stm = conn.createStatement();
-      String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username, count(user_id) as backerNum\n" +
-              "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
-              "left join user as u ON p.creator_id = u.user_id\n" +
-              "group by p.project_id\n" +
-              "order by backerNum desc\n" +
-              "LIMIT 10; ";
-      ResultSet rs = stm.executeQuery(sql);
-      while(rs.next())
-      {
-        BigDecimal percentage = rs.getBigDecimal("amount").divide(rs.getBigDecimal("funding_goal"),1, RoundingMode.CEILING);
-    %>
-    <a class="project-item <%=rs.getString("category")%>" href="./common/project-item.jsp?pid=<%=rs.getInt("pid")%>">
+
+    <div class="project-item tech">
       <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
       <div class="project-footer">
             <span class="name"
-            ><%=rs.getString("project_name")%></span
+            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
+              dust</span
             >
-        <span class="target-fund">Target Fund: MYR <%=rs.getBigDecimal("funding_goal")%></span>
-        <span class="funded-percentage"><%=percentage%>% funded</span>
-        <span>By <%=rs.getString("username")%></span>
+        <span class="target-fund animals">Target Fund: 12</span>
+        <span class="funded-percentage">12% funded</span>
+        <span>By Kim Labs</span>
         <button type="submit">Back Project</button>
-      </div></a>
+      </div>
+    </div>
+    <div class="project-item tech">
+      <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
+      <div class="project-footer">
+            <span class="name"
+            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
+              dust</span
+            >
+        <span class="target-fund animals">Target Fund: 12</span>
+        <span class="funded-percentage">12% funded</span>
+        <span>By Kim Labs</span>
+        <button type="submit">Back Project</button>
+      </div>
+    </div>
+    <div class="project-item tech">
+      <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
+      <div class="project-footer">
+            <span class="name"
+            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
+              dust</span
+            >
+        <span class="target-fund animals">Target Fund: 12</span>
+        <span class="funded-percentage">12% funded</span>
+        <span>By Kim Labs</span>
+        <button type="submit">Back Project</button>
+      </div>
+    </div>
+    <div class="project-item design">
+      <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
+      <div class="project-footer">
+            <span class="name"
+            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
+              dust</span
+            >
+        <span class="target-fund animals">Target Fund: 12</span>
+        <span class="funded-percentage">12% funded</span>
+        <span>By Kim Labs</span>
+        <button type="submit">Back Project</button>
+      </div>
+    </div>
+    <div class="project-item arts">
+      <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
+      <div class="project-footer">
+            <span class="name"
+            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
+              dust</span
+            >
+        <span class="target-fund animals">Target Fund: 12</span>
+        <span class="funded-percentage">12% funded</span>
+        <span>By Kim Labs</span>
+        <button type="submit">Back Project</button>
+      </div>
+    </div>
 
-    <%}%>
+
+
+
   </div>
 </div>
 </body>
