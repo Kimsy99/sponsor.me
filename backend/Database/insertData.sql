@@ -184,11 +184,10 @@ VALUES
 
 INSERT into campaign (project_id, project_status, story)
 VALUES
-(
-    20,
-    'concept',
-    '<div id="campaign" class="campaign-details tab-content" style="display: block;">
-            <h3>Story</h3>
+    (
+    36,
+    'shipping',
+    '<h3>Story</h3>
             <p>
               The iPad Pro sits alone atop of the tablet game. For a tablet,
               it’s as close to perfection as you’re going to get, but it is
@@ -239,16 +238,14 @@ VALUES
               adjustable angle&amp;height, The MOFT Float also provides 3 different
               modes that take your iPad Pro to the next level, helping you use
               your iPad Pro in many creative ways.
-            </p>
-          </div>'
-);
+            </p>'
+    );
 
 --project_status    enum('concept', 'prototype', 'production', 'shipping')      not null,
 
 update project
 set team = 
-    '<div id="team" class="tab-content" style="display: block;">
-            <h3>About</h3>
+           '<h3>About</h3>
             <p>
               Short description of the team <br>
               MOFT stands for “Mobile Office for Travelers”. <br><br>We
@@ -277,108 +274,107 @@ set team =
             <div>
               <h3>Contact</h3>
               <p>Email: absdf@gmail.com</p>
-            </div>
-    </div>'
+            </div>'
 ;
 
 /*
 INSERT into faq (project_id, question, answer)
 VALUES
-(
-    20,
-    'Which iPads are compatible with MOFT Float 11"?',
-    'iPad Air 2020, iPadPro 11-in (1st generation) 2018, iPadPro 11-in (2nd generation) 2020'
-),
-(
-    20,
-    'Which iPads are compatible with MOFT Float 12.9"?',
-    'iPadPro 12.9-in (3rd generation) 2018, iPadPro 12.9-in (4th generation) 2020'
-),
-(
-    20,
-    'How high does MOFT Float raise the iPad screen',
-    'It can elevate the screen up to 3.15in/8cm when it''s used in Floating Mode.'
-),
-(
-    20,
-    'What is MOFT Float made of?',
-    'It''s made of TPU, glassfiber, PC, magnets, aluminum, alloy steel and silicone.'
-),
-(
-    21,
-    'What makes Monument different?',
-    'It''s a powerful photo storage and organization solution while providing cloud-level experience and protecting privacy.'
-),
-(
-    21,
-    'When will it be available?',
-    'Estimated shipping date is May 2021.'
-),
-(
-    21,
-    'How does it differ from Google Photos?',
-    'Compared to Google Photos, Monument provides a similar photo management experience while protecting user privacy and security. We do not use, market, or sell any personal data. None of your content is visible except you.'
-),
-(
-    29,
-    'Why don''t you use hard cover on your Special Limited Edition of the book?',
-    'We did not intend to design a monumental publication, that would be heavyweight, thick, and solid as a tombstone as it usually is. We wanted to make Benda''s book more lively, nice, easily open publication, accessible to the young generation, which is afraid of reading books and scared of milestone publications. Graphic layout is also corresponding to that logic – no wasting with paper and white spaces, as much information as possible in the shortest text possible. Also, we spent much time choosing the right paper and cover materials to make this book light, nicely flexible, and soft in touch. We wanted to create a sexy book full of interesting images and content. Usually, the production lacks sophisticated details and materials. Our book is mainly about the content, form follows function and materials are top quality. So for the Special Limited Edition, we tried to keep the same approach, only add luxurious paper on the cover, use silkscreen print, sign all of the books personally and limit the number of copies.'
-),
-(
-    29,
-    'Why is the shipping in EU expensive?',
-    'We know, it''s a lot. Yet, we don''t know the exact weight of the book (translation and new additions might enlarge the number of pages). So we had to choose to heavier option – under 2 kg. Another problem we had in our country is almost a state monopoly on postal service. We were given a general price for the whole of Europe. We couldn''t differentiate between each EU country separately. Sending one or two parcels is another thing than sending hundreds (by ourselves).'
-),
-(
-    30,
-    'How do I order more than one pledge?',
-    'You can''t'
-),
-(
-    30,
-    'How do I pay for shipping?',
-    'Shipping will be invoiced after the project ends in Bakerkit. You can see shipping rates at the Shipping Rates section.'
-),
-(
-    31,
-    'How will shipping fee be calculated?',
-    'After the project is funded, pledges will be handled by BackerKit. In BackerKit it is possible to calculate more precise shipping costs based on your country and the weight of your package, to minimize the shipping costs to you.'
-),
-(
-    33,
-    'Why does it enter $10 extra than the listed amount when I enter for a pledge?',
-    'The extra $10 is the shipping cost for the item to be shipped out. Anywhere else in the world (outside of U.S) may cost more.'
-),
-(
-    33,
-    'I backed a knife and would like my name on it, how/where do I submit that info',
-    'Once we reach our goal, we will reach out individually to everyone who kindly backed our project! Then, we will ask you for all the necessary information. Until then, please hang tight and think about what you would like to say on your chef''s selection knife! :)'
-),
-(
-    35,
-    'Is £55k enough to make a video game on this level?',
-    'Yep, £55k is low and actually we are hoping to raise a lot more than that. The kickstarter funds are only aiming to cover the budget of motion capture and sounds design. The rest is covered by our existing fundings. We have plans to raise more through other avenues.'
-),
-(
-    35,
-    'You said the ''world''s first pure parkour game'' what about Mirrors Edge?',
-    'Mirrors Edge, although a fun game is not a good comparison for what we are developing. Mirrors Edge is simple action-adventure platform game with a weird story, it is completely ignorant to the culture of the sport it is trying to emulate and covers up its lack of parkour controls by forcing the player into combat situations.'
-),
-(
-    35,
-    'Is the game going to be 3rd person or POV?',
-    'Both! We are planning on giving the player the option to toggle between either perspectives. This way we get the best of both worlds, you can see the movement animation in 3rd person, and you can feel the sense of vertigo in POV.'
-),
-(
-    38,
-    'If I want extra copies of the games, can I over pledge ahead of time to set aside funds for the additional item(s)?',
-    'Yes! You can always over pledge on Kickstarter. You can reach out to us through the ''contact me'' button on our creator page if you need confirmation on the exact amount of funds you''ll need to add to your initial pledge. Then when we conduct the survey at the end of the campaign, you can add a note about which extra copies you wanted.'
-),
-(
-    38,
-    'What will my shipping cost be?',
-    'The shipping costs can be found in each individual tier of the campaign page, and are the best rates available to us at the time of fulfillment. They are based on actual costs to ship your rewards (depending on your country) and will be charged as part of your pledge. In some regions, the cost of shipping may exceed the cost of the tier you’re pledging for; unfortunately, this cannot be avoided. In most cases, pledging for two or three games (“Double Trouble” and "Slipcase Exclusive" Tiers) costs almost the same in terms of shipping as pledging for one game.'
-);
+    (
+        20,
+        'Which iPads are compatible with MOFT Float 11"?',
+        'iPad Air 2020, iPadPro 11-in (1st generation) 2018, iPadPro 11-in (2nd generation) 2020'
+    ),
+    (
+        20,
+        'Which iPads are compatible with MOFT Float 12.9"?',
+        'iPadPro 12.9-in (3rd generation) 2018, iPadPro 12.9-in (4th generation) 2020'
+    ),
+    (
+        20,
+        'How high does MOFT Float raise the iPad screen',
+        'It can elevate the screen up to 3.15in/8cm when it''s used in Floating Mode.'
+    ),
+    (
+        20,
+        'What is MOFT Float made of?',
+        'It''s made of TPU, glassfiber, PC, magnets, aluminum, alloy steel and silicone.'
+    ),
+    (
+        21,
+        'What makes Monument different?',
+        'It''s a powerful photo storage and organization solution while providing cloud-level experience and protecting privacy.'
+    ),
+    (
+        21,
+        'When will it be available?',
+        'Estimated shipping date is May 2021.'
+    ),
+    (
+        21,
+        'How does it differ from Google Photos?',
+        'Compared to Google Photos, Monument provides a similar photo management experience while protecting user privacy and security. We do not use, market, or sell any personal data. None of your content is visible except you.'
+    ),
+    (
+        29,
+        'Why don''t you use hard cover on your Special Limited Edition of the book?',
+        'We did not intend to design a monumental publication, that would be heavyweight, thick, and solid as a tombstone as it usually is. We wanted to make Benda''s book more lively, nice, easily open publication, accessible to the young generation, which is afraid of reading books and scared of milestone publications. Graphic layout is also corresponding to that logic – no wasting with paper and white spaces, as much information as possible in the shortest text possible. Also, we spent much time choosing the right paper and cover materials to make this book light, nicely flexible, and soft in touch. We wanted to create a sexy book full of interesting images and content. Usually, the production lacks sophisticated details and materials. Our book is mainly about the content, form follows function and materials are top quality. So for the Special Limited Edition, we tried to keep the same approach, only add luxurious paper on the cover, use silkscreen print, sign all of the books personally and limit the number of copies.'
+    ),
+    (
+        29,
+        'Why is the shipping in EU expensive?',
+        'We know, it''s a lot. Yet, we don''t know the exact weight of the book (translation and new additions might enlarge the number of pages). So we had to choose to heavier option – under 2 kg. Another problem we had in our country is almost a state monopoly on postal service. We were given a general price for the whole of Europe. We couldn''t differentiate between each EU country separately. Sending one or two parcels is another thing than sending hundreds (by ourselves).'
+    ),
+    (
+        30,
+        'How do I order more than one pledge?',
+        'You can''t'
+    ),
+    (
+        30,
+        'How do I pay for shipping?',
+        'Shipping will be invoiced after the project ends in Bakerkit. You can see shipping rates at the Shipping Rates section.'
+    ),
+    (
+        31,
+        'How will shipping fee be calculated?',
+        'After the project is funded, pledges will be handled by BackerKit. In BackerKit it is possible to calculate more precise shipping costs based on your country and the weight of your package, to minimize the shipping costs to you.'
+    ),
+    (
+        33,
+        'Why does it enter $10 extra than the listed amount when I enter for a pledge?',
+        'The extra $10 is the shipping cost for the item to be shipped out. Anywhere else in the world (outside of U.S) may cost more.'
+    ),
+    (
+        33,
+        'I backed a knife and would like my name on it, how/where do I submit that info',
+        'Once we reach our goal, we will reach out individually to everyone who kindly backed our project! Then, we will ask you for all the necessary information. Until then, please hang tight and think about what you would like to say on your chef''s selection knife! :)'
+    ),
+    (
+        35,
+        'Is £55k enough to make a video game on this level?',
+        'Yep, £55k is low and actually we are hoping to raise a lot more than that. The kickstarter funds are only aiming to cover the budget of motion capture and sounds design. The rest is covered by our existing fundings. We have plans to raise more through other avenues.'
+    ),
+    (
+        35,
+        'You said the ''world''s first pure parkour game'' what about Mirrors Edge?',
+        'Mirrors Edge, although a fun game is not a good comparison for what we are developing. Mirrors Edge is simple action-adventure platform game with a weird story, it is completely ignorant to the culture of the sport it is trying to emulate and covers up its lack of parkour controls by forcing the player into combat situations.'
+    ),
+    (
+        35,
+        'Is the game going to be 3rd person or POV?',
+        'Both! We are planning on giving the player the option to toggle between either perspectives. This way we get the best of both worlds, you can see the movement animation in 3rd person, and you can feel the sense of vertigo in POV.'
+    ),
+    (
+        38,
+        'If I want extra copies of the games, can I over pledge ahead of time to set aside funds for the additional item(s)?',
+        'Yes! You can always over pledge on Kickstarter. You can reach out to us through the ''contact me'' button on our creator page if you need confirmation on the exact amount of funds you''ll need to add to your initial pledge. Then when we conduct the survey at the end of the campaign, you can add a note about which extra copies you wanted.'
+    ),
+    (
+        38,
+        'What will my shipping cost be?',
+        'The shipping costs can be found in each individual tier of the campaign page, and are the best rates available to us at the time of fulfillment. They are based on actual costs to ship your rewards (depending on your country) and will be charged as part of your pledge. In some regions, the cost of shipping may exceed the cost of the tier you’re pledging for; unfortunately, this cannot be avoided. In most cases, pledging for two or three games (“Double Trouble” and "Slipcase Exclusive" Tiers) costs almost the same in terms of shipping as pledging for one game.'
+    );
 */
 
 /*
@@ -452,6 +448,7 @@ VALUES
     -- (36, 'EMPLOYER BRANDING SPECIALIST IN HELL', 5999999, 'We need new Architects of Hell. We hope that you and Lilith will be able to retrieve the lost souls!')
 ;
 */
+
 
 /*
 INSERT into item (item_name, project_id)
