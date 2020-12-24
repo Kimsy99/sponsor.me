@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="../styles/footer.css" />
     <link rel="stylesheet" href="../styles/project.css" />
     <link rel="stylesheet" href="../styles/new-project.css" />
-    <link rel="stylesheet" href="../styles/new-project-options.css" />
     <link
       href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
       rel="stylesheet"
@@ -81,121 +80,111 @@
   </head>
   <body>
     <div class="new-project-item">
-      <h1>Add Reward Item</h1>
+      <h1>New Project</h1>
       <form action="">
-        <div class="reward-wrapper">
-          <!--faqs-->
-          <div class="reward-items">
-            <div class="multi-field-template" style="display: none">
+        <label for="pname">Project Name</label>
+        <input
+          type="text"
+          id="pname"
+          name="projectname"
+          placeholder="Project name.."
+          required="true"
+        />
+
+        <label for="project-description">Project Description</label>
+        <input
+          type="text"
+          id="project-description"
+          name="project-description"
+          placeholder="Project description.."
+          required="true"
+        />
+
+        <label for="img">Select image:</label>
+        <input
+          type="file"
+          id="img"
+          name="img"
+          accept="image/*"
+          required="true"
+        />
+
+        <label for="target-amount">Project Target Amount</label>
+        <input
+          type="number"
+          id="target-amount"
+          name="target-amount"
+          placeholder="Eg. 4000"
+          min="5"
+          required="true"
+        />
+
+        <label for="category">Category</label>
+        <select id="category" name="category">
+          <option value="tech">Tech</option>
+          <option value="design">Design</option>
+          <option value="Film">Film</option>
+          <option value="Arts">Arts</option>
+          <option value="Publish">Publish</option>
+          <option value="food">Food</option>
+          <option value="Games">Games</option>
+          <option value="others">Others</option>
+        </select>
+
+        <label for="stage">Current Stage of project</label>
+        <select id="stage" name="stage">
+          <option value="concept">Concept</option>
+          <option value="prototype">Prototype</option>
+          <option value="production">Production</option>
+          <option value="shipping">Shipping</option>
+        </select>
+
+        <label for="">Project Story</label><br />
+        <div id="image-text-box">
+          <h3>Team</h3>
+          <br />
+          <h3>DFds</h3>
+          <p><br /></p>
+        </div>
+        <!-- <button id="save">Save</button> -->
+
+        <!--faqs-->
+        <label for="">Frequently Asked Questions</label>
+        <div class="multi-field-wrapper">
+          <div class="multi-fields">
+            <div class="multi-field">
               <input
                 type="text"
                 name="stuff[]"
                 class=""
                 placeholder="Question"
               />
+              <textarea
+                rows="10"
+                cols="50"
+                name="comment"
+                form="usrform"
+                style="width: 80%"
+                placeholder="Answer"
+              ></textarea>
+              <br />
               <button type="button" class="remove-field">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </div>
-            <div class="reward-item reward-item-template" style="display: none">
-              <label for="Story">Reward Item Name</label>
-              <i
-                class="fa fa-window-close remove-reward"
-                aria-hidden="true"
-              ></i>
-              <input
-                type="text"
-                name="option-name"
-                class=""
-                placeholder="Question"
-              />
-              <div class="multi-field-wrapper option-types-wrapper">
-                <label>Item Option</label>
-                <div class="multi-fields-template" style="display: none">
-                  <div class="multi-field option-type">
-                    <input
-                      type="text"
-                      name="stuff[]"
-                      class=""
-                      placeholder="Question"
-                    />
-                    <button type="button" class="remove-field">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="multi-fields option-types">
-                  <div class="multi-field option-type">
-                    <input
-                      type="text"
-                      name="stuff[]"
-                      class=""
-                      placeholder="Question"
-                    />
-                    <button type="button" class="remove-field">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </div>
-                </div>
-                <button type="button" class="add-field add-option">
-                  <i class="fa fa-plus" aria-hidden="true"></i></button
-                ><br /><br />
-              </div>
-            </div>
-            <div class="reward-item">
-              <label for="Story">Reward Item Name</label>
-              <i
-                class="fa fa-window-close remove-reward"
-                aria-hidden="true"
-              ></i>
-              <input
-                type="text"
-                name="option-name"
-                class=""
-                placeholder="Question"
-              />
-              <div class="multi-field-wrapper option-types-wrapper">
-                <label>Item Option</label>
-                <div
-                  class="multi-fields-template option-types-template"
-                  style="display: none"
-                >
-                  <div class="multi-field option-type">
-                    <input
-                      type="text"
-                      name="stuff[]"
-                      class=""
-                      placeholder="Question"
-                    />
-                    <button type="button" class="remove-field">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="multi-fields option-types">
-                  <div class="multi-field option-type">
-                    <input
-                      type="text"
-                      name="stuff[]"
-                      class=""
-                      placeholder="Question"
-                    />
-                    <button type="button" class="remove-field">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </div>
-                </div>
-                <button type="button" class="add-field add-option">
-                  <i class="fa fa-plus" aria-hidden="true"></i></button
-                ><br /><br />
-              </div>
-            </div>
           </div>
-          <button type="button" class="add-item">Add Reward Item</button
-          ><br /><br />
+          <button type="button" class="add-field">Add field</button><br /><br />
         </div>
-
-        <input id="submit" type="submit" value="Next: Add Perks" />
+        <label for="Story">Team Details</label><br />
+        <div id="image-text-box2">
+          <h3>Team</h3>
+          <br />
+          <h3>DFds</h3>
+          <p><br /></p>
+        </div>
+        <a href="./new-project-options.jsp"
+          ><input id="submit" type="submit" value="Next: Add Rewards"
+        /></a>
       </form>
     </div>
   </body>
@@ -230,7 +219,16 @@
   </footer>
 
   <script src="../js/script.js"></script>
-  <!-- <script src="../js/faq-text-field.js"></script> -->
-  <script src="../js/add-reward-item.js"></script>
+  <script src="../js/faq-text-field.js"></script>
   <script src="../js/toggleProfile.js"></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script>
+    var quill = new Quill('#image-text-box', {
+      theme: 'snow',
+    });
+    var quill2 = new Quill('#image-text-box2', {
+      theme: 'snow',
+    });
+    console.log({ quill, quill2 });
+  </script>
 </html>

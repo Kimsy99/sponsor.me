@@ -3,16 +3,16 @@ $('.perks-wrapper').each(function () {
   $('.add-perk', $(this)).click(function (e) {
     console.log('add new field');
     $('.perks-item-template')
-      .clone()
-      .removeClass('perks-item-template')
-      .addClass('perks-item')
-      .show()
-      .appendTo($wrapper)
-      .find('input')
-      .val('');
+        .clone(true, true)
+        .removeClass('perks-item-template')
+        .addClass('perks-item')
+        .show()
+        .appendTo($wrapper)
+        .find('input')
+        .val('');
   });
-  $('.multi-field .remove-field', $wrapper).click(function () {
-    if ($('.multi-field', $wrapper).length > 1)
-      $(this).parent('.multi-field').remove();
+  $('.perks-item .remove-field', $wrapper).click(function () {
+    console.log('remove item');
+    $(this).parent('.perks-item').remove();
   });
 });

@@ -84,117 +84,98 @@
       <h1>Add Reward Item</h1>
       <form action="">
         <div class="reward-wrapper">
-          <!--faqs-->
+        <!--faqs-->
           <div class="reward-items">
             <div class="multi-field-template" style="display: none">
+                    
               <input
                 type="text"
                 name="stuff[]"
                 class=""
                 placeholder="Question"
               />
-              <button type="button" class="remove-field">
-                <i class="fas fa-trash-alt"></i>
-              </button>
+              <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
             </div>
-            <div class="reward-item reward-item-template" style="display: none">
+            <div class="reward-item reward-item-template" style="display: none;">
               <label for="Story">Reward Item Name</label>
-              <i
-                class="fa fa-window-close remove-reward"
-                aria-hidden="true"
-              ></i>
+              <i class="fa fa-window-close remove-reward" aria-hidden="true"></i>
               <input
-                type="text"
-                name="option-name"
-                class=""
-                placeholder="Question"
-              />
+                      type="text"
+                      name="option-name"
+                      class=""
+                      placeholder="Question"
+                    />
               <div class="multi-field-wrapper option-types-wrapper">
                 <label>Item Option</label>
-                <div class="multi-fields-template" style="display: none">
+                <div class="multi-fields-template " style="display: none">
                   <div class="multi-field option-type">
+                    
                     <input
                       type="text"
                       name="stuff[]"
                       class=""
                       placeholder="Question"
                     />
-                    <button type="button" class="remove-field">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
+                    <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
                 <div class="multi-fields option-types">
                   <div class="multi-field option-type">
+                    
                     <input
                       type="text"
                       name="stuff[]"
                       class=""
                       placeholder="Question"
                     />
-                    <button type="button" class="remove-field">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
+                    <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
-                <button type="button" class="add-field add-option">
-                  <i class="fa fa-plus" aria-hidden="true"></i></button
-                ><br /><br />
+                <button type="button" class="add-field add-option"><i class="fa fa-plus" aria-hidden="true"></i></button><br /><br />
               </div>
             </div>
             <div class="reward-item">
               <label for="Story">Reward Item Name</label>
-              <i
-                class="fa fa-window-close remove-reward"
-                aria-hidden="true"
-              ></i>
+              <i class="fa fa-window-close remove-reward" aria-hidden="true"></i>
               <input
-                type="text"
-                name="option-name"
-                class=""
-                placeholder="Question"
-              />
+                      type="text"
+                      name="option-name"
+                      class=""
+                      placeholder="Question"
+                    />
               <div class="multi-field-wrapper option-types-wrapper">
                 <label>Item Option</label>
-                <div
-                  class="multi-fields-template option-types-template"
-                  style="display: none"
-                >
+                <div class="multi-fields-template option-types-template" style="display: none">
                   <div class="multi-field option-type">
+                    
                     <input
                       type="text"
                       name="stuff[]"
                       class=""
                       placeholder="Question"
                     />
-                    <button type="button" class="remove-field">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
+                    <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
                 <div class="multi-fields option-types">
                   <div class="multi-field option-type">
+                    
                     <input
                       type="text"
                       name="stuff[]"
                       class=""
                       placeholder="Question"
                     />
-                    <button type="button" class="remove-field">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
+                    <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
-                <button type="button" class="add-field add-option">
-                  <i class="fa fa-plus" aria-hidden="true"></i></button
-                ><br /><br />
+                <button type="button" class="add-field add-option"><i class="fa fa-plus" aria-hidden="true"></i></button><br /><br />
               </div>
             </div>
           </div>
-          <button type="button" class="add-item">Add Reward Item</button
-          ><br /><br />
+          <button type="button" class="add-item">Add Reward Item</button><br /><br />
         </div>
-
+        
         <input id="submit" type="submit" value="Next: Add Perks" />
       </form>
     </div>

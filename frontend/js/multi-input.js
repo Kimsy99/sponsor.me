@@ -32,7 +32,7 @@ class MultiInput extends HTMLElement {
     ::slotted(div.item) {
       background-color: var(--multi-input-item-bg-color, #dedede);
       border: var(--multi-input-item-border, 1px solid #ccc);
-      border-radius: 2px;
+      border-radius: 10px;
       color: #222;
       display: inline-block;
       font-size: var(--multi-input-item-font-size, 14px);

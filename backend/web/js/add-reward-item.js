@@ -3,22 +3,15 @@ $('.option-types-wrapper').each(function () {
   console.log($wrapper);
   $('.add-field', $(this)).click(function (e) {
     console.log('add new item');
-    $('.multi-field-template')
-      .clone()
-      .removeClass('multi-field-template')
-      // .addClass('multi-field')
-      .show()
-      .appendTo($wrapper)
-      .find('input')
-      .val('');
+    $('.multi-field:first-child', $wrapper)
+        .clone(true, true)
+        .show()
+        .appendTo($(this).siblings('.option-types'))
+        .find('input')
+        .val('');
   });
-  $('.multi-field .remove-field', $wrapper).click(function () {
-    console.log('herer');
-    if ($('.multi-field', $wrapper).length > 1) {
-      console.log('remove fields');
-      console.log($(this).parent('.multi-field'));
-      $(this).parent('.multi-field').remove();
-    }
+  $('.option-type .remove-field', $wrapper).click(function () {
+    $(this).parent('.option-type').remove();
   });
 });
 
@@ -27,17 +20,16 @@ $('.reward-wrapper').each(function () {
   $('.add-item', $(this)).click(function (e) {
     console.log('add new field');
     $('.reward-item-template')
-      .clone()
-      // .css('display', 'block')
-      .show()
-      .removeClass('reward-item-template')
-      // .addClass('reward-item')
-      .appendTo($wrapper)
-      .find('input')
-      .val('');
+        .clone(true, true)
+        .show()
+        .removeClass('reward-item-template')
+        .addClass('reward-item')
+        .appendTo($wrapper)
+        .find('input')
+        .val('');
   });
-  $('.multi-field .fa-window-close', $wrapper).click(function () {
-    if ($('.multi-field', $wrapper).length > 1)
-      $(this).parent('.multi-field').remove();
+  $('.reward-item .remove-reward', $wrapper).click(function () {
+    if ($('.reward-item', $wrapper).length > 1)
+      $(this).parent('.reward-item').remove();
   });
 });
