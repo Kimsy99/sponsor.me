@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sponsor.me</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/preview-item.css" />
+    <link rel="stylesheet" href="../styles/footer.css" />
+    <link rel="stylesheet" href="../styles/sign-in-sign-up.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <jsp:include page="header.jsp"/>
+    
+<%--    <div class="header">--%>
+<%--      <a href="../index.html" class="logo-container">--%>
+<%--        <img class="logo" src="../assets/logo.svg" />--%>
+<%--      </a>--%>
+<%--      <div class="options">--%>
+<%--        <a class="option" href="../common/project.html"> Explore </a>--%>
+<%--        <div class="option">--%>
+<%--          <input--%>
+<%--            type="text"--%>
+<%--            class="search-bar"--%>
+<%--            placeholder="Search.."--%>
+<%--            name="search"--%>
+<%--          />--%>
+<%--          <button type="submit" class="search-button">--%>
+<%--            <i class="fa fa-search"></i>--%>
+<%--          </button>--%>
+<%--        </div>--%>
+<%--        <a class="option" href="../common/sign-in-sign-up.html"> Sign in </a>--%>
+<%--        <div class="dropdown" onclick="toggleProfile()">--%>
+<%--          <i class="fa fa-user dropbtn" aria-hidden="true"></i>--%>
+<%--          <div class="dropdown-content" id="dropdown-content">--%>
+<%--            <div class="account">--%>
+<%--              Your Account--%>
+<%--              <hr />--%>
+<%--              <a href="./my-projects.html">My Projects</a>--%>
+<%--              <a href="">Saved Project</a>--%>
+<%--              <a href="./profile.html">Profile</a>--%>
+<%--              <a href="">Settings</a>--%>
+<%--            </div>--%>
+<%--            <br />--%>
+<%--            <div class="create-project">--%>
+<%--              Created Projects--%>
+<%--              <hr />--%>
+<%--              <a>--%>
+<%--                <div class="mini-project-preview">--%>
+<%--                  <img--%>
+<%--                    src="./assets/project-categories-header-image/all.jpg"--%>
+<%--                    alt=""--%>
+<%--                  />--%>
+<%--                  <div class="mini-project-preview-content">--%>
+<%--                    <h5>Title about the project</h5>--%>
+<%--                    <h6>65% funded</h6>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </a>--%>
+<%--              <a href="new-project.html" class="add-new-project">--%>
+<%--                &#43; Add New Project--%>
+<%--              </a>--%>
+<%--            </div>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+  </head>
+  <body>
+    <div class="sign-in-and-sign-up">
+      <div class="module-border-wrap">
+        <div class="sign-in">
+          <h2 class="title">I have an account</h2>
+          <span>Sign in with your email and password</span>
+          <form onSubmit="{this.handleSubmit}">
+            <div class="group">
+              <input class="form-input" type="email" placeholder="Email" />
+              <!-- <label class="form-input-label">Email</label> -->
+            </div>
+            <div class="group">
+              <input
+                class="form-input"
+                type="password"
+                placeholder="Password"
+              />
+              <!-- <label class="form-input-label">Password</label> -->
+            </div>
+            <div class="buttons">
+              <button>Sign In</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="module-border-wrap">
+        <div class="sign-up">
+          <h2 class="title">I don't have an account</h2>
+          <span>Sign up with your email and password</span>
+          <form class="sign-up-form" onSubmit="{this.handleSubmit}">
+            <!-- <input type="text" placeholder="User Name" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Confirm Password" /> -->
+            <div class="group">
+              <input class="form-input" type="text" placeholder="User Name" />
+            </div>
+            <div class="group">
+              <input class="form-input" type="email" placeholder="Email" />
+              <!-- <label class="form-input-label">Email</label> -->
+            </div>
+            <div class="group">
+              <input
+                class="form-input"
+                type="password"
+                placeholder="Password"
+              />
+            </div>
+            <div class="group">
+              <input
+                class="form-input"
+                type="password"
+                placeholder="Confirm Password"
+              />
+            </div>
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  <jsp:include page="footer.jsp"/>
+  
+<%--  <footer>--%>
+<%--    <div class="footer">--%>
+<%--      <div class="footer-item-container">--%>
+<%--        <div class="menu-items">--%>
+<%--          <div class="menu-item">--%>
+<%--            <img class="icon" src="../assets/footer-image/Home.svg" />--%>
+<%--            <span>Home</span>--%>
+<%--          </div>--%>
+<%--          <div class="menu-item">--%>
+<%--            <img class="icon" src="../assets/footer-image/Projects.svg" />--%>
+<%--            <span>Projects</span>--%>
+<%--          </div>--%>
+<%--          <div class="menu-item">--%>
+<%--            <img class="icon" src="../assets/footer-image/Account.svg" />--%>
+<%--            <span>Account</span>--%>
+<%--          </div>--%>
+<%--          <div class="menu-item">--%>
+<%--            <img class="icon" src="../assets/footer-image/Help.svg" />--%>
+<%--            <span>Help</span>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--        <div class="description">--%>
+<%--          <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>--%>
+<%--          <p class="copyright">Sponsor.me © 2020</p>--%>
+<%--          <p class="tnc">Terms of Service - Privacy Policy</p>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+<%--  </footer>--%>
+
+  <script src="../js/script.js"></script>
+  <script src="../js/toggleProfile.js"></script>
+</html>

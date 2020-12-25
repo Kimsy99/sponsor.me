@@ -17,7 +17,9 @@
   <link rel="stylesheet" href="styles/preview-item.css" />
   <link rel="stylesheet" href="styles/footer.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
   <jsp:include page="common/header.jsp"/>
+
 <%--  <div class="header">--%>
 <%--    <a href="index.jsp" class="logo-container">--%>
 <%--      <img class="logo" src="./assets/logo.svg" />--%>
@@ -93,9 +95,9 @@
       <button onClick="filterSelection('film')">Film</button>
       <button onClick="filterSelection('arts')">Arts</button>
       <button onClick="filterSelection('publish')">Publish</button>
-        <button onClick="filterSelection('food')">Food</button>
-        <button onClick="filterSelection('games')">Games</button>
-          <button onClick="filterSelection('others')">Others</button>
+      <button onClick="filterSelection('food')">Food</button>
+      <button onClick="filterSelection('games')">Games</button>
+      <button onClick="filterSelection('others')">Others</button>
     </ul>
   </div>
   <div class="preview-item-container">

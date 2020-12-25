@@ -15,6 +15,9 @@
 <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/new-project.css" />--%>
 <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/profile.css" />--%>
 <%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
+    <%
+      boolean isLoggedIn = session.getAttribute("username") != null;
+    %>
     <div class="header">
       <a href="${pageContext.request.contextPath}/index.html" class="logo-container">
         <img class="logo" src="${pageContext.request.contextPath}/assets/logo.svg" />
@@ -32,8 +35,8 @@
             <i class="fa fa-search"></i>
           </button>
         </div>
-        <a class="option" href="${pageContext.request.contextPath}/common/sign-in-sign-up.html"> Sign in </a>
-        <div class="dropdown" onclick="toggleProfile()">
+        <a class="option" href="${pageContext.request.contextPath}/common/sign-in-sign-up.jsp"> Sign in </a>
+        <div class="dropdown" onclick="toggleProfile()" <%=isLoggedIn ? "" : "style=\"display: none\""%>>
           <i class="fa fa-user dropbtn" aria-hidden="true"></i>
           <div class="dropdown-content" id="dropdown-content">
             <div class="account">
