@@ -17,16 +17,16 @@
     <link rel="stylesheet" href="../styles/project.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <div class="header">
-      <a href="../index.html" class="logo-container">
+      <a href="../index.jsp" class="logo-container">
         <img class="logo" src="../assets/logo.svg" />
       </a>
       <div class="options">
-        <a class="option" href="../common/project.html"> Explore </a>
+        <a class="option" href="../common/project.jsp"> Explore </a>
         <div class="option">
           <input type="text" class="search-bar" placeholder="Search.." name="search">
           <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
         </div>
-        <a class="option" href="../common/sign-in-sign-up.html">
+        <a class="option" href="../common/sign-in-sign-up.jsp">
           Sign in
         </a>
         <div class="dropdown" onclick="toggleProfile()">
@@ -35,9 +35,9 @@
             <div class="account">
             Your Account
             <hr>
-            <a href="./my-projects.html">My Projects</a>
+            <a href="./my-projects.jsp">My Projects</a>
             <a href="">Saved Project</a>
-            <a href="./profile.html">Profile</a>
+            <a href="./profile.jsp">Profile</a>
             <a href="">Settings</a>
           </div>
           <br>
@@ -53,7 +53,7 @@
                 </div>
               </div>
             </a>
-            <a class="add-new-project"href="new-project.html">
+            <a class="add-new-project"href="new-project.jsp">
               &#43; Add New Project
             </a>
           </div>

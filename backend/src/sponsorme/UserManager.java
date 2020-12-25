@@ -5,7 +5,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Objects;
 
-import org.jetbrains.annotations.NotNull;
 import sponsorme.model.User;
 import sponsorme.store.UserStore;
 import sponsorme.util.MathHelper;
@@ -61,7 +60,6 @@ public class UserManager
 	 * @param salt     the salt
 	 * @return A String representation of the hashed password.
 	 */
-	@NotNull
 	private String hashPassword(String password, byte[] salt)
 	{
 		String hash = null;
@@ -83,7 +81,6 @@ public class UserManager
 	 * Generates a random salt using SHA1PRNG algorithm.
 	 * @return A generated array of bytes representing the salt.
 	 */
-	@NotNull
 	private byte[] generateSalt()
 	{
 		byte[] salt = null;

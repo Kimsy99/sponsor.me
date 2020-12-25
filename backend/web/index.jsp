@@ -4,6 +4,7 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page import="java.math.RoundingMode" %>
+<%@ page import="sponsorme.model.User" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,52 +17,55 @@
   <link rel="stylesheet" href="styles/preview-item.css" />
   <link rel="stylesheet" href="styles/footer.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <div class="header">
-    <a href="index.jsp" class="logo-container">
-      <img class="logo" src="./assets/logo.svg" />
-    </a>
-    <div class="options">
-      <a class="option" href="./common/project.jsp"> Explore </a>
-      <div class="option">
-        <input type="text" class="search-bar" placeholder="Search.." name="search">
-        <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
-      </div>
-      <a class="option" href="./common/sign-in-sign-up.jsp">
-        Sign in
-      </a>
 
-      <div class="dropdown" onclick="toggleProfile()">
-        <i class="fa fa-user dropbtn" aria-hidden="true" ></i>
-        <div class="dropdown-content" id="dropdown-content">
-          <div class="account">
-            Your Account
-            <hr>
-            <a href="./common/my-projects.jsp">My Projects</a>
-            <a href="">Saved Project</a>
-            <a href="./common/profile.jsp">Profile</a>
-            <a href="">Settings</a>
-          </div>
-          <br>
-          <div class="create-project">
-            Created Projects
-            <hr/>
-            <a>
-              <div class="mini-project-preview">
-                <img src="./assets/project-categories-header-image/all.jpg" alt="">
-                <div class="mini-project-preview-content">
-                  <h5>Title about the project</h5>
-                  <h6>65% funded</h6>
-                </div>
-              </div>
-            </a>
-            <a href="./common/new-project.jsp" class="add-new-project">
-              &#43; Add New Project
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <jsp:include page="common/header.jsp"/>
+
+<%--  <div class="header">--%>
+<%--    <a href="index.jsp" class="logo-container">--%>
+<%--      <img class="logo" src="./assets/logo.svg" />--%>
+<%--    </a>--%>
+<%--    <div class="options">--%>
+<%--      <a class="option" href="./common/project.jsp"> Explore </a>--%>
+<%--      <div class="option">--%>
+<%--        <input type="text" class="search-bar" placeholder="Search.." name="search">--%>
+<%--        <button type="submit" class="search-button"><i class="fa fa-search"></i></button>--%>
+<%--      </div>--%>
+<%--      <a class="option" href="./common/sign-in-sign-up.jsp">--%>
+<%--        Sign in--%>
+<%--      </a>--%>
+
+<%--      <div class="dropdown" onclick="toggleProfile()">--%>
+<%--        <i class="fa fa-user dropbtn" aria-hidden="true" ></i>--%>
+<%--        <div class="dropdown-content" id="dropdown-content">--%>
+<%--          <div class="account">--%>
+<%--            Your Account--%>
+<%--            <hr>--%>
+<%--            <a href="./common/my-projects.jsp">My Projects</a>--%>
+<%--            <a href="">Saved Project</a>--%>
+<%--            <a href="./common/profile.jsp">Profile</a>--%>
+<%--            <a href="">Settings</a>--%>
+<%--          </div>--%>
+<%--          <br>--%>
+<%--          <div class="create-project">--%>
+<%--            Created Projects--%>
+<%--            <hr/>--%>
+<%--            <a>--%>
+<%--              <div class="mini-project-preview">--%>
+<%--                <img src="./assets/project-categories-header-image/all.jpg" alt="">--%>
+<%--                <div class="mini-project-preview-content">--%>
+<%--                  <h5>Title about the project</h5>--%>
+<%--                  <h6>65% funded</h6>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--            </a>--%>
+<%--            <a href="./common/new-project.jsp" class="add-new-project">--%>
+<%--              &#43; Add New Project--%>
+<%--            </a>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+<%--  </div>--%>
 </head>
 <body>
 <div class="intro-section">
@@ -90,16 +94,16 @@
       <button onClick="filterSelection('design')">Design</button>
       <button onClick="filterSelection('film')">Film</button>
       <button onClick="filterSelection('arts')">Arts</button>
-      <button onClick="filterSelection('publish')">Publish</li>
-        <button onClick="filterSelection('food')">Food</button>
-        <button onClick="filterSelection('games')">Games</li>
-          <button onClick="filterSelection('others')">Others</li>
+      <button onClick="filterSelection('publish')">Publish</button>
+      <button onClick="filterSelection('food')">Food</button>
+      <button onClick="filterSelection('games')">Games</button>
+      <button onClick="filterSelection('others')">Others</button>
     </ul>
   </div>
   <div class="preview-item-container">
     <%
       Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "sql153 @?3462mrB");
       Statement stm = conn.createStatement();
       String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username, count(user_id) as backerNum\n" +
               "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
@@ -128,35 +132,38 @@
   </div>
 </div>
 </body>
-<footer>
-  <div class='footer'>
-    <div class='footer-item-container'>
-      <div class='menu-items'>
-        <div class='menu-item'>
-          <img class='icon' src="./assets/footer-image/Home.svg" />
-          <span>Home</span>
-        </div>
-        <div class='menu-item'>
-          <img class='icon' src="./assets/footer-image/Projects.svg" />
-          <span>Projects</span>
-        </div>
-        <div class='menu-item'>
-          <img class='icon' src="./assets/footer-image/Account.svg" />
-          <span>Account</span>
-        </div>
-        <div class='menu-item'>
-          <img class='icon' src="./assets/footer-image/Help.svg" />
-          <span>Help</span>
-        </div>
-      </div>
-      <div class='description'>
-        <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>
-        <p class='copyright'>Sponsor.me © 2020</p>
-        <p class='tnc'>Terms of Service - Privacy Policy</p>
-      </div>
-    </div>
-  </div>
-</footer>
+
+<jsp:include page="common/footer.jsp"/>
+
+<%--<footer>--%>
+<%--  <div class='footer'>--%>
+<%--    <div class='footer-item-container'>--%>
+<%--      <div class='menu-items'>--%>
+<%--        <div class='menu-item'>--%>
+<%--          <img class='icon' src="./assets/footer-image/Home.svg" />--%>
+<%--          <span>Home</span>--%>
+<%--        </div>--%>
+<%--        <div class='menu-item'>--%>
+<%--          <img class='icon' src="./assets/footer-image/Projects.svg" />--%>
+<%--          <span>Projects</span>--%>
+<%--        </div>--%>
+<%--        <div class='menu-item'>--%>
+<%--          <img class='icon' src="./assets/footer-image/Account.svg" />--%>
+<%--          <span>Account</span>--%>
+<%--        </div>--%>
+<%--        <div class='menu-item'>--%>
+<%--          <img class='icon' src="./assets/footer-image/Help.svg" />--%>
+<%--          <span>Help</span>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--      <div class='description'>--%>
+<%--        <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>--%>
+<%--        <p class='copyright'>Sponsor.me © 2020</p>--%>
+<%--        <p class='tnc'>Terms of Service - Privacy Policy</p>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+<%--  </div>--%>
+<%--</footer>--%>
 <script src="./js/script.js"></script>
 <script src="./js/toggleProfile.js"></script>
 </html>
