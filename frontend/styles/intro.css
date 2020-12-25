@@ -5,7 +5,8 @@
   align-content: center;
   justify-content: center;
   align-items: baseline;
-  padding: 10px 0 40px 0;
+  padding: 60px 0 60px 0;
+  background-color: #ebebeb;
 }
 .intro-image{
   max-width: 600px;
@@ -19,4 +20,17 @@
   align-self: center;
   text-align: center;
 }
-  
+.intro-section button{
+  width: 30%;
+  min-width: 200px;
+  padding: 10px;
+  border: 2px solid var(--main-color);
+  border-radius: 10px;
+  font-size: 18px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+.intro-section button:hover{
+  background-color: var(--main-color);
+  color: white;
+}

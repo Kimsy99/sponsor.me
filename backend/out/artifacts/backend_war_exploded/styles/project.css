@@ -1,0 +1,26 @@
+.project-header{
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url("../assets/project-categories-header-image/all.jpg");
+  background-size: cover;
+  opacity: 10;
+  max-height: 500px;
+}
+.header-text{
+  text-align: center;
+  padding: 10vh 5vw;
+  line-height: 1.5;
+  color: white;
+}
+.header-text h1{
+  font-size: 4rem;
+}
+.header-text p{
+  font-size: 1.5rem;
+}
+@media(max-width: 600px){
+  .header-text h1{
+    font-size: 3rem;
+  }
+  .header-text p{
+    font-size: 1rem;
+  }
+}
