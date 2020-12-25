@@ -141,9 +141,8 @@
 
         <label for="Story">Project Story</label><br />
         <div id="image-text-box">
-          <h3>Team</h3>
+          <h3>Story</h3>
           <br />
-          <h3>DFds</h3>
           <p><br /></p>
         </div>
         <!-- <button id="save">Save</button> -->
@@ -179,7 +178,6 @@
         <div id="image-text-box2">
           <h3>Team</h3>
           <br />
-          <h3>DFds</h3>
           <p><br /></p>
         </div>
         <a href="./new-project-options.html"
