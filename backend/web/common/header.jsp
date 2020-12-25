@@ -19,11 +19,11 @@
       boolean isLoggedIn = session.getAttribute("username") != null;
     %>
     <div class="header">
-      <a href="${pageContext.request.contextPath}/index.html" class="logo-container">
+      <a href="${pageContext.request.contextPath}/index.jsp" class="logo-container">
         <img class="logo" src="${pageContext.request.contextPath}/assets/logo.svg" />
       </a>
       <div class="options">
-        <a class="option" href="${pageContext.request.contextPath}/common/project.html"> Explore </a>
+        <a class="option" href="${pageContext.request.contextPath}/common/project.jsp"> Explore </a>
         <div class="option">
           <input
             type="text"
@@ -42,9 +42,9 @@
             <div class="account">
               Your Account
               <hr />
-              <a href="./my-projects.html">My Projects</a>
-              <a href="./backed-project.html">Backed Project</a>
-              <a href="./profile.html">Profile</a>
+              <a href="./my-projects.jsp">My Projects</a>
+              <a href="./backed-project.jsp">Backed Project</a>
+              <a href="./profile.jsp">Profile</a>
             </div>
             <br />
             <div class="create-project">
@@ -62,7 +62,7 @@
                   </div>
                 </div>
               </a>
-              <a href="./new-project.html" class="add-new-project">
+              <a href="./new-project.jsp" class="add-new-project">
                 &#43; Add New Project
               </a>
             </div>
