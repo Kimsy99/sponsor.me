@@ -24,59 +24,62 @@
       rel="stylesheet"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <div class="header">
-      <a href="../index.html" class="logo-container">
-        <img class="logo" src="../assets/logo.svg" />
-      </a>
-      <div class="options">
-        <a class="option" href="../common/project.html"> Explore </a>
-        <div class="option">
-          <input
-            type="text"
-            class="search-bar"
-            placeholder="Search.."
-            name="search"
-          />
-          <button type="submit" class="search-button">
-            <i class="fa fa-search"></i>
-          </button>
-        </div>
-        <a class="option" href="../common/sign-in-sign-up.html"> Sign in </a>
-        <div class="dropdown" onclick="toggleProfile()">
-          <i class="fa fa-user dropbtn" aria-hidden="true"></i>
-          <div class="dropdown-content" id="dropdown-content">
-            <div class="account">
-              Your Account
-              <hr />
-              <a href="./my-projects.html">My Projects</a>
-              <a href="">Saved Project</a>
-              <a href="./profile.html">Profile</a>
-              <a href="">Settings</a>
-            </div>
-            <br />
-            <div class="create-project">
-              Created Projects
-              <hr />
-              <a>
-                <div class="mini-project-preview">
-                  <img
-                    src="./assets/project-categories-header-image/all.jpg"
-                    alt=""
-                  />
-                  <div class="mini-project-preview-content">
-                    <h5>Title about the project</h5>
-                    <h6>65% funded</h6>
-                  </div>
-                </div>
-              </a>
-              <a href="./common/new-project.html" class="add-new-project">
-                &#43; Add New Project
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <jsp:include page="header.jsp"/>
+
+<%--    <div class="header">--%>
+<%--      <a href="../index.html" class="logo-container">--%>
+<%--        <img class="logo" src="../assets/logo.svg" />--%>
+<%--      </a>--%>
+<%--      <div class="options">--%>
+<%--        <a class="option" href="../common/project.html"> Explore </a>--%>
+<%--        <div class="option">--%>
+<%--          <input--%>
+<%--            type="text"--%>
+<%--            class="search-bar"--%>
+<%--            placeholder="Search.."--%>
+<%--            name="search"--%>
+<%--          />--%>
+<%--          <button type="submit" class="search-button">--%>
+<%--            <i class="fa fa-search"></i>--%>
+<%--          </button>--%>
+<%--        </div>--%>
+<%--        <a class="option" href="../common/sign-in-sign-up.html"> Sign in </a>--%>
+<%--        <div class="dropdown" onclick="toggleProfile()">--%>
+<%--          <i class="fa fa-user dropbtn" aria-hidden="true"></i>--%>
+<%--          <div class="dropdown-content" id="dropdown-content">--%>
+<%--            <div class="account">--%>
+<%--              Your Account--%>
+<%--              <hr />--%>
+<%--              <a href="./my-projects.html">My Projects</a>--%>
+<%--              <a href="">Saved Project</a>--%>
+<%--              <a href="./profile.html">Profile</a>--%>
+<%--              <a href="">Settings</a>--%>
+<%--            </div>--%>
+<%--            <br />--%>
+<%--            <div class="create-project">--%>
+<%--              Created Projects--%>
+<%--              <hr />--%>
+<%--              <a>--%>
+<%--                <div class="mini-project-preview">--%>
+<%--                  <img--%>
+<%--                    src="./assets/project-categories-header-image/all.jpg"--%>
+<%--                    alt=""--%>
+<%--                  />--%>
+<%--                  <div class="mini-project-preview-content">--%>
+<%--                    <h5>Title about the project</h5>--%>
+<%--                    <h6>65% funded</h6>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </a>--%>
+<%--              <a href="./common/new-project.html" class="add-new-project">--%>
+<%--                &#43; Add New Project--%>
+<%--              </a>--%>
+<%--            </div>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--    </div>--%>
   </head>
   <body>
     <div class="new-project-item">
@@ -188,35 +191,38 @@
       </form>
     </div>
   </body>
-  <footer>
-    <div class="footer">
-      <div class="footer-item-container">
-        <div class="menu-items">
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Home.svg" />
-            <span>Home</span>
-          </div>
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Projects.svg" />
-            <span>Projects</span>
-          </div>
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Account.svg" />
-            <span>Account</span>
-          </div>
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Help.svg" />
-            <span>Help</span>
-          </div>
-        </div>
-        <div class="description">
-          <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>
-          <p class="copyright">Sponsor.me © 2020</p>
-          <p class="tnc">Terms of Service - Privacy Policy</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+
+  <jsp:include page="footer.jsp"/>
+
+<%--  <footer>--%>
+<%--    <div class="footer">--%>
+<%--      <div class="footer-item-container">--%>
+<%--        <div class="menu-items">--%>
+<%--          <div class="menu-item">--%>
+<%--            <img class="icon" src="../assets/footer-image/Home.svg" />--%>
+<%--            <span>Home</span>--%>
+<%--          </div>--%>
+<%--          <div class="menu-item">--%>
+<%--            <img class="icon" src="../assets/footer-image/Projects.svg" />--%>
+<%--            <span>Projects</span>--%>
+<%--          </div>--%>
+<%--          <div class="menu-item">--%>
+<%--            <img class="icon" src="../assets/footer-image/Account.svg" />--%>
+<%--            <span>Account</span>--%>
+<%--          </div>--%>
+<%--          <div class="menu-item">--%>
+<%--            <img class="icon" src="../assets/footer-image/Help.svg" />--%>
+<%--            <span>Help</span>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--        <div class="description">--%>
+<%--          <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>--%>
+<%--          <p class="copyright">Sponsor.me © 2020</p>--%>
+<%--          <p class="tnc">Terms of Service - Privacy Policy</p>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+<%--  </footer>--%>
 
   <script src="../js/script.js"></script>
   <script src="../js/faq-text-field.js"></script>
