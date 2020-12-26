@@ -101,12 +101,21 @@
           </p>
           <h6>Created by <%=rs.getString("username")%></h6>
           <div class="funding-details">
-            <h3>MYR 40,000</h3>
-            <span>by 349 backers</span>
+            <%
+              Statement stm6 = connection.createStatement();
+              String sql6 = "select count(*) as backerNum, sum(backed_amount) as backedAmountSum from backed_project\n" +
+                      "where project_id = " + request.getParameter("pid");
+              ResultSet rs6 = stm6.executeQuery(sql6);
+              rs6.next();
+              float percentage = rs6.getFloat("backedAmountSum")/rs.getFloat("funding_goal")*100;
+            %>
+            <h3>MYR <%=rs6.getInt("backedAmountSum")%></h3>
+
+            <span>by <%=rs6.getInt("backerNum")%> backers</span>
             <div class="funding-bar">
-              <div class="funding-bar-color"></div>
+              <div class="funding-bar-color" style="width: <%=percentage%>%;"></div>
             </div>
-            <p>50% of MYR <%=rs.getString("funding_goal")%> goal</p>
+            <p><%=percentage%>% of MYR <%=rs.getString("funding_goal")%> goal</p>
             <a href="./back-project.jsp"
               ><button class="back-project-button">Back Project</button></a
             >

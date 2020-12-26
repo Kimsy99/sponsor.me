@@ -49,7 +49,7 @@
 .funding-bar-color{
   background-color: #FF8A65;
   height: 19px;
-  width: 50%;
+  /*width: 50%;*/
   border-radius: 20px;
 }
 .project-item-content{
