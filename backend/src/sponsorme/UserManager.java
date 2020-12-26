@@ -43,16 +43,24 @@ public class UserManager
 	}
 	
 	/**
+	 * Geta user object from the database.
+	 * @param username the username
+	 * @return The user with the specified username, null if the user does not exist.
+	 * @throws SQLException
+	 */
+	public User getUser(String username) throws SQLException
+	{
+		return users.get(username);
+	}
+	
+	/**
 	 * Validates a user's login password by checking if the hashes of the passwords match.
-	 * @param username user's username
+	 * @param user the user
 	 * @param password user's typed in password
 	 * @return True if typed in password matches the one in the database, false otherwise.
 	 */
-	public boolean validateUser(String username, String password) throws SQLException
+	public boolean validateUser(User user, String password)
 	{
-		User user = users.get(username);
-		if (user == null)
-			throw new SQLException(NO_SUCH_USER);
 		return hashPassword(password, user.salt).equals(user.passwordHash);
 	}
 	

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sponsorme.UserManager;
+import sponsorme.model.User;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet
@@ -26,10 +27,12 @@ public class LoginServlet extends HttpServlet
 		
 		try
 		{
-			boolean validated = UserManager.getInstance().validateUser(username, password);
+			User user = UserManager.getInstance().getUser(username);
+			boolean validated = UserManager.getInstance().validateUser(user, password);
 			if (validated)
 			{
 				session.setAttribute("username", username);
+				session.setAttribute("uid", user.id);
 				response.sendRedirect("index.jsp");
 			}
 			else
