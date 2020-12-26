@@ -1,8 +1,7 @@
 <%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="sponsorme.Credentials" %>
+<%@ page import="sponsorme.ConnectionManager" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -75,9 +74,8 @@
   </head>
   <body>
     <%
-      Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
-      Statement stm = conn.createStatement();
+      Connection connection = ConnectionManager.getConnection();
+      Statement stm = connection.createStatement();
       String sql = "select project.project_id, project_name, funding_goal, username, small_description, category, creation_date, team, username, profile_picture_name,  project_status, story\n" +
               "from project left join user\n" +
               "ON project.creator_id = user.user_id\n" +
@@ -202,9 +200,7 @@
             <h3>FAQs</h3>
             <div class="questions-list">
               <%
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection conn2 = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
-                Statement stm2 = conn2.createStatement();
+                Statement stm2 = connection.createStatement();
                 String sql2 = "select * from faq\n" +
                         "where project_id = " + request.getParameter("pid");
                 ResultSet rs2 = stm2.executeQuery(sql2);
@@ -248,9 +244,7 @@
                 <div class="comments-list">
                   <ul class="comments-list">
                     <%
-                      Class.forName("com.mysql.jdbc.Driver");
-                      Connection conn3 = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
-                      Statement stm3 = conn3.createStatement();
+                      Statement stm3 = connection.createStatement();
                       String sql3 = "select  comment_id, comment.user_id, comment, parent_comment, comment_date as cd, username, profile_picture_name\n" +
                               "from comment left join user\n" +
                               "on comment.user_id = user.user_id\n" +
@@ -284,10 +278,7 @@
                       </div>
                       <ul class="comments-list children">
                         <%
-
-                          Class.forName("com.mysql.jdbc.Driver");
-                          Connection conn4 = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
-                          Statement stm4 = conn4.createStatement();
+                          Statement stm4 = connection.createStatement();
                           String sql4 = "select comment_id, comment.user_id, comment, parent_comment, comment_date as cds, username, profile_picture_name\n" +
                                   "from comment left join user\n" +
                                   "on comment.user_id = user.user_id\n" +
@@ -335,9 +326,7 @@
           <div class="perks-items">
             <h3>Select a Perk</h3>
             <%
-              Class.forName("com.mysql.jdbc.Driver");
-              Connection conn5 = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
-              Statement stm5 = conn5.createStatement();
+              Statement stm5 = connection.createStatement();
               String sql5 = "select p.perk_id, title, price, description, count(*) as backerCount\n" +
                       "from perk as p left join backed_project as bp\n" +
                       "on p.perk_id = bp.perk_id and p.project_id = bp.project_id\n" +
