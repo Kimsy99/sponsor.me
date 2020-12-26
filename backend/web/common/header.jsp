@@ -35,16 +35,17 @@
             <i class="fa fa-search"></i>
           </button>
         </div>
-        <a class="option" href="${pageContext.request.contextPath}/common/sign-in-sign-up.jsp"> Sign in </a>
+        <a class="option" href="${pageContext.request.contextPath}/common/sign-in-sign-up.jsp" <%=!isLoggedIn ? "" : "style=\"display: none\""%>> Sign in </a>
         <div class="dropdown" onclick="toggleProfile()" <%=isLoggedIn ? "" : "style=\"display: none\""%>>
-          <i class="fa fa-user dropbtn" aria-hidden="true"></i>
+          <i class="fa fa-user dropbtn" aria-hidden="true"><%=session.getAttribute("username")%></i>
           <div class="dropdown-content" id="dropdown-content">
             <div class="account">
               Your Account
               <hr />
-              <a href="./my-projects.jsp">My Projects</a>
-              <a href="./backed-project.jsp">Backed Project</a>
-              <a href="./profile.jsp">Profile</a>
+              <a href="${pageContext.request.contextPath}/common/my-projects.jsp">My Projects</a>
+              <a href="${pageContext.request.contextPath}/common/backed-project.jsp">Backed Project</a>
+              <a href="${pageContext.request.contextPath}/common/profile.jsp">Profile</a>
+              <a href="${pageContext.request.contextPath}/common/logout.jsp">Log out</a>
             </div>
             <br />
             <div class="create-project">

@@ -36,29 +36,29 @@ public class TestDriver
 	
 	private static void parseCommand(String commandName, String[] args)
 	{
-		if (commandName.equals("create"))
-		{
-			String username = args[0];
-			String password = args[1];
-			String retypedPassword = args[2];
-			if (!password.equals(retypedPassword))
-			{
-				System.out.println("Two passwords do not match!");
-				return;
-			}
-			if (USER_MANAGER.createUser(username, password))
-				System.out.println("Successfully created user " + username + "!");
-		}
-		else if (commandName.equals("login"))
-		{
-			String username = args[0];
-			String password = args[1];
-			if (USER_MANAGER.validateUser(username, password))
-				System.out.println(username + " validated!");
-			else
-				System.out.println("Incorrect password");
-		}
-		else
-			System.out.println("Unrecognized command \"" + commandName + "\"");
+//		if (commandName.equals("create"))
+//		{
+//			String username = args[0];
+//			String password = args[1];
+//			String retypedPassword = args[2];
+//			if (!password.equals(retypedPassword))
+//			{
+//				System.out.println("Two passwords do not match!");
+//				return;
+//			}
+//			if (USER_MANAGER.createUser(username, password))
+//				System.out.println("Successfully created user " + username + "!");
+//		}
+//		else if (commandName.equals("login"))
+//		{
+//			String username = args[0];
+//			String password = args[1];
+//			if (USER_MANAGER.validateUser(username, password))
+//				System.out.println(username + " validated!");
+//			else
+//				System.out.println("Incorrect password");
+//		}
+//		else
+//			System.out.println("Unrecognized command \"" + commandName + "\"");
 	}
 }

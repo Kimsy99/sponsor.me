@@ -1,11 +1,11 @@
-package sponsorme.util;
+package sponsorme;
 
 /**
  * Utility class containing useful functions.
  *
  * @author Kenneth Tan
  */
-public class MathHelper
+public class Utils
 {
 	/**
 	 * Converts a hexadecimal string into an array of bytes.

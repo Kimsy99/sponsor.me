@@ -97,9 +97,9 @@ search-button{
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #FF8A65;} */
+.dropdown-content a:hover {background-color: #FF8A65;}
 
-/* .dropdown:hover .dropdown-content {display: block;}*/ */
+/* .dropdown:hover .dropdown-content {display: block;}*/
 
 .dropdown:hover .dropbtn {background-color: #FF8A65;} 
 

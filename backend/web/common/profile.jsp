@@ -1,9 +1,9 @@
 <%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page import="java.math.RoundingMode" %>
+<%@ page import="sponsorme.ConnectionManager" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -83,9 +83,8 @@
     </div>
     <div class="preview-item-container">
       <%
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
-        Statement stm = conn.createStatement();
+        Connection connection = ConnectionManager.getConnection();
+        Statement stm = connection.createStatement();
         String sql = "select p.project_id as pid, project_name, funding_goal, u.username as creater_name\n" +
                 "from project as p \n" +
                 "\tleft join backed_project as bp ON p.project_id = bp.project_id \n" +
@@ -107,9 +106,7 @@
           >
           <span class="target-fund">Target Fund: <%=fundingGoal%></span>
           <%
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
-            Statement stm2 = conn2.createStatement();
+            Statement stm2 = connection.createStatement();
             String sql2 = "select SUM(backed_amount) as amount\n" +
                     "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
                     "left join user as u ON p.creator_id = u.user_id\n" +
