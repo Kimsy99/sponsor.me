@@ -2,6 +2,7 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="sponsorme.Credentials" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,7 +77,7 @@
 <body>
 <%
   Class.forName("com.mysql.jdbc.Driver");
-  Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+  Connection conn = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
   Statement stm = conn.createStatement();
   String sql = "select project.project_id, project_name, funding_goal, username, small_description, category, creation_date, team, username, profile_picture_name,  project_status, story\n" +
           "from project left join user\n" +
@@ -207,7 +208,7 @@
         <div class="questions-list">
           <%
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+            Connection conn2 = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
             Statement stm2 = conn2.createStatement();
             String sql2 = "select * from faq\n" +
                     "where project_id = " + request.getParameter("pid");
@@ -253,7 +254,7 @@
               <ul class="comments-list">
                 <%
                   Class.forName("com.mysql.jdbc.Driver");
-                  Connection conn3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+                  Connection conn3 = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
                   Statement stm3 = conn3.createStatement();
                   String sql3 = "select  comment_id, comment.user_id, comment, parent_comment, comment_date as cd, username, profile_picture_name\n" +
                           "from comment left join user\n" +
@@ -290,7 +291,7 @@
                     <%
 
                       Class.forName("com.mysql.jdbc.Driver");
-                      Connection conn4 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+                      Connection conn4 = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
                       Statement stm4 = conn4.createStatement();
                       String sql4 = "select comment_id, comment.user_id, comment, parent_comment, comment_date as cds, username, profile_picture_name\n" +
                               "from comment left join user\n" +
@@ -340,7 +341,7 @@
         <h3>Select a Perk</h3>
         <%
           Class.forName("com.mysql.jdbc.Driver");
-          Connection conn5 = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+          Connection conn5 = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
           Statement stm5 = conn5.createStatement();
           String sql5 = "select p.perk_id, title, price, description, count(*) as backerCount\n" +
                   "from perk as p left join backed_project as bp\n" +

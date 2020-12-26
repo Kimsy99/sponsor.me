@@ -3,11 +3,11 @@ package sponsorme;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.SQLException;
 import java.util.Objects;
 
 import sponsorme.model.User;
 import sponsorme.store.UserStore;
-import sponsorme.util.MathHelper;
 
 /**
  * Manages creation and deletion of users and handles authentication.
@@ -16,6 +16,10 @@ import sponsorme.util.MathHelper;
  */
 public class UserManager
 {
+	public static final String NO_SUCH_USER = "User does not exist!";
+	
+	private static UserManager instance;
+	
 	private final UserStore users = new UserStore();
 	
 	/**
@@ -24,17 +28,18 @@ public class UserManager
 	 * @param password user's typed in password
 	 * @return True if user is successfully created, false otherwise.
 	 */
-	public boolean createUser(String username, String password)
+	public boolean createUser(String username, String password, String email)
 	{
-		if (users.get(username) != null)
-		{
-			System.err.println("User " + username + " already exists!");
-			return false;
-		}
-		byte[] salt = generateSalt();
-		User user = new User(username, hashPassword(password, salt), MathHelper.byteArrayToHexString(salt));
-		users.store(user);
-		return true;
+		//TODO
+//		if (users.get(username) != null)
+//		{
+//			System.err.println("User " + username + " already exists!");
+//			return false;
+//		}
+//		byte[] salt = generateSalt();
+//		User user = new User(username, hashPassword(password, salt), Utils.byteArrayToHexString(salt));
+//		users.store(user);
+		return false;
 	}
 	
 	/**
@@ -43,14 +48,11 @@ public class UserManager
 	 * @param password user's typed in password
 	 * @return True if typed in password matches the one in the database, false otherwise.
 	 */
-	public boolean validateUser(String username, String password)
+	public boolean validateUser(String username, String password) throws SQLException
 	{
 		User user = users.get(username);
 		if (user == null)
-		{
-			System.err.println("User " + username + " does not exist!");
-			return false;
-		}
+			throw new SQLException(NO_SUCH_USER);
 		return hashPassword(password, user.salt).equals(user.passwordHash);
 	}
 	
@@ -68,7 +70,7 @@ public class UserManager
 			MessageDigest md = MessageDigest.getInstance("SHA-512");
 			md.update(salt);
 			byte[] hashedBytes = md.digest(password.getBytes());
-			hash = MathHelper.byteArrayToHexString(hashedBytes);
+			hash = Utils.byteArrayToHexString(hashedBytes);
 		}
 		catch (NoSuchAlgorithmException e)
 		{
@@ -95,5 +97,12 @@ public class UserManager
 			e.printStackTrace();
 		}
 		return Objects.requireNonNull(salt);
+	}
+	
+	public static UserManager getInstance()
+	{
+		if (instance == null)
+			instance = new UserManager();
+		return instance;
 	}
 }

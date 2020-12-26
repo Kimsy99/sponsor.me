@@ -4,6 +4,7 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.math.RoundingMode" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="sponsorme.Credentials" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -91,7 +92,7 @@
       <div class="preview-item-container">
         <%
           Class.forName("com.mysql.jdbc.Driver");
-          Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sponsorme", "root", "Kimsy990926");
+          Connection conn = DriverManager.getConnection(Credentials.URL, Credentials.USER, Credentials.PASSWORD);
           Statement stm = conn.createStatement();
           String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username\n" +
                   "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
