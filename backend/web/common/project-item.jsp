@@ -102,7 +102,6 @@
           <h6>Created by <%=rs.getString("username")%></h6>
           <div class="funding-details">
             <%
-              Connection connection6 = ConnectionManager.getConnection();
               Statement stm6 = connection.createStatement();
               String sql6 = "select count(*) as backerNum, sum(backed_amount) as backedAmountSum from backed_project\n" +
                       "where project_id = " + request.getParameter("pid");
