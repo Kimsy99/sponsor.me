@@ -27,12 +27,9 @@
   <%
     Connection connection = ConnectionManager.getConnection();
     Statement stm3 = connection.createStatement();
-    String sql3 = "select count(*) as numberOfBackedProject\n" +
-            "from project as p \n" +
-            "\tleft join backed_project as bp ON p.project_id = bp.project_id \n" +
-            "    left join user ON bp.backer_id = user.user_id \n" +
-            "    left join user as u ON p.creator_id = u.user_id \n" +
-            "where backer_id = " + session.getAttribute("uid");
+    String sql3 = "select count(*) as numberOfBackedProject, user.username as username\n" +
+            "from backed_project as bp left join user ON bp.backer_id = user.user_id \n" +
+            "where backer_id =" + session.getAttribute("uid");
     ResultSet rs3 = stm3.executeQuery(sql3);
     rs3.next();
 
@@ -40,7 +37,7 @@
     <div class="profile-container">
     <div class="profile-avatar">
       <img src="../assets/homepage-intro-illustration.png" alt="" />
-      <h1>Kim Sheng Yong</h1>
+      <h1><%=rs3.getString("username")%></h1>
       <p>Backed <%=rs3.getInt("numberOfBackedProject")%> projects</p>
     </div>
     <div class="preview-item-container">
