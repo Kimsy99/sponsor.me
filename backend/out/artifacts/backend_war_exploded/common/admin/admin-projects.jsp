@@ -29,141 +29,6 @@
             src="https://www.gstatic.com/charts/loader.js"
     ></script>
 
-
-    <%
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/sponsorme",
-                "root", "root"
-        );
-
-        //query for project
-        Statement stm_project = conn.createStatement();
-        String sql_project = "select category, count(*) as count_project\n" + "from project\n" + "group by category";
-        ResultSet rs_project = stm_project.executeQuery(sql_project);
-
-        //query for user
-        Statement stm_user = conn.createStatement();
-        String sql_user = "select registration_date, count(*) as count_user\n" + "from user\n" + "group by registration_date";
-        ResultSet rs_user = stm_user.executeQuery(sql_user);
-    %>
-
-    <!--Script for pie chart of project-->
-    <script type="text/javascript">
-        //https://developers.google.com/chart/interactive/docs/quick_start
-
-        // Load the Visualization API and the corechart package.
-        google.charts.load('current', { packages: ['corechart'] });
-
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawChart);
-
-        // Callback that creates and populates a data table,
-        // instantiates the pie chart, passes in the data and
-        // draws it.
-        function drawChart()
-        {
-            // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Categories');
-            data.addColumn('number', 'projects');
-            data.addRows([
-                <%
-                int totalProject = 0;
-                while(rs_project.next())
-                {
-                      totalProject += rs_project.getInt("count_project");
-                %>
-                ['<%=rs_project.getString("category")%>', <%=rs_project.getInt("count_project")%>],
-                <%
-                }
-                %>
-            ]);
-
-            // Set chart options
-            var options = {
-                title: 'All Projects in Sponsor.me',
-                width: 500,
-                height: 500,
-            };
-
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(
-                document.getElementById('project_chart')
-            );
-            chart.draw(data, options);
-        }
-
-    </script>
-
-    <!--Script for graph of accumulate user-->
-    <script type="text/javascript">
-        google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Date', 'Active Users'],
-                <%
-                int accumulateUser = 0;
-                while(rs_user.next())
-                {
-                    accumulateUser += rs_user.getInt("count_user");
-                %>
-                ['<%=rs_user.getDate("registration_date")%>', <%=accumulateUser%>],
-                <%
-                }
-                %>
-            ]);
-
-            var options = {
-                title: 'Users in Sponsor.me',
-                curveType: 'function',
-                legend: { position: 'bottom' },
-            };
-
-            var chart = new google.visualization.LineChart(
-                document.getElementById('users_chart')
-            );
-
-            chart.draw(data, options);
-        }
-    </script>
-
-    <!--Script for graph of new user-->
-    <script type="text/javascript">
-        google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart()
-        {
-            var data = google.visualization.arrayToDataTable([
-                ['Date', 'New Users'],
-                <%
-                rs_user.first();
-                do
-                {
-                %>
-                ['<%=rs_user.getDate("registration_date")%>', <%=rs_user.getInt("count_user")%>],
-                <%
-                } while (rs_user.next());
-                %>
-            ]);
-
-            var options = {
-                title: 'New Users in Sponsor.me',
-                curveType: 'function',
-                legend: { position: 'bottom' },
-            };
-
-            var chart = new google.visualization.LineChart(
-                document.getElementById('new_users_chart')
-            );
-
-            chart.draw(data, options);
-        }
-    </script>
-
 </head>
 <body>
 <svg style="display: none">
@@ -255,7 +120,7 @@
 </svg>
 <header class="page-header">
     <nav>
-        <a href="./admin.html" class="logo-container">
+        <a href="./admin.jsp" class="logo-container">
             <img class="logo" src="../../assets/logo.svg" />
         </a>
         <button
@@ -272,7 +137,7 @@
                 <h3>Admin</h3>
             </li>
             <li>
-                <a href="admin.html#projects_trend">
+                <a href="admin.jsp#projects_trend">
                     <svg>
                         <use xlink:href="#projects"></use>
                     </svg>
@@ -288,7 +153,7 @@
               </a>
             </li> -->
             <li>
-                <a href="admin.html#users_trend">
+                <a href="admin.jsp#users_trend">
                     <svg>
                         <use xlink:href="#users"></use>
                     </svg>
@@ -296,7 +161,7 @@
                 </a>
             </li>
             <li>
-                <a href="admin.html#new_users_trend">
+                <a href="admin.jsp#new_users_trend">
                     <svg>
                         <use xlink:href="#trends"></use>
                     </svg>
@@ -395,6 +260,12 @@
             <%
                 try
                 {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection conn = DriverManager.getConnection(
+                            "jdbc:mysql://localhost:3306/sponsorme",
+                            "root", "root"
+                    );
+
                     Statement stm = conn.createStatement();
                     String sql = "select project.project_id, project_name, funding_goal, sum(backed_amount) as current_funding, small_description as description, category, username as creator_name, creation_date\n" +
                             "from (project left join backed_project on project.project_id = backed_project.project_id) left join user on project.creator_id = user.user_id\n" +
@@ -430,7 +301,7 @@
                 <td><%=rs.getString("creator_name")%></td>
                 <td><%=rs.getDate("creation_date")%></td>
                 <td class="delete">
-                    <a href="../../AdminProjectDeleteServlet?project_id=<%=rs.getString("project_id")%>">
+                    <a href="${pageContext.request.contextPath}/AdminDeleteProjectServlet?project_id=<%=rs.getString("project_id")%>">
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>

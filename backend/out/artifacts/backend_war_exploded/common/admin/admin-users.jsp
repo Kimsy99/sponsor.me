@@ -2,7 +2,6 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +27,6 @@
             type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"
     ></script>
-
 </head>
 <body>
 <svg style="display: none">
@@ -242,21 +240,15 @@
         <table>
             <thead>
             <tr>
-                <th>Project ID</th>
-                <th>Project Name</th>
-                <th>Funding Goal</th>
-                <th>Current Funding</th>
-                <th>Funding %</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Creator</th>
-                <th>Creation Date</th>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Projects Created</th>
+                <th>Projects Backed</th>
                 <th>Delete</th>
             </tr>
             </thead>
             <tbody>
-
-
             <%
                 try
                 {
@@ -267,99 +259,77 @@
                     );
 
                     Statement stm = conn.createStatement();
-                    String sql = "select project.project_id, project_name, funding_goal, sum(backed_amount) as current_funding, small_description as description, category, username as creator_name, creation_date\n" +
-                            "from (project left join backed_project on project.project_id = backed_project.project_id) left join user on project.creator_id = user.user_id\n" +
-                            "group by project_id";
+                    String sql = "select user.user_id, username, email, p.project_created, project_backed\n" + "from \n" + "\tuser, \n" + "    (\n" + "\tselect creator_id as user_id, count(*) as project_created\n" + "    from project\n" + "    group by creator_id\n" + "\t) as P,\n" + "    (\n" + "\t\tselect backer_id as user_id, count(*) as project_backed\n" + "\t\tfrom backed_project\n" + "\t\tgroup by backer_id\n" + "    ) as b\n" + "where user.user_id = p.user_id and user.user_id = b.user_id\n" + "order by user.user_id asc;";
+
                     ResultSet rs = stm.executeQuery(sql);
 
-                    float fundingGoal, currentFunding, fundingPercentage;
-                    DecimalFormat format = new DecimalFormat("$#0.00");
-
-                    while (rs.next())
+                    while(rs.next())
                     {
-                        fundingGoal = rs.getFloat("funding_goal");
-                        currentFunding = rs.getFloat("current_funding");
-                        if (fundingGoal >= 0)
-                        {
-                            fundingPercentage = currentFunding / fundingGoal * 100;
-                        }
-                        else
-                        {
-                            fundingPercentage = 0;
-                        }
             %>
-
-            <!-- <a href="../../common/project-item.html"></a> -->
-            <tr onclick="document.location = './admin-project-item.html'">
-                <td><%=rs.getInt("project_id")%></td>
-                <td><%=rs.getString("project_name")%></td>
-                <td><%=format.format(fundingGoal)%></td>
-                <td><%=format.format(currentFunding)%></td>
-                <td><%=format.format(fundingPercentage)%>%</td>
-                <td><%=rs.getString("description")%></td>
-                <td><%=rs.getString("category")%></td>
-                <td><%=rs.getString("creator_name")%></td>
-                <td><%=rs.getDate("creation_date")%></td>
-                <td class="delete">
-                    <a href="${pageContext.request.contextPath}/AdminDeleteProjectServlet?project_id=<%=rs.getString("project_id")%>">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                </td>
-            </tr>
+                        <tr>
+                            <td><%=rs.getString("user_id")%></td>
+                            <td><%=rs.getString("username")%></td>
+                            <td><%=rs.getString("email")%>></td>
+                            <td><%=rs.getString("project_created")%></td>
+                            <td><%=rs.getString("project_backed")%></td>
+                            <td class="delete">
+                                <a href="${pageContext.request.contextPath}/AdminDeleteUserServlet?user_id=<%=rs.getString("user_id")%>">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
             <%
                     }
-
                 }
                 catch (Exception ex)
                 {
-                    ex.toString();
+                    ex.printStackTrace();
                 }
             %>
-
             </tbody>
         </table>
     </div>
     <footer class="page-footer"></footer>
 </div>
 </body>
-<script>
-    const body = document.body;
-    const menuLinks = document.querySelectorAll('.admin-menu a');
-    const collapseBtn = document.querySelector('.admin-menu .collapse-btn');
-    const toggleMobileMenu = document.querySelector('.toggle-mob-menu');
-    const collapsedClass = 'collapsed';
+    <script>
+        const body = document.body;
+        const menuLinks = document.querySelectorAll('.admin-menu a');
+        const collapseBtn = document.querySelector('.admin-menu .collapse-btn');
+        const toggleMobileMenu = document.querySelector('.toggle-mob-menu');
+        const collapsedClass = 'collapsed';
 
-    collapseBtn.addEventListener('click', function ()
-    {
-        this.getAttribute('aria-expanded') == 'true'
-            ? this.setAttribute('aria-expanded', 'false')
-            : this.setAttribute('aria-expanded', 'true');
-        this.getAttribute('aria-label') == 'collapse menu'
-            ? this.setAttribute('aria-label', 'expand menu')
-            : this.setAttribute('aria-label', 'collapse menu');
-        body.classList.toggle(collapsedClass);
-    });
-
-    toggleMobileMenu.addEventListener('click', function ()
-    {
-        this.getAttribute('aria-expanded') == 'true'
-            ? this.setAttribute('aria-expanded', 'false')
-            : this.setAttribute('aria-expanded', 'true');
-        this.getAttribute('aria-label') == 'open menu'
-            ? this.setAttribute('aria-label', 'close menu')
-            : this.setAttribute('aria-label', 'open menu');
-        body.classList.toggle('mob-menu-opened');
-    });
-
-    for (const link of menuLinks)
-    {
-        link.addEventListener('mouseenter', function ()
+        collapseBtn.addEventListener('click', function ()
         {
-            body.classList.contains(collapsedClass) &&
-            window.matchMedia('(min-width: 768px)').matches
-                ? this.setAttribute('title', this.textContent)
-                : this.removeAttribute('title');
+            this.getAttribute('aria-expanded') == 'true'
+                ? this.setAttribute('aria-expanded', 'false')
+                : this.setAttribute('aria-expanded', 'true');
+            this.getAttribute('aria-label') == 'collapse menu'
+                ? this.setAttribute('aria-label', 'expand menu')
+                : this.setAttribute('aria-label', 'collapse menu');
+            body.classList.toggle(collapsedClass);
         });
-    }
-</script>
+
+        toggleMobileMenu.addEventListener('click', function ()
+        {
+            this.getAttribute('aria-expanded') == 'true'
+                ? this.setAttribute('aria-expanded', 'false')
+                : this.setAttribute('aria-expanded', 'true');
+            this.getAttribute('aria-label') == 'open menu'
+                ? this.setAttribute('aria-label', 'close menu')
+                : this.setAttribute('aria-label', 'open menu');
+            body.classList.toggle('mob-menu-opened');
+        });
+
+        for (const link of menuLinks)
+        {
+            link.addEventListener('mouseenter', function ()
+            {
+                body.classList.contains(collapsedClass) &&
+                window.matchMedia('(min-width: 768px)').matches
+                    ? this.setAttribute('title', this.textContent)
+                    : this.removeAttribute('title');
+            });
+        }
+    </script>
 </html>

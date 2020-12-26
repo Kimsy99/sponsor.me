@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.sql.*;
 
 
-@WebServlet("/AdminProjectDeleteServlet")
-public class AdminProjectDeleteServlet extends HttpServlet
+@WebServlet("/AdminDeleteProjectServlet")
+public class AdminDeleteProjectServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {

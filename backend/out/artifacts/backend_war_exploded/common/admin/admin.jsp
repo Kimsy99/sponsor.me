@@ -163,8 +163,6 @@
             isSameDay = date.get(Calendar.DAY_OF_YEAR) == date2.get(Calendar.DAY_OF_YEAR) &&
                         date.get(Calendar.YEAR) == date2.get(Calendar.YEAR);
 
-            System.out.println(isSameDay);
-
             if(isSameDay)
             {
               newUser = rs_user.getInt("count_user");
@@ -416,7 +414,7 @@
           </a>
         </article>
         <article id="users_trend">
-          <a href="./admin-users.html">
+          <a href="admin-users.jsp">
             <h1>Users</h1>
             <h3>Total users: <%=accumulateUser%></h3>
             <div id="users_chart"></div
