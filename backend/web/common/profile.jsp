@@ -21,76 +21,37 @@
     <link rel="stylesheet" href="../styles/new-project.css" />
     <link rel="stylesheet" href="../styles/profile.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <div class="header">
-      <a href="../index.jsp" class="logo-container">
-        <img class="logo" src="../assets/logo.svg" />
-      </a>
-      <div class="options">
-        <a class="option" href="../common/project.jsp"> Explore </a>
-        <div class="option">
-          <input
-            type="text"
-            class="search-bar"
-            placeholder="Search.."
-            name="search"
-          />
-          <button type="submit" class="search-button">
-            <i class="fa fa-search"></i>
-          </button>
-        </div>
-        <a class="option" href="../common/sign-in-sign-up.jsp"> Sign in </a>
-        <div class="dropdown" onclick="toggleProfile()">
-          <i class="fa fa-user dropbtn" aria-hidden="true"></i>
-          <div class="dropdown-content" id="dropdown-content">
-            <div class="account">
-              Your Account
-              <hr />
-              <a href="./my-projects.jsp">My Projects</a>
-              <a href="">Saved Project</a>
-              <a href="./profile.jsp">Profile</a>
-              <a href="">Settings</a>
-            </div>
-            <br />
-            <div class="create-project">
-              Created Projects
-              <hr />
-              <a>
-                <div class="mini-project-preview">
-                  <img
-                    src="./assets/project-categories-header-image/all.jpg"
-                    alt=""
-                  />
-                  <div class="mini-project-preview-content">
-                    <h5>Title about the project</h5>
-                    <h6>65% funded</h6>
-                  </div>
-                </div>
-              </a>
-               <a href="./common/new-project.jsp" class="add-new-project"> &#43; Add New Project </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <jsp:include page="./header.jsp"/>
   </head>
   <body>
+  <%
+    Connection connection = ConnectionManager.getConnection();
+    Statement stm3 = connection.createStatement();
+    String sql3 = "select count(*) as numberOfBackedProject\n" +
+            "from project as p \n" +
+            "\tleft join backed_project as bp ON p.project_id = bp.project_id \n" +
+            "    left join user ON bp.backer_id = user.user_id \n" +
+            "    left join user as u ON p.creator_id = u.user_id \n" +
+            "where backer_id = " + session.getAttribute("uid");
+    ResultSet rs3 = stm3.executeQuery(sql3);
+    rs3.next();
 
+  %>
     <div class="profile-container">
     <div class="profile-avatar">
       <img src="../assets/homepage-intro-illustration.png" alt="" />
       <h1>Kim Sheng Yong</h1>
-      <p>Backed 1 projects</p>
+      <p>Backed <%=rs3.getInt("numberOfBackedProject")%> projects</p>
     </div>
     <div class="preview-item-container">
       <%
-        Connection connection = ConnectionManager.getConnection();
         Statement stm = connection.createStatement();
         String sql = "select p.project_id as pid, project_name, funding_goal, u.username as creater_name\n" +
                 "from project as p \n" +
                 "\tleft join backed_project as bp ON p.project_id = bp.project_id \n" +
                 "    left join user ON bp.backer_id = user.user_id \n" +
                 "    left join user as u ON p.creator_id = u.user_id \n" +
-                "where backer_id = 3";
+                "where backer_id = " + session.getAttribute("uid");
         ResultSet rs = stm.executeQuery(sql);
         while(rs.next())
         {
@@ -127,35 +88,7 @@
     </div>
   </div>
   </body>
-  <footer>
-    <div class="footer">
-      <div class="footer-item-container">
-        <div class="menu-items">
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Home.svg" />
-            <span>Home</span>
-          </div>
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Projects.svg" />
-            <span>Projects</span>
-          </div>
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Account.svg" />
-            <span>Account</span>
-          </div>
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Help.svg" />
-            <span>Help</span>
-          </div>
-        </div>
-        <div class="description">
-          <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>
-          <p class="copyright">Sponsor.me © 2020</p>
-          <p class="tnc">Terms of Service - Privacy Policy</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <jsp:include page="./footer.jsp"/>
 
   <script>
     filterSelection('all');

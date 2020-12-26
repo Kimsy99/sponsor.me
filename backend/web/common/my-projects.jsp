@@ -1,3 +1,7 @@
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="sponsorme.ConnectionManager" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,132 +17,40 @@
     <link rel="stylesheet" href="../styles/footer.css" />
     <link rel="stylesheet" href="../styles/project.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <div class="header">
-      <a href="../index.jsp" class="logo-container">
-        <img class="logo" src="../assets/logo.svg" />
-      </a>
-      <div class="options">
-        <a class="option" href="../common/project.jsp"> Explore </a>
-        <div class="option">
-          <input
-            type="text"
-            class="search-bar"
-            placeholder="Search.."
-            name="search"
-          />
-          <button type="submit" class="search-button">
-            <i class="fa fa-search"></i>
-          </button>
-        </div>
-        <a class="option" href="../common/sign-in-sign-up.jsp"> Sign in </a>
-        <div class="dropdown" onclick="toggleProfile()">
-          <i class="fa fa-user dropbtn" aria-hidden="true"></i>
-          <div class="dropdown-content" id="dropdown-content">
-            <div class="account">
-              Your Account
-              <hr />
-              <a href="./my-projects.jsp">My Projects</a>
-              <a href="">Saved Project</a>
-              <a href="./profile.jsp">Profile</a>
-              <a href="">Settings</a>
-            </div>
-            <br />
-            <div class="create-project">
-              Created Projects
-              <hr />
-              <a>
-                <div class="mini-project-preview">
-                  <img
-                    src="./assets/project-categories-header-image/all.jpg"
-                    alt=""
-                  />
-                  <div class="mini-project-preview-content">
-                    <h5>Title about the project</h5>
-                    <h6>65% funded</h6>
-                  </div>
-                </div>
-              </a>
-               <a href="./common/new-project.jsp" class="add-new-project"> &#43; Add New Project </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <jsp:include page="./header.jsp"/>
   </head>
   <body >
     <h1 style="padding-left: 80px">All my projects</h1>
-    <div class="preview-item-container" style="margin: 20px;">
-      <a class="project-item" href="./my-project-item.jsp?pid=20">
+    <div class="preview-item-container" style="margin: 20px">
+      <%
+        Connection connection = ConnectionManager.getConnection();
+        Statement stm = connection.createStatement();
+        String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username\n" +
+                "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
+                "left join user as u ON p.creator_id = u.user_id\n" +
+                "where p.creator_id = " +  session.getAttribute("uid") + "\n" +
+                "group by p.project_id";
+        ResultSet rs = stm.executeQuery(sql);
+        while(rs.next())
+        {
+          float percentage = rs.getFloat("amount")/(rs.getFloat("funding_goal"))*100;
+      %>
+      <a class="project-item <%=rs.getString("category")%>" href="./project-item.jsp?pid=<%=rs.getInt("pid")%>">
         <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
         <div class="project-footer">
-          <span class="name"
-            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-            dust</span
-          >
-          <span class="target-fund">Target Fund: 12</span>
-          <span class="funded-percentage">12% funded</span>
-          <span>By Kim Labs</span>
-          <button type="submit">Edit Details</button>
-        </div>
-      </a>
+            <span class="name"
+            ><%=rs.getString("project_name")%></span
+            >
+          <span class="target-fund">Target Fund: MYR <%=rs.getBigDecimal("funding_goal")%></span>
+          <span class="funded-percentage"><%=percentage%>% funded</span>
+          <span>By <%=rs.getString("username")%></span>
+          <button type="submit">Back Project</button>
+        </div></a>
 
-      <a class="project-item" href="./my-project-item.jsp?pid=20">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-        <div class="project-footer">
-          <span class="name"
-            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-            dust</span
-          >
-          <span class="target-fund">Target Fund: 12</span>
-          <span class="funded-percentage">12% funded</span>
-          <span>By Kim Labs</span>
-          <button type="submit">Edit Details</button>
-        </div>
-      </a>
-      <a class="project-item" href="./my-project-item.jsp?pid=20">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-        <div class="project-footer">
-          <span class="name"
-            >Robo Cleaner A9234234: Smart Robot Cleaner with auto sensing
-            dust</span
-          >
-          <span class="target-fund">Target Fund: 12</span>
-          <span class="funded-percentage">12% funded</span>
-          <span>By Kim Labs</span>
-          <button type="submit">Edit Details</button>
-        </div>
-      </a>
+      <%}%>
     </div>
   </body>
-  <footer>
-    <div class="footer">
-      <div class="footer-item-container">
-        <div class="menu-items">
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Home.svg" />
-            <span>Home</span>
-          </div>
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Projects.svg" />
-            <span>Projects</span>
-          </div>
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Account.svg" />
-            <span>Account</span>
-          </div>
-          <div class="menu-item">
-            <img class="icon" src="../assets/footer-image/Help.svg" />
-            <span>Help</span>
-          </div>
-        </div>
-        <div class="description">
-          <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>
-          <p class="copyright">Sponsor.me © 2020</p>
-          <p class="tnc">Terms of Service - Privacy Policy</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <<jsp:include page="./footer.jsp"/>
 
   <script src="../js/script.js"></script>
   <script src="../js/faq-text-field.js"></script>
