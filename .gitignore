@@ -1,6 +1,15 @@
 # Default ignored files
 **/shelf/
 **/.idea/workspace.xml
+
+# Ignore out folder, these files will be generated anyway when you run and build the project
 **/backend/out
 
+# Each should prepare their own ConnectionManager.java
+ConnectionManager.java
+
+# Config files to ignore
+backend.iml
+
+# Ignore MacOS specific .DS_Store files
 .DS_Store
