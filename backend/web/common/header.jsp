@@ -37,7 +37,7 @@
         </div>
         <a class="option" href="${pageContext.request.contextPath}/common/sign-in-sign-up.jsp" <%=!isLoggedIn ? "" : "style=\"display: none\""%>> Sign in </a>
         <div class="dropdown" onclick="toggleProfile()" <%=isLoggedIn ? "" : "style=\"display: none\""%>>
-          <i class="fa fa-user dropbtn" aria-hidden="true"><%=session.getAttribute("username")%></i>
+          <i class="fa fa-user dropbtn" aria-hidden="true"> <%=session.getAttribute("username")%></i>
           <div class="dropdown-content" id="dropdown-content">
             <div class="account">
               Your Account

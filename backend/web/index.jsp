@@ -66,7 +66,7 @@
       ResultSet rs = stm.executeQuery(sql);
       while(rs.next())
       {
-        BigDecimal percentage = rs.getBigDecimal("amount").divide(rs.getBigDecimal("funding_goal"),1, RoundingMode.CEILING);
+        float percentage = rs.getFloat("amount")/(rs.getFloat("funding_goal"))*100;
     %>
     <a class="project-item <%=rs.getString("category")%>" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=rs.getInt("pid")%>">
       <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>

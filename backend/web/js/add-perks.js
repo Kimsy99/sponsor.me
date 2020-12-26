@@ -3,7 +3,7 @@ $('.perks-wrapper').each(function () {
   $('.add-perk', $(this)).click(function (e) {
     console.log('add new field');
     $('.perks-item-template')
-        .clone(true, true)
+        .clone()
         .removeClass('perks-item-template')
         .addClass('perks-item')
         .show()
@@ -11,8 +11,8 @@ $('.perks-wrapper').each(function () {
         .find('input')
         .val('');
   });
-  $('.perks-item .remove-field', $wrapper).click(function () {
-    console.log('remove item');
-    $(this).parent('.perks-item').remove();
+  $('.multi-field .remove-field', $wrapper).click(function () {
+    if ($('.multi-field', $wrapper).length > 1)
+      $(this).parent('.multi-field').remove();
   });
 });

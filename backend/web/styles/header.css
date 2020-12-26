@@ -4,7 +4,9 @@
   --green: #4CAF50;
   --bg-grey: #f5f5f5;
 }
-
+*{
+  font-family: 'Segoe UI';
+}
 body {
   font-family: 'Segoe UI';
   /* padding: 20px 60px; */
