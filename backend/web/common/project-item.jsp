@@ -61,7 +61,7 @@
 
             <span>by <%=rs6.getInt("backerNum")%> backers</span>
             <div class="funding-bar">
-              <div class="funding-bar-color" style="width: clamp(0, <%=percentage%>, 100)%;"></div>
+              <div class="funding-bar-color" style="width: clamp(0%,<%=percentage%>%, 100%);"></div>
             </div>
             <p><%=percentage%>% of MYR <%=rs.getString("funding_goal")%> goal</p>
             <a href="./back-project.jsp"

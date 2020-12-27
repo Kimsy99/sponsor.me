@@ -84,12 +84,12 @@
   <body>
     <div class="new-project-item">
       <h1>New Project</h1>
-      <form action="">
+      <form method="post"  action="NewProjectServlet">
         <label for="pname">Project Name</label>
         <input
           type="text"
           id="pname"
-          name="projectname"
+          name="pname"
           placeholder="Project name.."
           required="true"
         />
@@ -158,15 +158,14 @@
             <div class="multi-field">
               <input
                 type="text"
-                name="stuff[]"
+                name="question"
                 class=""
                 placeholder="Question"
               />
               <textarea
                 rows="10"
                 cols="50"
-                name="comment"
-                form="usrform"
+                name="answer"
                 style="width: 80%"
                 placeholder="Answer"
               ></textarea>
