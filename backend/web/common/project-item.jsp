@@ -185,15 +185,16 @@
               <div class="insert-comment-content">
                 <span class="close">&times;</span>
                 <h3>New Comment</h3>
-                <textarea
-                  rows="10"
-                  cols="50"
-                  name="comment"
-                  form="usrform"
-                  style="font-family: sans-serif; font-size: 1.2em; width: 80%"
-                ></textarea>
-                <br />
-                <input id="submitComment" type="submit" value="Submit" />
+                <form method="post"  action="${pageContext.request.contextPath}/common/CommentServlet">
+                  <textarea
+                    rows="10"
+                    cols="50"
+                    name="comment"
+                    style="font-family: sans-serif; font-size: 1.2em; width: 80%"
+                  ></textarea>
+                  <br />
+                  <input id="submitComment" type="submit" value="Submit" />
+                </form>
               </div>
             </div>
             <div>

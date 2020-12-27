@@ -90,9 +90,8 @@ public class NewProjectServlet extends HttpServlet {
         }catch(Exception ex){
             ex.printStackTrace();
         }
+
+        response.sendRedirect("/common/new-project-options.jsp?uid=" + request.getParameter("uid"));
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }
