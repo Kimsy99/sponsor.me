@@ -64,7 +64,7 @@
               <div class="funding-bar-color" style="width: clamp(0%,<%=percentage%>%, 100%);"></div>
             </div>
             <p><%=percentage%>% of MYR <%=rs.getString("funding_goal")%> goal</p>
-            <a href="./back-project.jsp"
+            <a href="./back-project.jsp?pid=<%=request.getParameter("pid")%>"
               ><button class="back-project-button">Back Project</button></a
             >
           </div>

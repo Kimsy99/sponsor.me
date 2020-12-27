@@ -85,6 +85,7 @@
     <div class="new-project-item">
       <h1>New Project</h1>
       <form method="post" id="new-project-item-form" action="${pageContext.request.contextPath}/common/NewProjectServlet">
+
         <label for="pname">Project Name</label>
         <input
           type="text"
