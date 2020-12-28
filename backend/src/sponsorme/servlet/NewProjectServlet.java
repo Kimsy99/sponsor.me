@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
-@WebServlet("/NewProjectServlet")
+@WebServlet("/new-project-servlet")
 public class NewProjectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pname = request.getParameter("pname");
@@ -53,6 +53,7 @@ public class NewProjectServlet extends HttpServlet {
             stm.setString(6, cur_time);
             stm.setString(7, teamDetails);
             stm.setInt(8, (int)request.getSession().getAttribute("uid"));
+            stm.execute();
         }catch(Exception ex){
             ex.printStackTrace();
         }
@@ -64,6 +65,7 @@ public class NewProjectServlet extends HttpServlet {
             stm.setInt(1, project_id);
             stm.setString(2, stage);
             stm.setString(3, story);
+            stm.execute();
         }catch(Exception ex){
             ex.printStackTrace();
         }
@@ -86,12 +88,13 @@ public class NewProjectServlet extends HttpServlet {
                 stm.setInt(1, project_id);
                 stm.setString(2,question[i]);
                 stm.setString(3,answer[i]);
+                stm.execute();
             }
         }catch(Exception ex){
             ex.printStackTrace();
         }
 
-        response.sendRedirect("/common/new-project-options.jsp?uid=" + request.getParameter("uid"));
+        response.sendRedirect("/backend_war_exploded/common/new-project-options.jsp?uid=" + request.getParameter("uid"));
     }
 
 }

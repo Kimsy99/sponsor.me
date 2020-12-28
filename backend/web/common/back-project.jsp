@@ -36,7 +36,7 @@
             {
           %>
           <li class="pledge-plan">
-            <form action="${pageContext.request.contextPath}/back-project" id="pledge-content">
+            <form action="${pageContext.request.contextPath}/back-project" method="post" id="pledge-content">
               <input type="hidden" name="pid" value="<%=request.getParameter("pid")%>" />
               <input type="hidden" name="perk-id" value="<%=rs.getInt("perk_id")%>" />
               <input type="checkbox" class="pledge-checkbox" value="plan3">
@@ -94,8 +94,8 @@
   
                     </div>
                     <button
-                      id="multiple-reward-continue-button"
-                      name="multiple-reward-continue-button"
+<%--                      id="multiple-reward-continue-button"--%>
+<%--                      name="multiple-reward-continue-button"--%>
                       type="submit"
                       onclick="document.getElementById('pledge-content').submit();"
                     >

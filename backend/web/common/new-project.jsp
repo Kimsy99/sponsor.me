@@ -84,7 +84,7 @@
   <body>
     <div class="new-project-item">
       <h1>New Project</h1>
-      <form method="post" id="new-project-item-form" action="${pageContext.request.contextPath}/common/NewProjectServlet">
+      <form method="post" id="new-project-item-form" action="${pageContext.request.contextPath}/new-project-servlet">
 
         <label for="pname">Project Name</label>
         <input
@@ -185,7 +185,9 @@
           <h3>DFds</h3>
           <p><br /></p>
         </div>
-        <input id="submit" type="submit" value="Next: Add Rewards" onclick="document.getElementById('new-project-item-form').submit();"/>
+        <button type="submit"  onclick="document.getElementById('new-project-item-form').submit();">
+            Next: Add Rewards
+        </button>
       </form>
     </div>
   </body>

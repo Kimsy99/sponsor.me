@@ -185,7 +185,8 @@
               <div class="insert-comment-content">
                 <span class="close">&times;</span>
                 <h3>New Comment</h3>
-                <form method="post"  action="${pageContext.request.contextPath}/common/CommentServlet">
+                <form id="new-comment" method="post"  action="${pageContext.request.contextPath}/comment">
+                    <input type="hidden" name="pid" value="<%=request.getParameter("pid")%>" />
                   <textarea
                     rows="10"
                     cols="50"
@@ -193,7 +194,9 @@
                     style="font-family: sans-serif; font-size: 1.2em; width: 80%"
                   ></textarea>
                   <br />
-                  <input id="submitComment" type="submit" value="Submit" />
+                    <button type="submit" onclick="document.getElementById('new-comment').submit();">
+                        Submit
+                    </button>
                 </form>
               </div>
             </div>
@@ -225,7 +228,7 @@
                         <header class="comment-content-header">
                           <a href="" class="user-link"><%=rs3.getString("username")%></a>
                           -
-                          <span class="pubdate">posted on <%=rs3.getDate("cd")%></span>
+                          <span class="pubdate">posted on <%=rs3.getDate("cd")%> (<%=pcid%>)</span>
                         </header>
                         <p>
                           <%=rs3.getString("comment")%>
@@ -233,6 +236,39 @@
                         <button class="add-reply" onclick="replyPopUp()">
                           Reply
                         </button>
+                        <div id="insert-reply" class="insert-comment">
+                          <!-- insert comments -->
+                          <div class="insert-reply-content">
+                            <form id="reply-comment-form" method="post"  action="${pageContext.request.contextPath}/reply">
+                              <input type="hidden" name="pid" value="<%=request.getParameter("pid")%>" />
+                              <input type="" name="pcid" value="<%=pcid%>" />
+                              <span
+                                      class="close close-reply"
+                                      onclick="closeReply()"
+                              >&times;</span
+                              >
+                              <h3>Reply</h3>
+                              <textarea
+                                      rows="10"
+                                      cols="50"
+                                      name="comment"
+                                      form="usrform"
+                                      style="
+                                  font-family: sans-serif;
+                                  font-size: 1.2em;
+                                  width: 80%;
+                                "
+                              ></textarea>
+                              <br />
+                              <button
+                                      type="submit"
+                                      onclick="document.getElementById('reply-comment-form').submit();"
+                              >
+                                Submit
+                              </button>
+                            </form>
+                          </div>
+                        </div>
                       </div>
                       <ul class="comments-list children">
                         <%
@@ -309,95 +345,9 @@
   </body>
   <jsp:include page="./footer.jsp"/>
 <%--  JavascriptContext.includeLib("../js/project-item.js", FacesContext.getCurrentInstance());--%>
-  <script type="text/javascript" language="JavaScript">
-    document.getElementById('campaign').click();
-    function openCity(event, sectionName) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName('tab-content');
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = 'none';
-      }
-      tablinks = document.getElementsByClassName('tablinks');
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(' active', '');
-      }
-      document.getElementById(sectionName).style.display = 'block';
-      event.currentTarget.className += ' active';
-    }
-
-    //accordion
-    var acc = document.getElementsByClassName('accordion');
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener('click', function () {
-        this.classList.toggle('active');
-        var panel = this.nextElementSibling;
-        if (panel.style.display === 'block') {
-          panel.style.display = 'none';
-        } else {
-          panel.style.display = 'block';
-        }
-      });
-    }
-
-    //comment box
-    let commentBox = document.getElementById('insert-comment');
-    let addCommentBtn = document.getElementById('add-comment');
-    let closeBtn = document.getElementsByClassName('close')[0];
-    let submitComment = document.getElementById('submitComment');
-
-    addCommentBtn.onclick = function () {
-      commentBox.style.display = 'block';
-    };
-    closeBtn.onclick = function () {
-      console.log('closebtn triggered');
-      commentBox.style.display = 'none';
-    };
-    submitComment.onclick = function () {
-      console.log('closebtn triggered');
-      commentBox.style.display = 'none';
-    };
-    //click outside windows to close it
-    window.onclick = function (event) {
-      if (event.target == commentBox) {
-        commentBox.style.display = 'none';
-      }
-    };
-    function replyPopUp() {
-      commentBox.style.display = 'block';
-    }
-
-  </script>
+  <script src="../js/project-item.js"></script>
   <script>
     document.getElementById('defaultOpen').click();
   </script>
-  <script type="text/javascript"  language="JavaScript">
-    let dropdownContent = document.getElementById('dropdown-content');
-    let dropdown = document.getElementsByClassName('dropbtn')[0];
-
-    window.onclick = function (event) {
-      if (
-              event.target !== dropdownContent &&
-              event.target !== dropdown &&
-              dropdownContent.style.display === 'block'
-      ) {
-        console.log('close');
-        dropdownContent.style.display = 'none';
-        dropdown.style.backgroundColor = '#f1f1f1';
-      }
-    };
-    function toggleProfile() {
-      console.log('pressed');
-      if (document.getElementById('dropdown-content').style.display != 'block') {
-        document.getElementById('dropdown-content').style.display = 'block';
-        document.getElementsByClassName('dropdown')[0].style.backgroundColor =
-                '#FF8A65';
-      } else {
-        document.getElementById('dropdown-content').style.display = 'none';
-        document.getElementsByClassName('dropdown')[0].style.backgroundColor =
-                '#f1f1f1';
-      }
-    }
-  </script>
+  <script src="../js/toggleProfile.js"></script>
 </html>

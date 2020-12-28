@@ -280,17 +280,28 @@
             <div id="insert-comment" class="insert-comment">
               <!-- insert comments -->
               <div class="insert-comment-content">
-                <span class="close">&times;</span>
-                <h3>New Comment</h3>
-                <textarea
-                  rows="10"
-                  cols="50"
-                  name="comment"
-                  form="usrform"
-                  style="font-family: sans-serif; font-size: 1.2em; width: 80%"
-                ></textarea>
-                <br />
-                <input id="submitComment" type="submit" value="Submit" />
+                <form action="">
+                  <span class="close">&times;</span>
+                  <h3>New Comment</h3>
+                  <textarea
+                    rows="10"
+                    cols="50"
+                    name="comment"
+                    form="usrform"
+                    style="
+                      font-family: sans-serif;
+                      font-size: 1.2em;
+                      width: 80%;
+                    "
+                  ></textarea>
+                  <br />
+                  <button
+                    type="submit"
+                    onclick="document.getElementById('new-comment').submit();"
+                  >
+                    Submit
+                  </button>
+                </form>
               </div>
             </div>
             <div>
@@ -322,6 +333,37 @@
                         <button class="add-reply" onclick="replyPopUp()">
                           Reply
                         </button>
+                        <div id="insert-reply" class="insert-comment">
+                          <!-- insert comments -->
+                          <div class="insert-reply-content">
+                            <form action="">
+                              <span
+                                class="close close-reply"
+                                onclick="closeReply()"
+                                >&times;</span
+                              >
+                              <h3>Reply</h3>
+                              <textarea
+                                rows="10"
+                                cols="50"
+                                name="comment"
+                                form="usrform"
+                                style="
+                                  font-family: sans-serif;
+                                  font-size: 1.2em;
+                                  width: 80%;
+                                "
+                              ></textarea>
+                              <br />
+                              <button
+                                type="submit"
+                                onclick="document.getElementById('new-comment').submit();"
+                              >
+                                Submit
+                              </button>
+                            </form>
+                          </div>
+                        </div>
                       </div>
                       <ul class="comments-list children">
                         <li class="comment">

@@ -63,7 +63,9 @@ for (i = 0; i < acc.length; i++) {
 let commentBox = document.getElementById('insert-comment');
 let addCommentBtn = document.getElementById('add-comment');
 let closeBtn = document.getElementsByClassName('close')[0];
-let submitComment = document.getElementById('submitComment');
+
+let replyBox = document.getElementById('insert-reply');
+let closeBtnReply = document.getElementsByClassName('close-reply')[0];
 
 addCommentBtn.onclick = function () {
   commentBox.style.display = 'block';
@@ -72,16 +74,22 @@ closeBtn.onclick = function () {
   console.log('closebtn triggered');
   commentBox.style.display = 'none';
 };
-submitComment.onclick = function () {
-  console.log('closebtn triggered');
-  commentBox.style.display = 'none';
-};
+
 //click outside windows to close it
 window.onclick = function (event) {
   if (event.target == commentBox) {
     commentBox.style.display = 'none';
+    // replyBox.style.display = 'none';
   }
 };
+
 function replyPopUp() {
-  commentBox.style.display = 'block';
+  replyBox.style.display = 'block';
 }
+function closeReply() {
+  replyBox.style.display = 'none';
+}
+// closeBtnReply.onclick = function () {
+//   console.log('closebtn triggered');
+//   replyBox.style.display = 'none';
+// };
