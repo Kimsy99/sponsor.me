@@ -17,6 +17,8 @@ import sponsorme.model.User;
  */
 public class UserStore extends DataStore<User>
 {
+	private static UserStore instance;
+	
 	/**
 	 * Retrieves a user.
 	 *
@@ -59,5 +61,12 @@ public class UserStore extends DataStore<User>
 	{
 		//		userPasswordHashMap.put(user.username, user.passwordHash);
 		//		userSaltMap.put(user.username, MathHelper.byteArrayToHexString(user.salt));
+	}
+	
+	public static UserStore getInstance()
+	{
+		if (instance == null)
+			instance = new UserStore();
+		return instance;
 	}
 }

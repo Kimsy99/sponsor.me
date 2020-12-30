@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import sponsorme.UserManager;
 import sponsorme.model.User;
+import sponsorme.store.UserStore;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet
@@ -27,8 +27,11 @@ public class LoginServlet extends HttpServlet
 		
 		try
 		{
-			User user = UserManager.getInstance().getUser(username);
-			boolean validated = UserManager.getInstance().validateUser(user, password);
+			boolean validated = false;
+			User user = UserStore.getInstance().get(username);
+			if (user != null && user.verifyPassword(password))
+				validated = true;
+			
 			if (validated)
 			{
 				session.setAttribute("username", username);
@@ -43,11 +46,6 @@ public class LoginServlet extends HttpServlet
 		}
 		catch (SQLException e)
 		{
-			if (UserManager.NO_SUCH_USER.equals(e.getMessage())) // The user does not exist
-			{
-				request.setAttribute("error_message", "Username or password is incorrect");
-				request.getRequestDispatcher("/common/sign-in-sign-up.jsp").forward(request, response);
-			}
 			e.printStackTrace();
 		}
 	}

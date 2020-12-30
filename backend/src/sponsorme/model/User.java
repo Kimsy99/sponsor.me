@@ -29,4 +29,9 @@ public class User
 		this.profilePictureName = profilePictureName;
 		this.registrationDate = registrationDate;
 	}
+	
+	public boolean verifyPassword(String password)
+	{
+		return Utils.hashPassword(password, salt).equals(passwordHash);
+	}
 }
