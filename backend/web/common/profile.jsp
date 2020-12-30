@@ -27,9 +27,13 @@
   <%
     Connection connection = ConnectionManager.getConnection();
     Statement stm3 = connection.createStatement();
-    String sql3 = "select count(*) as numberOfBackedProject, user.username as username\n" +
-            "from backed_project as bp left join user ON bp.backer_id = user.user_id \n" +
-            "where backer_id =" + session.getAttribute("uid");
+//    String sql3 = "select count(*) as numberOfBackedProject, user.username as username\n" +
+//            "from backed_project as bp left join user ON bp.backer_id = user.user_id \n" +
+//            "where backer_id =" + session.getAttribute("uid");
+    String sql3 = "select count(*) as numberOfBackedProject, u.username as username\n" +
+            "from project as p \n" +
+            "left join user as u ON p.creator_id = u.user_id \n"+
+            "where p.creator_id = " +  session.getAttribute("uid");
     ResultSet rs3 = stm3.executeQuery(sql3);
     rs3.next();
 
@@ -40,49 +44,33 @@
       <h1><%=rs3.getString("username")%></h1>
       <p>Backed <%=rs3.getInt("numberOfBackedProject")%> projects</p>
     </div>
-    <div class="preview-item-container">
-      <%
-        Statement stm = connection.createStatement();
-        String sql = "select p.project_id as pid, project_name, funding_goal, u.username as creater_name\n" +
-                "from project as p \n" +
-                "\tleft join backed_project as bp ON p.project_id = bp.project_id \n" +
-                "    left join user ON bp.backer_id = user.user_id \n" +
-                "    left join user as u ON p.creator_id = u.user_id \n" +
-                "where backer_id = " + session.getAttribute("uid");
-        ResultSet rs = stm.executeQuery(sql);
-        while(rs.next())
-        {
-            BigDecimal fundingGoal = rs.getBigDecimal("funding_goal");
-//            int pid = rs.getInt("pid");
-//          BigDecimal percentage = rs.getBigDecimal("amount").divide(rs.getBigDecimal("funding_goal"),1, RoundingMode.CEILING);
-      %>
-      <a class="project-item">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
-        <div class="project-footer">
-          <span class="name"
+      <div class="preview-item-container" style="margin: 20px">
+        <%
+          Statement stm = connection.createStatement();
+          String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username\n" +
+                  "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
+                  "left join user as u ON p.creator_id = u.user_id\n" +
+                  "where p.creator_id = " +  session.getAttribute("uid") + "\n" +
+                  "group by p.project_id";
+          ResultSet rs = stm.executeQuery(sql);
+          while(rs.next())
+          {
+            float percentage = rs.getFloat("amount")/(rs.getFloat("funding_goal"))*100;
+        %>
+        <a class="project-item <%=rs.getString("category")%>" href="./project-item.jsp?pid=<%=rs.getInt("pid")%>">
+          <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
+          <div class="project-footer">
+            <span class="name"
             ><%=rs.getString("project_name")%></span
-          >
-          <span class="target-fund">Target Fund: <%=fundingGoal%></span>
-          <%
-            Statement stm2 = connection.createStatement();
-            String sql2 = "select SUM(backed_amount) as amount\n" +
-                    "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
-                    "left join user as u ON p.creator_id = u.user_id\n" +
-                    "where p.project_id = " + rs.getInt("pid") +"\n" +
-                    "group by p.project_id\n";
-            ResultSet rs2 = stm2.executeQuery(sql2);
-            rs2.next();
-            BigDecimal percentage = rs2.getBigDecimal("amount").divide(fundingGoal,1, RoundingMode.CEILING);
-          %>
-          <span class="funded-percentage"><%=percentage%>% funded</span>
-          <span>By <%=rs.getString("creater_name")%></span>
-          <button type="submit">View Details</button>
-        </div>
-      </a>
-      <%
-        }
-      %>
-    </div>
+            >
+            <span class="target-fund">Target Fund: MYR <%=rs.getBigDecimal("funding_goal")%></span>
+            <span class="funded-percentage"><%=percentage%>% funded</span>
+            <span>By <%=rs.getString("username")%></span>
+            <button type="submit">Back Project</button>
+          </div></a>
+
+        <%}%>
+      </div>
   </div>
   </body>
   <jsp:include page="./footer.jsp"/>
