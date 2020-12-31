@@ -8,7 +8,7 @@ public class ConnectionManager
 {
 	private static final String URL = "jdbc:mysql://localhost:3306/sponsorme";
 	private static final String USER = "root";
-	private static final String PASSWORD = "sql153 @?3462mrB";
+	private static final String PASSWORD = "root";
 	
 	private static Connection connection;
 	

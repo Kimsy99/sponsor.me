@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <%System.out.println("ning");%>
     <title>Sponsor.me</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,17 +25,19 @@
     <jsp:include page="./header.jsp"/>
 </head>
 <body>
-<%--    <h1 style="padding-left: 80px;">Backed Project</h1>--%>
-<%
-    Connection connection = ConnectionManager.getConnection();
-    Statement stm3 = connection.createStatement();
-    String sql3 = "select count(*) as numberOfBackedProject, user.username as username\n" +
-            "from backed_project as bp left join user ON bp.backer_id = user.user_id \n" +
-            "where backer_id =" + session.getAttribute("uid");
-    ResultSet rs3 = stm3.executeQuery(sql3);
-    rs3.next();
 
-%>
+    <div>
+        <%
+            Connection connection = ConnectionManager.getConnection();
+            Statement stm3 = connection.createStatement();
+            String sql3 = "select count(*) as numberOfBackedProject, user.username as username\n" +
+                    "from backed_project as bp left join user ON bp.backer_id = user.user_id \n" +
+                    "where backer_id =" + session.getAttribute("uid");
+            ResultSet rs3 = stm3.executeQuery(sql3);
+            rs3.next();
+
+        %>
+    </div>
 <div class="profile-container">
     <div class="profile-avatar">
         <h1>Backed Project</h1>
@@ -53,8 +56,8 @@
             while(rs.next())
             {
                 BigDecimal fundingGoal = rs.getBigDecimal("funding_goal");
-//            int pid = rs.getInt("pid");
-//          BigDecimal percentage = rs.getBigDecimal("amount").divide(rs.getBigDecimal("funding_goal"),1, RoundingMode.CEILING);
+                //            int pid = rs.getInt("pid");
+                //          BigDecimal percentage = rs.getBigDecimal("amount").divide(rs.getBigDecimal("funding_goal"),1, RoundingMode.CEILING);
         %>
         <a class="project-item">
             <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>

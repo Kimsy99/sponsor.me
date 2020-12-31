@@ -7,6 +7,7 @@
         <entry key="file://$PROJECT_DIR$/web/common/my-projects.jsp" value="file://$PROJECT_DIR$/web/common" />
         <entry key="file://$PROJECT_DIR$/web/common/new-project.jsp" value="file://$PROJECT_DIR$/web/common" />
         <entry key="file://$PROJECT_DIR$/web/common/project-item.jsp" value="file://$PROJECT_DIR$/web/common" />
+        <entry key="file://$PROJECT_DIR$/web/common/sign-in-sign-up.jsp" value="file://$PROJECT_DIR$/web/common" />
       </map>
     </option>
   </component>

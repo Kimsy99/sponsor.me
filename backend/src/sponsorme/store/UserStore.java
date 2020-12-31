@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import sponsorme.ConnectionManager;
+import sponsorme.Utils;
 import sponsorme.model.User;
 
 /**
@@ -44,7 +45,7 @@ public class UserStore extends DataStore<User>
 					result.getString("password_hash"),
 					result.getString("salt"),
 					result.getString("profile_picture_name"),
-					result.getDate("registration_date"));
+					result.getString("registration_date"));
 			result.close();
 			return user;
 		}
@@ -57,10 +58,21 @@ public class UserStore extends DataStore<User>
 	 * @param user the user to store.
 	 */
 	@Override
-	public void store(User user)
+	public void store(User user) throws SQLException
 	{
-		//		userPasswordHashMap.put(user.username, user.passwordHash);
-		//		userSaltMap.put(user.username, MathHelper.byteArrayToHexString(user.salt));
+		Connection conn = ConnectionManager.getConnection();
+
+		PreparedStatement stm = conn.prepareStatement(
+				"insert into user (username, profile_picture_name, password_hash, email, registration_date, salt) values (?, ?, ?, ?, ?, ?);"
+		);
+		stm.setString(1, user.username);
+		stm.setString(2, user.profilePictureName);
+		stm.setString(3, user.passwordHash);
+		stm.setString(4, user.email);
+		stm.setString(5, user.registrationDate);
+		stm.setString(6, Utils.byteArrayToHexString(user.salt));
+
+		stm.execute();
 	}
 	
 	public static UserStore getInstance()
