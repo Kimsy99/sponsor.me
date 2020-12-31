@@ -83,8 +83,10 @@ window.onclick = function (event) {
   }
 };
 
-function replyPopUp() {
+function replyPopUp(pcid) {
   replyBox.style.display = 'block';
+  console.log(pcid);
+  document.getElementById("pcid").value = pcid;
 }
 function closeReply() {
   replyBox.style.display = 'none';

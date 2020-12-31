@@ -40,7 +40,31 @@
   %>
     <div class="profile-container">
     <div class="profile-avatar">
-      <img src="../assets/homepage-intro-illustration.png" alt="" />
+      <div class="edit-profile-picture">
+        <i class="fa fa-pencil" aria-hidden="true"  onclick="editProfilePic()"></i>
+        <img src="../assets/homepage-intro-illustration.png" alt="" />
+      </div>
+      <div id="insert-profile-picture">
+        <!-- insert comments -->
+        <div class="insert-profile-picture-content">
+          <form id="profile-picture-form" method="post"  action="${pageContext.request.contextPath}/reply">
+            <span
+                    class="close close-reply"
+                    onclick="closeEdit()"
+            >&times;</span
+            >
+            <h3>Reply</h3>
+            <input type="file">
+            <br />
+            <button
+                    type="submit"
+                    onclick="document.getElementById('reply-comment-form').submit();"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
       <h1><%=rs3.getString("username")%></h1>
       <p>Backed <%=rs3.getInt("numberOfBackedProject")%> projects</p>
     </div>
@@ -186,5 +210,7 @@
       }
     }
 
+  </script>
+  <script src="../js/edit-profile-pic.js">
   </script>
 </html>

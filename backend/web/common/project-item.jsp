@@ -233,7 +233,7 @@
                         <p>
                           <%=rs3.getString("comment")%>
                         </p>
-                        <button class="add-reply" onclick="replyPopUp()">
+                        <button class="add-reply" onclick="replyPopUp(<%=pcid%>)">
                           Reply
                         </button>
                         <div id="insert-reply" class="insert-comment">
@@ -241,7 +241,7 @@
                           <div class="insert-reply-content">
                             <form id="reply-comment-form" method="post"  action="${pageContext.request.contextPath}/reply">
                               <input type="hidden" name="pid" value="<%=request.getParameter("pid")%>" />
-                              <input type="" name="pcid" value="<%=pcid%>" />
+                              <input type="hidden" id="pcid" name="pcid" value=""/>
                               <span
                                       class="close close-reply"
                                       onclick="closeReply()"
@@ -252,7 +252,6 @@
                                       rows="10"
                                       cols="50"
                                       name="comment"
-                                      form="usrform"
                                       style="
                                   font-family: sans-serif;
                                   font-size: 1.2em;

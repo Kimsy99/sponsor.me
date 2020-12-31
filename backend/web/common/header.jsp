@@ -24,17 +24,17 @@
       </a>
       <div class="options">
         <a class="option" href="${pageContext.request.contextPath}/common/project.jsp"> Explore </a>
-        <div class="option">
+        <form class="option" method="get" id="search-form" action="${pageContext.request.contextPath}/SearchServlet">
           <input
             type="text"
             class="search-bar"
             placeholder="Search.."
             name="search"
           />
-          <button type="submit" class="search-button">
+          <button type="submit" class="search-button" onclick="document.getElementById('search-form').submit();">
             <i class="fa fa-search"></i>
           </button>
-        </div>
+        </form>
         <a class="option" href="${pageContext.request.contextPath}/common/sign-in-sign-up.jsp" <%=!isLoggedIn ? "" : "style=\"display: none\""%>> Sign in </a>
         <div class="dropdown" onclick="toggleProfile()" <%=isLoggedIn ? "" : "style=\"display: none\""%>>
           <i class="fa fa-user dropbtn" aria-hidden="true"> <%=session.getAttribute("username")%></i>
