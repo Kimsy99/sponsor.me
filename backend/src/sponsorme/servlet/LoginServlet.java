@@ -1,7 +1,6 @@
 package sponsorme.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,28 +24,21 @@ public class LoginServlet extends HttpServlet
 		HttpSession session = request.getSession();
 		System.out.println("Logging in with username=" + username + " password=" + password);
 		
-		try
+		boolean validated = false;
+		User user = UserStore.getInstance().get(username);
+		if (user != null && user.verifyPassword(password))
+			validated = true;
+		
+		if (validated)
 		{
-			boolean validated = false;
-			User user = UserStore.getInstance().get(username);
-			if (user != null && user.verifyPassword(password))
-				validated = true;
-			
-			if (validated)
-			{
-				session.setAttribute("username", username);
-				session.setAttribute("uid", user.id);
-				response.sendRedirect("index.jsp");
-			}
-			else
-			{
-				request.setAttribute("error_message", "Username or password is incorrect");
-				request.getRequestDispatcher("/common/sign-in-sign-up.jsp").forward(request, response);
-			}
+			session.setAttribute("username", username);
+			session.setAttribute("uid", user.id);
+			response.sendRedirect("index.jsp");
 		}
-		catch (SQLException e)
+		else
 		{
-			e.printStackTrace();
+			request.setAttribute("error_message", "Username or password is incorrect");
+			request.getRequestDispatcher("/common/sign-in-sign-up.jsp").forward(request, response);
 		}
 	}
 }

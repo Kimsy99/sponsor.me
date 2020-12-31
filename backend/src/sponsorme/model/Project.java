@@ -1,7 +1,5 @@
 package sponsorme.model;
 
-import java.sql.Date;
-
 public class Project
 {
 	public final int projectId;
@@ -10,10 +8,10 @@ public class Project
 	public final String smallDescription;
 	public final Category category;
 	public final int creatorId;
-	public final Date date;
+	public final String date;
 	public final String team;
 	
-	public Project(int projectId, String projectName, int fundingGoal, String smallDescription, Category category, int creatorId, Date date, String team)
+	public Project(int projectId, String projectName, int fundingGoal, String smallDescription, Category category, int creatorId, String date, String team)
 	{
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -23,6 +21,11 @@ public class Project
 		this.creatorId = creatorId;
 		this.date = date;
 		this.team = team;
+	}
+	
+	public String getProjectName()
+	{
+		return projectName;
 	}
 	
 	public enum Category

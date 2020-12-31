@@ -8,10 +8,10 @@ class MultiInput extends HTMLElement {
     multi-input input::-webkit-calendar-picker-indicator {
       display: none;
     }
-    /* NB use of pointer-events to only allow events from the × icon */
+    /* NB use of pointer-events to only allow events from the multiplication icon */
     multi-input div.item::after {
       color: black;
-      content: '×';
+      content: '\\0000D7';
       cursor: pointer;
       font-size: 18px;
       pointer-events: auto;

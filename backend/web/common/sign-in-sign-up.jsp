@@ -9,9 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/footer.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/sign-in-sign-up.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
@@ -39,7 +37,7 @@
               <!-- <label class="form-input-label">Password</label> -->
             </div>
             <div class="buttons">
-              <button type="submit" onclick="document.getElementById('sign-in-form').submit();">Sign In</button>
+              <button type="submit">Sign In</button>
             </div>
           </form>
           <p style="color: red">${error_message}</p>

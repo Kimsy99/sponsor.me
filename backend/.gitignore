@@ -113,3 +113,4 @@ target/
 
 .DS_Store
 misc.xml
+/.idea/jsLibraryMappings.xml

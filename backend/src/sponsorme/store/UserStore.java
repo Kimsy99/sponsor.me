@@ -26,27 +26,32 @@ public class UserStore extends DataStore<User>
 	 * @return Retrieved user from the database.
 	 */
 	@Override
-	public User get(String username) throws SQLException
+	public User get(String username)
 	{
 		Connection connection = ConnectionManager.getConnection();
+		String sql = "SELECT * FROM sponsorme.user WHERE username = ? ;";
 		
-		PreparedStatement statement = connection.prepareStatement("SELECT * FROM sponsorme.user WHERE username = ? ;");
-		statement.setString(1, username);
-		
-		ResultSet result = statement.executeQuery();
-		
-		if (result.next())
+		try (PreparedStatement statement = connection.prepareStatement(sql))
 		{
-			User user = new User(
-					result.getInt("user_id"),
-					result.getString("username"),
-					result.getString("email"),
-					result.getString("password_hash"),
-					result.getString("salt"),
-					result.getString("profile_picture_name"),
-					result.getDate("registration_date"));
-			result.close();
-			return user;
+			statement.setString(1, username);
+			try (ResultSet result = statement.executeQuery())
+			{
+				if (result.next())
+				{
+					return new User(
+							result.getInt("user_id"),
+							result.getString("username"),
+							result.getString("email"),
+							result.getString("password_hash"),
+							result.getString("salt"),
+							result.getString("profile_picture_name"),
+							result.getString("registration_date"));
+				}
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
 		}
 		return null;
 	}

@@ -33,7 +33,6 @@
             "where backer_id =" + session.getAttribute("uid");
     ResultSet rs3 = stm3.executeQuery(sql3);
     rs3.next();
-
 %>
 <div class="profile-container">
     <div class="profile-avatar">

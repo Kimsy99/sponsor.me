@@ -1,36 +1,40 @@
+<%@ page import="sponsorme.model.Project" %>
+<%@ page import="sponsorme.model.Campaign" %>
+<%@ page import="sponsorme.model.ProjectPicture" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Sponsor.me</title>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link
       rel="stylesheet"
       href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
       integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/preview-item.css" />
-    <link rel="stylesheet" href="../styles/footer.css" />
-    <link rel="stylesheet" href="../styles/project.css" />
-    <link rel="stylesheet" href="../styles/new-project.css" />
-    <link rel="stylesheet" href="../styles/new-project-options.css" />
-    <link
-      href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/project.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/new-project.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/new-project-options.css" />
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <jsp:include page="./header.jsp"/>
+    <jsp:include page="header.jsp"/>
   </head>
   <body>
+    <%
+      Project project = (Project)session.getAttribute("project");
+      Campaign campaign = (Campaign)session.getAttribute("campaign");
+      ProjectPicture projectPicture = (ProjectPicture)session.getAttribute("project_picture");
+
+      System.out.println(project.projectId + ", " + project.projectName);
+      System.out.println(campaign.projectId + ", " + campaign.projectStatus);
+      System.out.println(projectPicture.projectId + ", " + projectPicture.pictureName);
+    %>
     <div class="new-project-item">
       <h1>Add Reward Item</h1>
-      <form action="">
+      <form method="post" action="${pageContext.request.contextPath}/new-project-perks">
         <div class="reward-wrapper">
         <!--faqs-->
           <div class="reward-items">
@@ -79,7 +83,7 @@
                     <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
-                <button type="button" class="add-field add-option"><i class="fa fa-plus" aria-hidden="true"></i></button><br /><br />
+                <button type="button" class="add-field add-option"><i class="fa fa-plus" aria-hidden="true"></i></button><br/><br/>
               </div>
             </div>
             <div class="reward-item">
@@ -117,21 +121,21 @@
                     <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
-                <button type="button" class="add-field add-option"><i class="fa fa-plus" aria-hidden="true"></i></button><br /><br />
+                <button type="button" class="add-field add-option"><i class="fa fa-plus" aria-hidden="true"></i></button><br/><br/>
               </div>
             </div>
           </div>
-          <button type="button" class="add-item">Add Reward Item</button><br /><br />
+          <button type="button" class="add-item">Add Reward Item</button><br/><br/>
         </div>
         
-        <input id="submit" type="submit" value="Next: Add Perks" />
+        <input id="submit" type="submit" value="Next: Add Perks"/>
       </form>
     </div>
   </body>
-  <jsp:include page="./footer.jsp"/>
+  <jsp:include page="footer.jsp"/>
 
-  <script src="../js/script.js"></script>
-  <!-- <script src="../js/faq-text-field.js"></script> -->
-  <script src="../js/add-reward-item.js"></script>
-  <script src="../js/toggleProfile.js"></script>
+  <script src="${pageContext.request.contextPath}/js/script.js"></script>
+  <!-- <script src="${pageContext.request.contextPath}/js/faq-text-field.js"></script> -->
+  <script src="${pageContext.request.contextPath}/js/add-reward-item.js"></script>
+  <script src="${pageContext.request.contextPath}/js/toggleProfile.js"></script>
 </html>

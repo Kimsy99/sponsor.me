@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<%--    <title>Sponsor.me</title>--%>
-<%--    <meta charset="UTF-8" />--%>
-<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0" />--%>
-<%--    <link--%>
-<%--      rel="stylesheet"--%>
-<%--      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"--%>
-<%--    />--%>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css" />--%>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css" />--%>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/footer.css" />--%>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/project.css" />--%>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/new-project.css" />--%>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/profile.css" />--%>
-<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css"/>
+    
     <%
       boolean isLoggedIn = session.getAttribute("username") != null;
     %>

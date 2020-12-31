@@ -1,8 +1,6 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.math.BigDecimal" %>
-<%@ page import="java.math.RoundingMode" %>
 <%@ page import="sponsorme.ConnectionManager" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,14 +9,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/intro.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/footer.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/intro.css"/>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
   <jsp:include page="common/header.jsp"/>
-
 </head>
 <body>
 <div class="intro-section">
@@ -87,6 +81,6 @@
 
 <jsp:include page="common/footer.jsp"/>
 
-<script src="${pageContext.request.contextPath}//js/script.js"></script>
-<script src="${pageContext.request.contextPath}//js/toggleProfile.js"></script>
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
+<script src="${pageContext.request.contextPath}/js/toggleProfile.js"></script>
 </html>
