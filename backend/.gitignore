@@ -114,3 +114,6 @@ target/
 .DS_Store
 misc.xml
 /.idea/jsLibraryMappings.xml
+dataSources.xml
+/src/sponsorme/ConnectionManager.java
+misc.xml~origin_signup
