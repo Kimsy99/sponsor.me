@@ -10,5 +10,5 @@ public abstract class DataStore<T>
 {
 	public abstract T get(String key);
 	
-	public abstract void store(T value);
+	public abstract void store(T value) throws SQLException;
 }
