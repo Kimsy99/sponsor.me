@@ -13,7 +13,7 @@ public class User
 	public final String username;
 	public final String email;
 	public final String passwordHash;
-	public final byte[] salt;
+	public final String saltStr;
 	public final String profilePictureName;
 	public final String registrationDate;
 	
@@ -23,13 +23,19 @@ public class User
 		this.username = username;
 		this.email = email;
 		this.passwordHash = passwordHash;
-		salt = Utils.hexStringToByteArray(saltStr);
+		this.saltStr = saltStr;
 		this.profilePictureName = profilePictureName;
 		this.registrationDate = registrationDate;
 	}
 	
+	@Override
+	public String toString()
+	{
+		return username + " (id = " + id + ")";
+	}
+	
 	public boolean verifyPassword(String password)
 	{
-		return Utils.hashPassword(password, salt).equals(passwordHash);
+		return Utils.hashPassword(password, Utils.hexStringToByteArray(saltStr)).equals(passwordHash);
 	}
 }

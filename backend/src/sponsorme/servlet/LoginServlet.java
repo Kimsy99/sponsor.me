@@ -19,10 +19,10 @@ public class LoginServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		response.setContentType("text/html");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String username = request.getParameter("username-sign-in");
+		String password = request.getParameter("password-sign-in");
 		HttpSession session = request.getSession();
-		System.out.println("Logging in with username=" + username + " password=" + password);
+		System.out.println("Logging in with username = " + username + ", password = " + password);
 		
 		boolean validated = false;
 		User user = UserStore.getInstance().get(username);
