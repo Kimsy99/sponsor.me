@@ -86,16 +86,26 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `Backed_amount_check` BEFORE INSERT ON `backed_project` FOR EACH ROW if new.backed_amount < (
-                            select price
-                            from perk
-                            where perk_id = new.perk_id
-                        )
-then set new.backed_amount = (
-                                select price
-                                from perk
-                                where perk_id = new.perk_id
-                            );
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `Backed_amount_check` BEFORE INSERT ON `backed_project` FOR EACH ROW if new.backed_amount < (
+
+                            select price
+
+                            from perk
+
+                            where perk_id = new.perk_id
+
+                        )
+
+then set new.backed_amount = (
+
+                                select price
+
+                                from perk
+
+                                where perk_id = new.perk_id
+
+                            );
+
                             END IF */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -111,16 +121,26 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `Backed_project_insertion_check` BEFORE INSERT ON `backed_project` FOR EACH ROW if new.project_id != (
-                            select project_id
-                            from perk
-                            where perk_id = new.perk_id
-                        )
-then set new.project_id = (
-                                select project_id
-                                from perk
-                                where perk_id = new.perk_id
-                            );
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `Backed_project_insertion_check` BEFORE INSERT ON `backed_project` FOR EACH ROW if new.project_id != (
+
+                            select project_id
+
+                            from perk
+
+                            where perk_id = new.perk_id
+
+                        )
+
+then set new.project_id = (
+
+                                select project_id
+
+                                from perk
+
+                                where perk_id = new.perk_id
+
+                            );
+
 END IF */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -136,16 +156,26 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `Backed_amount_update_check` BEFORE UPDATE ON `backed_project` FOR EACH ROW if new.backed_amount < (
-                            select price
-                            from perk
-                            where perk_id = new.perk_id
-                        )
-then set new.backed_amount = (
-                                select price
-                                from perk
-                                where perk_id = new.perk_id
-                            );
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `Backed_amount_update_check` BEFORE UPDATE ON `backed_project` FOR EACH ROW if new.backed_amount < (
+
+                            select price
+
+                            from perk
+
+                            where perk_id = new.perk_id
+
+                        )
+
+then set new.backed_amount = (
+
+                                select price
+
+                                from perk
+
+                                where perk_id = new.perk_id
+
+                            );
+
                             END IF */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -161,16 +191,26 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `Backed_project_update_check` BEFORE UPDATE ON `backed_project` FOR EACH ROW if new.project_id != (
-                            select project_id
-                            from perk
-                            where perk_id = new.perk_id
-                        )
-then set new.project_id = (
-                                select project_id
-                                from perk
-                                where perk_id = new.perk_id
-                            );
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `Backed_project_update_check` BEFORE UPDATE ON `backed_project` FOR EACH ROW if new.project_id != (
+
+                            select project_id
+
+                            from perk
+
+                            where perk_id = new.perk_id
+
+                        )
+
+then set new.project_id = (
+
+                                select project_id
+
+                                from perk
+
+                                where perk_id = new.perk_id
+
+                            );
+
 END IF */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -294,33 +334,6 @@ INSERT INTO `item` VALUES (127,'MOFT Float',20),(128,'MOFT Keyboard',20),(129,'M
 UNLOCK TABLES;
 
 --
--- Table structure for table `item_option`
---
-
-DROP TABLE IF EXISTS `item_option`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `item_option` (
-  `option_id` int NOT NULL AUTO_INCREMENT,
-  `item_id` int NOT NULL,
-  `option_provided` tinytext NOT NULL,
-  PRIMARY KEY (`option_id`),
-  KEY `item_id` (`item_id`),
-  CONSTRAINT `item_option_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `item_option`
---
-
-LOCK TABLES `item_option` WRITE;
-/*!40000 ALTER TABLE `item_option` DISABLE KEYS */;
-INSERT INTO `item_option` VALUES (1,127,'MOFT Float 11\"'),(2,127,'MOFT Float 12.9\"'),(3,128,'US layout'),(4,128,'British layout');
-/*!40000 ALTER TABLE `item_option` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `perk`
 --
 
@@ -361,7 +374,7 @@ CREATE TABLE `project` (
   `project_name` varchar(100) DEFAULT NULL,
   `funding_goal` decimal(10,2) NOT NULL,
   `small_description` text,
-  `category` enum('tech','design','film','art','publish','food','game') NOT NULL,
+  `category` enum('tech','design','film','art','publish','food','game','other') DEFAULT NULL,
   `creator_id` int NOT NULL,
   `creation_date` date NOT NULL,
   `team` text,
@@ -451,7 +464,7 @@ CREATE TABLE `user` (
   `salt` varchar(512) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -460,7 +473,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'TuanHong','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','tuanhong@sponsorme.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(2,'Kenneth','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','kenneth@sponsorme.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(3,'Kim','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','kim@sponsorme.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(4,'hanmeimei','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','hanmeimei@gmail.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(5,'moft','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','moft@gmail.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(11,'ximena','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','ximena@gmail.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de');
+INSERT INTO `user` VALUES (1,'TuanHong','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','tuanhong@sponsorme.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(2,'Kenneth','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','kenneth@sponsorme.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(3,'Kim','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','kim@sponsorme.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(4,'hanmeimei','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','hanmeimei@gmail.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(5,'moft','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','moft@gmail.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(11,'ximena','default_user_icon','6588928f8a236996bd55cf651486321d1f390b56a6838ed778548e0a9f648be9950c69814dfe03786925921f1f6eea7c67c5383796986f22babf469b616c8e2b','ximena@gmail.com','2020-12-15','6419577fd66a892e271cd3aa2cc99360ccd73281a0f42960292ec544caa514d5b1204664a1d5204992206a34a66de6e9ea7f5c976e2188fdb6d20c00afdb2d1b7af51ef0348da9bbfa6fa811718bf61b59679dac349c05583e017ac49f12d1b77552a4611d58f028b3b30b836929b5661bd4be3fd4c1fb779ddf5c5c3fe06e7a16388b0cf7e41e2c650181d5cc79c769dfe416dc96c6c130cf9fead86794bb0ffa628ec73092f86f12fa2494aa921d306d940b8c33eed5829351854e68764f6b41023329f066ccc6bd2b1548442e1ece52315766e05ccd870a23d601e4dae4d6b8c35daff1a9d2490e2eb6f3557714e134e406adb5ec0001726a9666d6c3de'),(13,'xiaohan','default_user_icon','d9d989a13f81b1f5450dd5148c525a972a0e7b7464b7a955dc7a7319f4bafc1871c929c722c0ad18987e69567fc06be3ea91a0b8dab29313cd67909e1d1fd8e4','xiaohan@xmu.edu.my','2021-01-01','1bc625ebc4d77079aab9208fc6650099c3ba6e566a133363e94d3ab5ede3e79d591bf2fada8a2e2bd0005e99a625cf88fea46b7cfeb4bf451380f7d37cff7907dcadc360d67bb062d43ee3088e1e67e55bd042cdfbe42dc1ecf62c9401cd330f24e2554b57377be1fc4cf1663371d7e42337ea4b9e47a12deb4d066cad45f1ce51c78abd4d3914e39fb4eda79ee188eee610cc5a9813df6650a38824fb6eedce62dfbad5b24814ac53d50eab32299541925600bfb46d57903b4d9f70d7aec97bbadaa5b3d8aa7fbf7bbe5669a714e6d6f4bb65487c4d260214fd01abe461fcee4fc466b547caaf46427fb6900b5d002e2aeec4b9c03fdedb81ed25b1bd7c05');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -473,4 +486,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-23 12:26:13
+-- Dump completed on 2021-01-01 23:05:59
