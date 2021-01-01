@@ -81,8 +81,8 @@ public class SignupServlet extends HttpServlet
 			try
 			{
 				UserStore.getInstance().store(newUser);
+				request.setAttribute("registeredSuccessfully", "true");
 				request.getRequestDispatcher("/common/sign-in-sign-up.jsp").forward(request, response);
-				//response.sendRedirect("./common/sign-in-sign-up.jsp");
 			}
 			catch (Exception e)
 			{
