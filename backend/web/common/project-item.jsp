@@ -8,6 +8,9 @@
 <%@ page import="sponsorme.model.User" %>
 <%@ page import="sponsorme.model.ProjectBackingInfo" %>
 <%@ page import="sponsorme.model.ProjectBackingInfo" %>
+<%@ page import="sponsorme.store.FaqStore" %>
+<%@ page import="sponsorme.model.Faq" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -151,19 +154,18 @@
             <h3>FAQs</h3>
             <div class="questions-list">
               <%
-                Statement stm2 = connection.createStatement();
-                String sql2 = "select * from sponsorme.faq\n" +
-                        "where project_id = " + request.getParameter("pid");
-                ResultSet rs2 = stm2.executeQuery(sql2);
-                while(rs2.next()){
+                ArrayList<Faq> faqs = FaqStore.getInstance().getProjectFaqs(Integer.parseInt(request.getParameter("pid")));
+                
+                for (Faq faq : faqs)
+                {
               %>
               <div class="question">
                 <button class="accordion">
-                  <%=rs2.getString("question")%>
+                  <%=faq.question%>
                 </button>
                 <div class="panel">
                   <p>
-                    <%=rs2.getString("answer")%>
+                    <%=faq.answer%>
                   </p>
                 </div>
               </div>

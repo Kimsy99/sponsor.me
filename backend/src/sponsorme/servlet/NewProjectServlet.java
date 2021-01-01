@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sponsorme.model.Faq;
 import sponsorme.model.Project;
+import sponsorme.store.FaqStore;
 import sponsorme.store.ProjectStore;
 
 @WebServlet("/new-project-options")
@@ -35,12 +37,23 @@ public class NewProjectServlet extends HttpServlet
 		
 		Project project = new Project(projectId, pname, uid, category, fundingGoal, pictureName, pDescription, creationDate, status, story, teamDetails);
 		
-		System.out.println("[NewProjectServlet] Project " + project + " created");
-		request.getSession().setAttribute("project", project);
-		response.sendRedirect("./common/new-project-options.jsp");
 		
+		int questionId = FaqStore.getInstance().getNewId();
 		String[] questions = request.getParameterValues("question");
 		String[] answers = request.getParameterValues("answer");
+		Faq[] faqs = new Faq[questions.length];
+		
+		for (int i = 0; i < questions.length; i++)
+		{
+			System.out.println(questions[i] + " " + answers[i]);
+			faqs[i] = new Faq(questionId, projectId, questions[i], answers[i]);
+		}
+		
+		System.out.println("[NewProjectServlet] Project " + project + " created");
+		request.getSession().setAttribute("project", project);
+		request.getSession().setAttribute("faqs", faqs);
+		response.sendRedirect("./common/new-project-options.jsp");
+		
 //		request.getRequestDispatcher("/common/new-project-options.jsp").forward(request, response);
 		
 		//		request.getRequestDispatcher()

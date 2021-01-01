@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/web/common/admin/admin-projects.jsp" value="file://$PROJECT_DIR$/web/common/admin" />
+        <entry key="file://$PROJECT_DIR$/web/common/admin/admin-users.jsp" value="file://$PROJECT_DIR$/web/common/admin" />
         <entry key="file://$PROJECT_DIR$/web/common/header.jsp" value="file://$PROJECT_DIR$/web/common" />
         <entry key="file://$PROJECT_DIR$/web/common/my-projects.jsp" value="file://$PROJECT_DIR$/web/common" />
         <entry key="file://$PROJECT_DIR$/web/common/new-project.jsp" value="file://$PROJECT_DIR$/web/common" />
