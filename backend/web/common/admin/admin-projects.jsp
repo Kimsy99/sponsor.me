@@ -1,6 +1,9 @@
 <%
     if(session.getAttribute("admin")==null)
+    {
         response.sendRedirect("admin-login.jsp");
+        return;
+    }
 %>
 
 <%@ page import="java.sql.Connection" %>

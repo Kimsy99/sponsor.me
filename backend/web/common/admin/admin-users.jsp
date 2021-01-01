@@ -1,6 +1,9 @@
 <%
     if(session.getAttribute("admin")==null)
+    {
         response.sendRedirect("admin-login.jsp");
+        return;
+    }
 %>
 
 <%@ page import="java.sql.Connection" %>
@@ -8,6 +11,7 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="sponsorme.ConnectionManager" %>
 <%@ page import="sponsorme.model.Admin" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
