@@ -113,7 +113,9 @@
                       <datalist id="speakers">
                         <%
                           for (RewardItem rewardItem : rewardItems)
+                          {
                             out.write("<option value=\"" + rewardItem.itemName + "\"></option>");
+                          }
                         %>
                       </datalist>
                     </multi-input>

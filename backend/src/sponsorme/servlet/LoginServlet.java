@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet
 		String username = request.getParameter("username-sign-in");
 		String password = request.getParameter("password-sign-in");
 		HttpSession session = request.getSession();
-		System.out.println("Logging in with username = " + username + ", password = " + password);
+		System.out.println("[LoginServlet] Logging in with username = " + username + ", password = " + password);
 		
 		boolean validated = false;
 		User user = UserStore.getInstance().get(username);
@@ -34,11 +34,13 @@ public class LoginServlet extends HttpServlet
 			session.setAttribute("username", username);
 			session.setAttribute("uid", user.id);
 			response.sendRedirect("index.jsp");
+			System.out.println("[LoginServlet] " + username + " authorized");
 		}
 		else
 		{
 			request.setAttribute("error_message", "Username or password is incorrect");
 			request.getRequestDispatcher("/common/sign-in-sign-up.jsp").forward(request, response);
+			System.out.println("[LoginServlet] " + username + " invalid login");
 		}
 	}
 }

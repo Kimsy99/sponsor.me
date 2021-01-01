@@ -18,7 +18,7 @@ public class AddRewardItemServlet extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		int projectId = ((Project)request.getSession().getAttribute("project")).projectId;
+		int projectId = ((Project)request.getSession().getAttribute("project")).id;
 		String[] stuff = request.getParameterValues("option-name");
 		int rewardItemId = RewardItemStore.getInstance().getNewId();
 		

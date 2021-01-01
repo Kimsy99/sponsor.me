@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import sponsorme.ConnectionManager;
 import sponsorme.model.Project;
-import sponsorme.model.ProjectInfo;
+import sponsorme.model.ProjectBackingInfo;
 
 public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 {
@@ -18,7 +18,7 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 	@Override
 	public Project get(int projectId)
 	{
-		System.out.println("Retrieving project with project id " + projectId);
+		System.out.println("[ProjectStore] Retrieving project with project id " + projectId);
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT p.project_id, project_name, creator_id, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team\n"
 				+ "FROM sponsorme.project p LEFT JOIN sponsorme.campaign c "
@@ -46,7 +46,7 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 					String team = result.getString("team");
 					
 					Project project = new Project(projectId, projectName, creatorId, category, fundingGoal, pictureName, smallDescription, creationDate, status, story, team);
-					System.out.println("Retrieved project " + projectName);
+					System.out.println("[ProjectStore] Retrieved project " + projectName);
 					return project;
 				}
 			}
@@ -64,9 +64,9 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		return "SELECT max(project_id) AS max_id FROM sponsorme.project;";
 	}
 	
-	public ProjectInfo getProjectInfoFromResult(int projectId)
+	public ProjectBackingInfo getProjectInfoFromResult(int projectId)
 	{
-		System.out.println("Retrieving info for project with id " + projectId);
+		System.out.println("[ProjectStore] Retrieving info for project with id " + projectId);
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT project.project_id, project_name, funding_goal, category, creator_id, u.username, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
 				+ "FROM sponsorme.project LEFT JOIN sponsorme.backed_project "
@@ -80,8 +80,8 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 			try (ResultSet result = statement.executeQuery())
 			{
 				result.next();
-				ProjectInfo info = getProjectInfoFromResult(result);
-				System.out.println("Retrieved info for project " + info.projectName);
+				ProjectBackingInfo info = getProjectInfoFromResult(result);
+				System.out.println("[ProjectStore] Retrieved info for project " + info.projectName);
 				return info;
 			}
 		}
@@ -92,9 +92,9 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		return null;
 	}
 	
-	public ArrayList<ProjectInfo> getTopProjectInfos()
+	public ArrayList<ProjectBackingInfo> getTopProjectInfos()
 	{
-		System.out.println("Retrieving top 10 project infos");
+		System.out.println("[ProjectStore] Retrieving top 10 project infos");
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT project.project_id, project_name, funding_goal, category, creator_id, u.username, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
 				+ "FROM sponsorme.project LEFT JOIN sponsorme.backed_project "
@@ -104,24 +104,24 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 				+ "ORDER BY backer_num DESC "
 				+ "LIMIT 10;";
 		
-		ArrayList<ProjectInfo> projectInfos = new ArrayList<>();
+		ArrayList<ProjectBackingInfo> projectBackingInfos = new ArrayList<>();
 		try (Statement statement = connection.createStatement(); ResultSet result = statement.executeQuery(sql))
 		{
 			while (result.next())
 			{
-				ProjectInfo info = getProjectInfoFromResult(result);
-				System.out.println("Retrieved info for project " + info.projectName);
-				projectInfos.add(info);
+				ProjectBackingInfo info = getProjectInfoFromResult(result);
+				System.out.println("[ProjectStore] Retrieved info for project " + info.projectName);
+				projectBackingInfos.add(info);
 			}
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-		return projectInfos;
+		return projectBackingInfos;
 	}
 	
-	private ProjectInfo getProjectInfoFromResult(ResultSet result) throws SQLException
+	private ProjectBackingInfo getProjectInfoFromResult(ResultSet result) throws SQLException
 	{
 		int projectId = result.getInt("project_id");
 		String projectName = result.getString("project_name");
@@ -132,7 +132,7 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		int backerNum = result.getInt("backer_num");
 		int backedAmount = result.getInt("backed_amount_sum");
 		
-		ProjectInfo info = new ProjectInfo(projectId, projectName, fundingGoal, creatorId, creatorUsername, category, backerNum, backedAmount);
+		ProjectBackingInfo info = new ProjectBackingInfo(projectId, projectName, fundingGoal, creatorId, creatorUsername, category, backerNum, backedAmount);
 		return info;
 	}
 	

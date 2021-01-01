@@ -1,6 +1,8 @@
 package sponsorme.servlet;
 
-import sponsorme.ConnectionManager;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,11 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
+import sponsorme.ConnectionManager;
 
 @WebServlet("/back-project")
 public class BackProjectServlet extends HttpServlet {
@@ -25,7 +24,7 @@ public class BackProjectServlet extends HttpServlet {
         int perk_id = Integer.parseInt(request.getParameter("perk-id"));
         try{
             Connection connection = ConnectionManager.getConnection();
-            String sql = "insert into backed_project(backer_id,project_id, perk_id, backed_amount) "
+            String sql = "insert into sponsorme.backed_project(backer_id,project_id, perk_id, backed_amount) "
                     + " values(?,?,?,?)";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, uid);

@@ -24,7 +24,7 @@
     <%
       Project project = (Project)session.getAttribute("project");
       
-      System.out.println(project.projectId + ", " + project.projectName);
+      System.out.println(project.id + ", " + project.name);
     %>
     <div class="new-project-item">
       <h1>Add Reward Item</h1>

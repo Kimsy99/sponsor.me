@@ -27,7 +27,7 @@ public class UserStore extends DataStore<User>
 	@Override
 	public User get(int id)
 	{
-		System.out.println("Retrieving user with user id \"" + id + "\"");
+		System.out.println("[UserStore] Retrieving user with user id \"" + id + "\"");
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT * FROM sponsorme.user WHERE user_id = ? ;";
 		
@@ -37,10 +37,10 @@ public class UserStore extends DataStore<User>
 			User user = query(statement);
 			if (user != null)
 			{
-				System.out.println("Retrieved " + user);
+				System.out.println("[UserStore] Retrieved " + user);
 				return user;
 			}
-			System.out.println("User \"" + id + "\" does not exist!");
+			System.out.println("[UserStore] User \"" + id + "\" does not exist!");
 		}
 		catch (SQLException e)
 		{
@@ -56,7 +56,7 @@ public class UserStore extends DataStore<User>
 	 */
 	public User get(String username)
 	{
-		System.out.println("Retrieving user with username \"" + username + "\"");
+		System.out.println("[UserStore] Retrieving user with username \"" + username + "\"");
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT * FROM sponsorme.user WHERE username = ? ;";
 		
@@ -66,10 +66,10 @@ public class UserStore extends DataStore<User>
 			User user = query(statement);
 			if (user != null)
 			{
-				System.out.println("Retrieved " + user);
+				System.out.println("[UserStore] Retrieved " + user);
 				return user;
 			}
-			System.out.println("User \"" + username + "\" does not exist!");
+			System.out.println("[UserStore] User \"" + username + "\" does not exist!");
 		}
 		catch (SQLException e)
 		{
@@ -109,7 +109,7 @@ public class UserStore extends DataStore<User>
 	@Override
 	public void store(User user)
 	{
-		System.out.println("Storing user " + user + " into database...");
+		System.out.println("[UserStore] Storing user " + user + " into database...");
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "INSERT INTO sponsorme.user(username, profile_picture_name, password_hash, email, registration_date, salt) values (?, ?, ?, ?, ?, ?);";
 		
@@ -123,7 +123,7 @@ public class UserStore extends DataStore<User>
 			statement.setString(6, user.saltStr);
 			
 			statement.execute();
-			System.out.println("Successfully stored user " + user);
+			System.out.println("[UserStore] Successfully stored user " + user);
 		}
 		catch (SQLException e)
 		{

@@ -1,17 +1,60 @@
 package sponsorme.store;
 
-import sponsorme.model.Project;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class CommentStore extends DataStore<Project> implements AutoIncrementId
+import sponsorme.ConnectionManager;
+import sponsorme.model.Comment;
+
+public class CommentStore extends DataStore<Comment> implements AutoIncrementId
 {
 	private static CommentStore instance;
 	
-//	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	
 	@Override
-	public Project get(int key)
+	public Comment get(int key)
 	{
 		return null;
+//		String sql = "select comment_id, comment.user_id, comment, parent_comment, comment_date as cd, username, profile_picture_name "
+//				+ "from sponsorme.comment left join sponsorme.user "
+//				+ "on comment.user_id = user.user_id "
+//				+ "where project_id = " + request.getParameter(\"pid\")+\" and parent_comment is null\";"
+	}
+	
+	public void getCommentTree(int projectId)
+	{
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "SELECT c.comment_id, c.project_id, c.user_id, u.username, u.profile_picture_name, c.comment, c.parent_comment, c.comment_date " 
+				+ "FROM sponsorme.comment c LEFT JOIN sponsorme.user u "
+				+ "ON c.user_id = u.user_id "
+				+ "WHERE project_id = ?";
+		
+		ArrayList<ArrayList<Comment>> commentTree = new ArrayList<>();
+		HashMap<Comment, ArrayList<Comment>> commentToGroupMap = new HashMap<>();
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, projectId);
+			try (ResultSet result = statement.executeQuery())
+			{
+				int commentId = result.getInt("comment_id");
+				int userId = result.getInt("user_id");
+				String username = result.getString("username");
+				String profilePictureName = result.getString("profile_picture_name");
+				String commentStr = result.getString("comment");
+				int parentCommentId = result.getInt("parent_comment");
+				String commentDate = result.getString("comment_date");
+				
+				Comment comment = new Comment(commentId, parentCommentId, projectId, userId, username, profilePictureName, commentStr, commentDate);
+				
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -21,7 +64,7 @@ public class CommentStore extends DataStore<Project> implements AutoIncrementId
 	}
 	
 	@Override
-	public void store(Project project)
+	public void store(Comment comment)
 	{
 //		Connection connection = ConnectionManager.getConnection();
 //		PreparedStatement statement = connection.prepareStatement(

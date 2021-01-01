@@ -35,8 +35,12 @@ public class NewProjectServlet extends HttpServlet
 		
 		Project project = new Project(projectId, pname, uid, category, fundingGoal, pictureName, pDescription, creationDate, status, story, teamDetails);
 		
+		System.out.println("[NewProjectServlet] Project " + project + " created");
 		request.getSession().setAttribute("project", project);
 		response.sendRedirect("./common/new-project-options.jsp");
+		
+		String[] questions = request.getParameterValues("question");
+		String[] answers = request.getParameterValues("answer");
 //		request.getRequestDispatcher("/common/new-project-options.jsp").forward(request, response);
 		
 		//		request.getRequestDispatcher()

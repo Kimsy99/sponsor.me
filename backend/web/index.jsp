@@ -1,8 +1,9 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="sponsorme.ConnectionManager" %>
-<%@ page import="sponsorme.model.ProjectInfo" %>
+<%@ page import="sponsorme.model.ProjectBackingInfo" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="sponsorme.store.ProjectStore" %>
+<%@ page import="sponsorme.model.ProjectBackingInfo" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +52,7 @@
   <div class="preview-item-container">
     <%
       Connection connection = ConnectionManager.getConnection();
-      ArrayList<ProjectInfo> topProjects = ProjectStore.getInstance().getTopProjectInfos();
+      ArrayList<ProjectBackingInfo> topProjects = ProjectStore.getInstance().getTopProjectInfos();
       
 //      Statement stm = conn.createStatement();
 //      String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username, count(user_id) as backerNum\n" +
@@ -61,19 +62,19 @@
 //              "order by backerNum desc\n" +
 //              "LIMIT 10; ";
 //      ResultSet rs = stm.executeQuery(sql);
-      for (ProjectInfo projectInfo : topProjects)
+      for (ProjectBackingInfo projectBackingInfo : topProjects)
       {
-        float percentage = (float)projectInfo.backedAmount/projectInfo.fundingGoal*100;
+        float percentage = (float)projectBackingInfo.backedAmount/projectBackingInfo.fundingGoal*100;
     %>
-    <a class="project-item <%=projectInfo.category%>" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=projectInfo.projectId%>">
+    <a class="project-item <%=projectBackingInfo.category%>" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=projectBackingInfo.projectId%>">
       <img src="https://i.imgur.com/zm10H4x.jpg" class="image">
       <div class="project-footer">
             <span class="name"
-            ><%=projectInfo.projectName%></span
+            ><%=projectBackingInfo.projectName%></span
             >
-        <span class="target-fund">Target Fund: MYR <%=projectInfo.getFormattedFundingGoal()%></span>
+        <span class="target-fund">Target Fund: MYR <%=projectBackingInfo.getFormattedFundingGoal()%></span>
         <span class="funded-percentage"><%=percentage%>% funded</span>
-        <span>By <%=projectInfo.creatorUsername%></span>
+        <span>By <%=projectBackingInfo.creatorUsername%></span>
         <button type="submit">Back Project</button>
       </div>
     </a>

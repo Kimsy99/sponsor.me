@@ -1,6 +1,6 @@
 package sponsorme.model;
 
-public class ProjectInfo
+public class ProjectBackingInfo
 {
 	public final int projectId;
 	public final String projectName;
@@ -11,7 +11,7 @@ public class ProjectInfo
 	public final int backerNum;
 	public final int backedAmount;
 	
-	public ProjectInfo(int projectId, String projectName, int fundingGoal, int creatorId, String creatorUsername, Project.Category category, int backerNum, int backedAmount)
+	public ProjectBackingInfo(int projectId, String projectName, int fundingGoal, int creatorId, String creatorUsername, Project.Category category, int backerNum, int backedAmount)
 	{
 		this.projectId = projectId;
 		this.projectName = projectName;

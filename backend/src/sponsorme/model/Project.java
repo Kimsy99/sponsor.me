@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Project implements Serializable
 {
-	public final int projectId;
-	public final String projectName;
+	public final int id;
+	public final String name;
 	public final int creatorId;
 	public final Category category;
 	public final int fundingGoal;
@@ -16,11 +16,11 @@ public class Project implements Serializable
 	public final String story;
 	public final String team;
 	
-	public Project(int projectId, String projectName, int creatorId, Category category, int fundingGoal, String pictureName,
+	public Project(int id, String name, int creatorId, Category category, int fundingGoal, String pictureName,
 			String smallDescription, String creationDate, Status status, String story, String team)
 	{
-		this.projectId = projectId;
-		this.projectName = projectName;
+		this.id = id;
+		this.name = name;
 		this.creatorId = creatorId;
 		this.category = category;
 		this.fundingGoal = fundingGoal;
@@ -32,9 +32,10 @@ public class Project implements Serializable
 		this.team = team;
 	}
 	
-	public String getProjectName()
+	@Override
+	public String toString()
 	{
-		return projectName;
+		return name + " (ID = " + id + ")";
 	}
 	
 	public enum Category

@@ -6,7 +6,8 @@
 <%@ page import="sponsorme.model.Project" %>
 <%@ page import="sponsorme.store.UserStore" %>
 <%@ page import="sponsorme.model.User" %>
-<%@ page import="sponsorme.model.ProjectInfo" %>
+<%@ page import="sponsorme.model.ProjectBackingInfo" %>
+<%@ page import="sponsorme.model.ProjectBackingInfo" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,16 +29,6 @@
       Connection connection = ConnectionManager.getConnection();
       Project project = ProjectStore.getInstance().get(Integer.parseInt(request.getParameter("pid")));
       User creator = UserStore.getInstance().get(project.creatorId);
-      
-//      Statement stm = connection.createStatement();
-//      String sql = "select project.project_id, project_name, funding_goal, username, small_description, category, creation_date, team, username, profile_picture_name,  project_status, story\n" +
-//              "from project left join user\n" +
-//              "ON project.creator_id = user.user_id\n" +
-//              "left join campaign\n" +
-//              "ON project.project_id = campaign.project_id\n" +
-//              "where project.project_id = " + request.getParameter("pid");
-//      ResultSet rs = stm.executeQuery(sql);
-//      rs.next();
     %>
     <div class="project-item">
       <div class="project-item-info">
@@ -49,20 +40,14 @@
           />
         </div>
         <div class="project-item-description-header">
-          <h1><%=project.projectName%></h1>
+          <h1><%=project.name%></h1>
           <p>
             <%=project.smallDescription%>
           </p>
           <h6>Created by <%=creator.username%></h6>
           <div class="funding-details">
             <%
-              ProjectInfo info = ProjectStore.getInstance().getProjectInfoFromResult(project.projectId);
-//              Statement stm6 = connection.createStatement();
-//              String sql6 = "select count(*) as backerNum, sum(backed_amount) as backedAmountSum from backed_project\n" +
-//                      "where project_id = " + request.getParameter("pid");
-//              ResultSet rs6 = stm6.executeQuery(sql6);
-//              rs6.next();
-//              float percentage = rs6.getFloat("backedAmountSum")/rs.getFloat("funding_goal")*100;
+              ProjectBackingInfo info = ProjectStore.getInstance().getProjectInfoFromResult(project.id);
               float percentage = (float)info.backedAmount/info.fundingGoal*100;
             %>
             <h3>MYR <%=info.getFormattedBackedAmount()%></h3>
@@ -72,7 +57,7 @@
               <div class="funding-bar-color" style="<%="width: clamp(0%," + percentage + "%, 100%);"%>"></div>
             </div>
             <p><%=percentage%>% of MYR <%=info.getFormattedFundingGoal()%> goal</p>
-            <a href="./back-project.jsp?pid=<%=project.projectId%>"
+            <a href="./back-project.jsp?pid=<%=project.id%>"
               ><button class="back-project-button">Back Project</button></a
             >
           </div>

@@ -33,7 +33,7 @@ public class User implements Serializable
 	@Override
 	public String toString()
 	{
-		return username + " (id = " + id + ")";
+		return username + " (ID = " + id + ")";
 	}
 	
 	public boolean verifyPassword(String password)
