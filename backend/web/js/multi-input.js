@@ -79,10 +79,21 @@ class MultiInput extends HTMLElement {
     item.classList.add('item');
     item.textContent = value;
     this.insertBefore(item, this._input);
+
+    const itemHide = document.createElement('input');
+    itemHide.value = value;
+    itemHide.type = "hidden";
+    itemHide.name = "reward-item-name"
+    this.insertBefore(itemHide, this._input);
+    const itemCountTemp = document.getElementById("count");
+    const itemCount= (getSiblings(item, itemCountTemp));
+
+    itemCount.value++;
+    console.log(itemCount.value);
     item.onclick = () => {
       this._deleteItem(item);
+      itemHide.remove();
     };
-
     // Remove value from datalist options and from _allowedValues array.
     // Value is added back if an item is deleted (see _deleteItem()).
     if (!this._allowDuplicates) {
@@ -102,6 +113,11 @@ class MultiInput extends HTMLElement {
   _deleteItem(item) {
     const value = item.textContent;
     item.remove();
+    const itemCountTemp = document.getElementById("count");
+    const itemCount= (getSiblings(item, itemCountTemp));
+
+    itemCount.value--;
+    console.log(itemCount.value);
     // If duplicates aren't allowed, value is removed (in _addItem())
     // as a datalist option and from the _allowedValues array.
     // So — need to add it back here.
@@ -156,3 +172,20 @@ class MultiInput extends HTMLElement {
 }
 
 window.customElements.define('multi-input', MultiInput);
+var getSiblings = function (elem, elemTarget) {
+
+  // Setup siblings array and get the first sibling
+  var sibling = elem.parentNode.firstChild;
+  console.log(sibling)
+
+  // Loop through each sibling and push to the array
+  while (sibling) {
+    if (sibling.nodeType === 1 && sibling !== elem && sibling.id == elemTarget.id) {
+      return sibling
+    }
+    sibling = sibling.nextSibling
+  }
+
+  return null;
+
+};
