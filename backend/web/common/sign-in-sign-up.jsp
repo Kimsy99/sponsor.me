@@ -6,8 +6,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
   />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css"/>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/sign-in-sign-up.css"/>
@@ -29,10 +29,10 @@
         </div>
         <div class="group">
           <input
-              name="password-sign-in"
-              class="form-input"
-              type="password"
-              placeholder="Password"
+            name="password-sign-in"
+            class="form-input"
+            type="password"
+            placeholder="Password"
           />
           <!-- <label class="form-input-label">Password</label> -->
         </div>
@@ -55,11 +55,11 @@
       <input type="password" placeholder="Confirm Password" /> -->
         <div class="group">
           <input
-              name="username-sign-up"
-              class="form-input"
-              type="text" placeholder="Username"
-              value="<%=request.getParameter("username-sign-up") == null ? "" : request.getParameter("username-sign-up")%>"
-              required
+            name="username-sign-up"
+            class="form-input"
+            type="text" placeholder="Username"
+            value="<%=request.getParameter("username-sign-up") == null ? "" : request.getParameter("username-sign-up")%>"
+            required
           />
           <%
             if (request.getAttribute("username_taken") != null)
@@ -73,11 +73,11 @@
         </div>
         <div class="group">
           <input
-              name="email"
-              class="form-input"
-              type="email" placeholder="Email"
-              value="<%=request.getParameter("email") == null ? "" : request.getParameter("email")%>"
-              required
+            name="email"
+            class="form-input"
+            type="email" placeholder="Email"
+            value="<%=request.getParameter("email") == null ? "" : request.getParameter("email")%>"
+            required
           />
           <%
             if (request.getAttribute("email_taken") != null)
@@ -92,12 +92,12 @@
         </div>
         <div class="group">
           <input
-              name="password-sign-up"
-              class="form-input"
-              type="password"
-              placeholder="Password"
-              value="<%=request.getAttribute("inconsistent_password") != null || request.getParameter("password-sign-up") == null ? "" : request.getParameter("password-sign-up")%>"
-              required
+            name="password-sign-up"
+            class="form-input"
+            type="password"
+            placeholder="Password"
+            value="<%=request.getAttribute("inconsistent_password") != null || request.getParameter("password-sign-up") == null ? "" : request.getParameter("password-sign-up")%>"
+            required
           />
           <%
             if (request.getAttribute("inconsistent_password") != null)
@@ -111,12 +111,12 @@
         </div>
         <div class="group">
           <input
-              name="confirm-password"
-              class="form-input"
-              type="password"
-              placeholder="Confirm Password"
-              value="<%=request.getAttribute("inconsistent_password") != null || request.getParameter("confirm_password") == null ? "" : request.getParameter("confirm_password")%>"
-              required
+            name="confirm-password"
+            class="form-input"
+            type="password"
+            placeholder="Confirm Password"
+            value="<%=request.getAttribute("inconsistent_password") != null || request.getParameter("confirm_password") == null ? "" : request.getParameter("confirm_password")%>"
+            required
           />
         </div>
         <button type="submit" onclick="document.getElementById('sign-up-form').submit();">Sign Up</button>

@@ -1,7 +1,8 @@
 <%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
 <%@ page import="sponsorme.ConnectionManager" %>
+<%@ page import="sponsorme.model.ProjectInfo" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="sponsorme.store.ProjectStore" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,31 +50,33 @@
   </div>
   <div class="preview-item-container">
     <%
-      Connection conn = ConnectionManager.getConnection();
-      Statement stm = conn.createStatement();
-      String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username, count(user_id) as backerNum\n" +
-              "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
-              "left join user as u ON p.creator_id = u.user_id\n" +
-              "group by p.project_id\n" +
-              "order by backerNum desc\n" +
-              "LIMIT 10; ";
-      ResultSet rs = stm.executeQuery(sql);
-      while(rs.next())
+      Connection connection = ConnectionManager.getConnection();
+      ArrayList<ProjectInfo> topProjects = ProjectStore.getInstance().getTopProjectInfos();
+      
+//      Statement stm = conn.createStatement();
+//      String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username, count(user_id) as backerNum\n" +
+//              "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
+//              "left join user as u ON p.creator_id = u.user_id\n" +
+//              "group by p.project_id\n" +
+//              "order by backerNum desc\n" +
+//              "LIMIT 10; ";
+//      ResultSet rs = stm.executeQuery(sql);
+      for (ProjectInfo projectInfo : topProjects)
       {
-        float percentage = rs.getFloat("amount")/(rs.getFloat("funding_goal"))*100;
+        float percentage = (float)projectInfo.backedAmount/projectInfo.fundingGoal*100;
     %>
-    <a class="project-item <%=rs.getString("category")%>" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=rs.getInt("pid")%>">
-      <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
+    <a class="project-item <%=projectInfo.category%>" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=projectInfo.projectId%>">
+      <img src="https://i.imgur.com/zm10H4x.jpg" class="image">
       <div class="project-footer">
             <span class="name"
-            ><%=rs.getString("project_name")%></span
+            ><%=projectInfo.projectName%></span
             >
-        <span class="target-fund">Target Fund: MYR <%=rs.getBigDecimal("funding_goal")%></span>
+        <span class="target-fund">Target Fund: MYR <%=projectInfo.getFormattedFundingGoal()%></span>
         <span class="funded-percentage"><%=percentage%>% funded</span>
-        <span>By <%=rs.getString("username")%></span>
+        <span>By <%=projectInfo.creatorUsername%></span>
         <button type="submit">Back Project</button>
-      </div></a>
-
+      </div>
+    </a>
     <%}%>
   </div>
 </div>

@@ -2,6 +2,11 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="sponsorme.ConnectionManager" %>
+<%@ page import="sponsorme.store.ProjectStore" %>
+<%@ page import="sponsorme.model.Project" %>
+<%@ page import="sponsorme.store.UserStore" %>
+<%@ page import="sponsorme.model.User" %>
+<%@ page import="sponsorme.model.ProjectInfo" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,59 +17,62 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="stylesheet" href="../styles/header.css" />
-    <!-- <link rel="stylesheet" href="../styles/preview-item.css" /> -->
-    <link rel="stylesheet" href="../styles/footer.css" />
-    <link rel="stylesheet" href="../styles/project.css" />
-    <link rel="stylesheet" href="../styles/project-item.css" />
+    <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css" /> -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/project.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/project-item.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <jsp:include page="./header.jsp"/>
   </head>
   <body>
     <%
       Connection connection = ConnectionManager.getConnection();
-      Statement stm = connection.createStatement();
-      String sql = "select project.project_id, project_name, funding_goal, username, small_description, category, creation_date, team, username, profile_picture_name,  project_status, story\n" +
-              "from project left join user\n" +
-              "ON project.creator_id = user.user_id\n" +
-              "left join campaign\n" +
-              "ON project.project_id = campaign.project_id\n" +
-              "where project.project_id = " + request.getParameter("pid");
-      ResultSet rs = stm.executeQuery(sql);
-      rs.next();
+      Project project = ProjectStore.getInstance().get(Integer.parseInt(request.getParameter("pid")));
+      User creator = UserStore.getInstance().get(project.creatorId);
+      
+//      Statement stm = connection.createStatement();
+//      String sql = "select project.project_id, project_name, funding_goal, username, small_description, category, creation_date, team, username, profile_picture_name,  project_status, story\n" +
+//              "from project left join user\n" +
+//              "ON project.creator_id = user.user_id\n" +
+//              "left join campaign\n" +
+//              "ON project.project_id = campaign.project_id\n" +
+//              "where project.project_id = " + request.getParameter("pid");
+//      ResultSet rs = stm.executeQuery(sql);
+//      rs.next();
     %>
     <div class="project-item">
       <div class="project-item-info">
         <div class="image-slider">
           <img
             class="heading-image"
-            src="../assets/project-moft-image/moftFloatImage 1.png"
+            src="${pageContext.request.contextPath}/assets/project-moft-image/moftFloatImage 1.png"
             alt=""
           />
         </div>
         <div class="project-item-description-header">
-          <h1><%=rs.getString("project_name")%></h1>
+          <h1><%=project.projectName%></h1>
           <p>
-            <%=rs.getString("small_description")%>
+            <%=project.smallDescription%>
           </p>
-          <h6>Created by <%=rs.getString("username")%></h6>
+          <h6>Created by <%=creator.username%></h6>
           <div class="funding-details">
             <%
-              Statement stm6 = connection.createStatement();
-              String sql6 = "select count(*) as backerNum, sum(backed_amount) as backedAmountSum from backed_project\n" +
-                      "where project_id = " + request.getParameter("pid");
-              ResultSet rs6 = stm6.executeQuery(sql6);
-              rs6.next();
-              float percentage = rs6.getFloat("backedAmountSum")/rs.getFloat("funding_goal")*100;
+              ProjectInfo info = ProjectStore.getInstance().getProjectInfoFromResult(project.projectId);
+//              Statement stm6 = connection.createStatement();
+//              String sql6 = "select count(*) as backerNum, sum(backed_amount) as backedAmountSum from backed_project\n" +
+//                      "where project_id = " + request.getParameter("pid");
+//              ResultSet rs6 = stm6.executeQuery(sql6);
+//              rs6.next();
+//              float percentage = rs6.getFloat("backedAmountSum")/rs.getFloat("funding_goal")*100;
+              float percentage = (float)info.backedAmount/info.fundingGoal*100;
             %>
-            <h3>MYR <%=rs6.getInt("backedAmountSum")%></h3>
+            <h3>MYR <%=info.getFormattedBackedAmount()%></h3>
 
-            <span>by <%=rs6.getInt("backerNum")%> backers</span>
+            <span>by <%=info.backerNum%> backers</span>
             <div class="funding-bar">
-              <div class="funding-bar-color" style="width: clamp(0%,<%=percentage%>%, 100%);"></div>
+              <div class="funding-bar-color" style="<%="width: clamp(0%," + percentage + "%, 100%);"%>"></div>
             </div>
-            <p><%=percentage%>% of MYR <%=rs.getString("funding_goal")%> goal</p>
-            <a href="./back-project.jsp?pid=<%=request.getParameter("pid")%>"
+            <p><%=percentage%>% of MYR <%=info.getFormattedFundingGoal()%> goal</p>
+            <a href="./back-project.jsp?pid=<%=project.projectId%>"
               ><button class="back-project-button">Back Project</button></a
             >
           </div>
@@ -92,35 +100,36 @@
           </ul>
         </div>
         <%
-          String concept="", prototype = "", production="", shipping="";
-          String stage = rs.getString("project_status");
-          if(stage != null){
-              switch (stage) {
-                  case "concept":
-                      concept = "-done";
-                      break;
-                  case "prototype":
-                      prototype = "-done";
-                      break;
-                  case "production":
-                      production = "-done";
-                      break;
-                  case "shipping":
-                      shipping = "-done";
-                      break;
-                  default:
-                      break;
-              }
+          String concept = "", prototype = "", production = "", shipping = "";
+          Project.Status stage = project.status;
+          if (stage != null)
+          {
+            switch (stage)
+            {
+              case CONCEPT:
+                concept = "-done";
+                break;
+              case PROTOTYPE:
+                prototype = "-done";
+                break;
+              case PRODUCTION:
+                production = "-done";
+                break;
+              case SHIPPING:
+                shipping = "-done";
+                break;
+              default:
+                break;
+            }
           }
-
         %>
         <div class="details-container">
           <div class="project-item-progress">
-            <!-- <img src="../assets/project-moft-image/progress_bar.svg" alt="" /> -->
+            <!-- <img src="${pageContext.request.contextPath}/assets/project-moft-image/progress_bar.svg" alt="" /> -->
             <div class="project-item-container">
               <img
                 class="progress-item concept"
-                src="../assets/project-moft-image/concept<%=concept%>.svg"
+                src="${pageContext.request.contextPath}/assets/project-moft-image/concept<%=concept%>.svg"
                 alt=""
               />
               <p>Concept</p>
@@ -128,7 +137,7 @@
             <div class="project-item-container">
               <img
                 class="progress-item prototype"
-                src="../assets/project-moft-image/prototype<%=prototype%>.svg"
+                src="${pageContext.request.contextPath}/assets/project-moft-image/prototype<%=prototype%>.svg"
                 alt=""
               />
               <p>Prototype</p>
@@ -136,7 +145,7 @@
             <div class="project-item-container">
               <img
                 class="progress-item production"
-                src="../assets/project-moft-image/production<%=production%>.svg"
+                src="${pageContext.request.contextPath}/assets/project-moft-image/production<%=production%>.svg"
                 alt=""
               />
               <p>Production</p>
@@ -144,21 +153,21 @@
             <div class="project-item-container">
               <img
                 class="progress-item shipping"
-                src="../assets/project-moft-image/shipping<%=shipping%>.svg"
+                src="${pageContext.request.contextPath}/assets/project-moft-image/shipping<%=shipping%>.svg"
                 alt=""
               />
               <p>Shipping</p>
             </div>
           </div>
           <div id="campaign" class="campaign-details tab-content">
-            <%=rs.getString("story")%>
+            <%=project.story%>
           </div>
           <div id="faq" class="faq-details tab-content">
             <h3>FAQs</h3>
             <div class="questions-list">
               <%
                 Statement stm2 = connection.createStatement();
-                String sql2 = "select * from faq\n" +
+                String sql2 = "select * from sponsorme.faq\n" +
                         "where project_id = " + request.getParameter("pid");
                 ResultSet rs2 = stm2.executeQuery(sql2);
                 while(rs2.next()){
@@ -207,7 +216,7 @@
                     <%
                       Statement stm3 = connection.createStatement();
                       String sql3 = "select  comment_id, comment.user_id, comment, parent_comment, comment_date as cd, username, profile_picture_name\n" +
-                              "from comment left join user\n" +
+                              "from sponsorme.comment left join sponsorme.user\n" +
                               "on comment.user_id = user.user_id\n" +
                               "where project_id="+ request.getParameter("pid")+" and parent_comment is null";
                       ResultSet rs3 = stm3.executeQuery(sql3);
@@ -218,7 +227,7 @@
                     <li class="comment">
                       <div class="avatar">
                         <img
-                          src="../assets/project-categories-header-image/all.jpg"
+                          src="${pageContext.request.contextPath}/assets/project-categories-header-image/all.jpg"
                           alt="AvatarPic"
                           width="55"
                           height="55"
@@ -273,7 +282,7 @@
                         <%
                           Statement stm4 = connection.createStatement();
                           String sql4 = "select comment_id, comment.user_id, comment, parent_comment, comment_date as cds, username, profile_picture_name\n" +
-                                  "from comment left join user\n" +
+                                  "from sponsorme.comment left join sponsorme.user\n" +
                                   "on comment.user_id = user.user_id\n" +
                                   "where project_id="+ request.getParameter("pid")+" and parent_comment is not null and parent_comment = " + pcid;
                           ResultSet rs4 = stm4.executeQuery(sql4);
@@ -282,7 +291,7 @@
                         <li class="comment">
                           <div class="avatar">
                             <img
-                              src="../assets/project-categories-header-image/all.jpg"
+                              src="${pageContext.request.contextPath}/assets/project-categories-header-image/all.jpg"
                               alt="AvatarPic"
                               width="55"
                               height="55"
@@ -313,7 +322,7 @@
             </div>
           </div>
           <div id="team" class="tab-content">
-            <%=rs.getString("team")%>
+            <%=project.team%>
           </div>
 
           <div class="perks-items">
@@ -321,7 +330,7 @@
             <%
               Statement stm5 = connection.createStatement();
               String sql5 = "select p.perk_id, title, price, description, count(*) as backerCount\n" +
-                      "from perk as p left join backed_project as bp\n" +
+                      "from sponsorme.perk as p left join sponsorme.backed_project as bp\n" +
                       "on p.perk_id = bp.perk_id and p.project_id = bp.project_id\n" +
                       "where p.project_id = "+ request.getParameter("pid")+"\n" +
                       "group by p.perk_id";
@@ -343,10 +352,10 @@
     </div>
   </body>
   <jsp:include page="./footer.jsp"/>
-<%--  JavascriptContext.includeLib("../js/project-item.js", FacesContext.getCurrentInstance());--%>
-  <script src="../js/project-item.js"></script>
+<%--  JavascriptContext.includeLib("${pageContext.request.contextPath}/js/project-item.js", FacesContext.getCurrentInstance());--%>
+  <script src="${pageContext.request.contextPath}/js/project-item.js"></script>
   <script>
     document.getElementById('defaultOpen').click();
   </script>
-  <script src="../js/toggleProfile.js"></script>
+  <script src="${pageContext.request.contextPath}/js/toggleProfile.js"></script>
 </html>

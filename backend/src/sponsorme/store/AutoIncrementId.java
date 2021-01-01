@@ -15,7 +15,7 @@ public interface AutoIncrementId
 		
 		try (Statement statement = connection.createStatement())
 		{
-			try (ResultSet result = statement.executeQuery(getQueryNewIdSQL()))
+			try (ResultSet result = statement.executeQuery(getNewIdQuery()))
 			{
 				if (result.next())
 					return result.getInt("max_id");
@@ -28,5 +28,5 @@ public interface AutoIncrementId
 		return 0;
 	}
 	
-	String getQueryNewIdSQL();
+	String getNewIdQuery();
 }

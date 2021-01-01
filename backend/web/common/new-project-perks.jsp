@@ -107,6 +107,7 @@
                     <multi-input>
                       <input
                         list="speakers"
+                        name="perks"
                         placeholder="Double click to toggle dropdown"
                       />
                       <datalist id="speakers">
@@ -150,6 +151,7 @@
                     <multi-input>
                       <input
                         list="perks"
+                        name="perks"
                         placeholder="Double click to toggle dropdown"
                       />
                       <datalist id="perks">

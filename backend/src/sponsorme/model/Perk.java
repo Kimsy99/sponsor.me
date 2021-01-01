@@ -1,6 +1,8 @@
 package sponsorme.model;
 
-public class Perk
+import java.io.Serializable;
+
+public class Perk implements Serializable
 {
 	public final int projectId;
 	public final String title;

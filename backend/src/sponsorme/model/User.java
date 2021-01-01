@@ -1,5 +1,7 @@
 package sponsorme.model;
 
+import java.io.Serializable;
+
 import sponsorme.Utils;
 
 /**
@@ -7,7 +9,7 @@ import sponsorme.Utils;
  *
  * @author Kenneth Tan
  */
-public class User
+public class User implements Serializable
 {
 	public final int id;
 	public final String username;

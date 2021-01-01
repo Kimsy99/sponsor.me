@@ -20,12 +20,40 @@ public class UserStore extends DataStore<User>
 	private static UserStore instance;
 	
 	/**
-	 * Retrieves a user.
-	 *
+	 * Retrieves a user by their user id.
+	 * @param id the user id
+	 * @return Retrieved user from the database, or null if the user does not exist
+	 */
+	@Override
+	public User get(int id)
+	{
+		System.out.println("Retrieving user with user id \"" + id + "\"");
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "SELECT * FROM sponsorme.user WHERE user_id = ? ;";
+		
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, id);
+			User user = query(statement);
+			if (user != null)
+			{
+				System.out.println("Retrieved " + user);
+				return user;
+			}
+			System.out.println("User \"" + id + "\" does not exist!");
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Retrieves a user by their username.
 	 * @param username the username of the user.
 	 * @return Retrieved user from the database, or null if the user does not exist.
 	 */
-	@Override
 	public User get(String username)
 	{
 		System.out.println("Retrieving user with username \"" + username + "\"");
@@ -35,22 +63,35 @@ public class UserStore extends DataStore<User>
 		try (PreparedStatement statement = connection.prepareStatement(sql))
 		{
 			statement.setString(1, username);
-			try (ResultSet result = statement.executeQuery())
+			User user = query(statement);
+			if (user != null)
 			{
-				if (result.next())
-				{
-					User user = new User(
-							result.getInt("user_id"),
-							result.getString("username"),
-							result.getString("email"),
-							result.getString("password_hash"),
-							result.getString("salt"),
-							result.getString("profile_picture_name"),
-							result.getString("registration_date"));
-					System.out.println("Retrieved " + user);
-					return user;
-				}
-				System.out.println("User \"" + username + "\" does not exist!");
+				System.out.println("Retrieved " + user);
+				return user;
+			}
+			System.out.println("User \"" + username + "\" does not exist!");
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private User query(PreparedStatement statement)
+	{
+		try (ResultSet result = statement.executeQuery())
+		{
+			if (result.next())
+			{
+				return new User(
+						result.getInt("user_id"),
+						result.getString("username"),
+						result.getString("email"),
+						result.getString("password_hash"),
+						result.getString("salt"),
+						result.getString("profile_picture_name"),
+						result.getString("registration_date"));
 			}
 		}
 		catch (SQLException e)

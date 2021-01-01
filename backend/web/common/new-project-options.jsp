@@ -1,6 +1,4 @@
 <%@ page import="sponsorme.model.Project" %>
-<%@ page import="sponsorme.model.Campaign" %>
-<%@ page import="sponsorme.model.ProjectPicture" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,12 +23,8 @@
   <body>
     <%
       Project project = (Project)session.getAttribute("project");
-      Campaign campaign = (Campaign)session.getAttribute("campaign");
-      ProjectPicture projectPicture = (ProjectPicture)session.getAttribute("project_picture");
-
+      
       System.out.println(project.projectId + ", " + project.projectName);
-      System.out.println(campaign.projectId + ", " + campaign.projectStatus);
-      System.out.println(projectPicture.projectId + ", " + projectPicture.pictureName);
     %>
     <div class="new-project-item">
       <h1>Add Reward Item</h1>

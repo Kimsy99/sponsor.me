@@ -8,7 +8,7 @@ package sponsorme.store;
  */
 public abstract class DataStore<T>
 {
-	public abstract T get(String key);
+	public abstract T get(int key);
 	
 	public abstract void store(T value);
 }

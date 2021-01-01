@@ -7,13 +7,13 @@ public class RewardItemStore extends DataStore<RewardItem> implements AutoIncrem
 	private static RewardItemStore instance;
 	
 	@Override
-	public RewardItem get(String key)
+	public RewardItem get(int key)
 	{
 		return null;
 	}
 	
 	@Override
-	public String getQueryNewIdSQL()
+	public String getNewIdQuery()
 	{
 		return "SELECT max(item_id) AS max_id FROM sponsorme.item;";
 	}

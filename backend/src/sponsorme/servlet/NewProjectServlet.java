@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sponsorme.model.Campaign;
 import sponsorme.model.Project;
-import sponsorme.model.ProjectPicture;
 import sponsorme.store.ProjectStore;
 
 @WebServlet("/new-project-options")
@@ -20,28 +18,24 @@ public class NewProjectServlet extends HttpServlet
 {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		int projectId = ProjectStore.getInstance().getNewId();
 		String pname = request.getParameter("pname");
+		int uid = Integer.parseInt(request.getSession().getAttribute("uid").toString());
+		Project.Category category = Project.Category.valueOf(request.getParameter("category").toUpperCase());
+		int fundingGoal = (int)(Float.parseFloat(request.getParameter("target-amount"))*100);
+		String pictureName = request.getParameter("img");
 		String pDescription = request.getParameter("project-description");
-		String projectImage = request.getParameter("img");
-		int targetAmount = (int)(Float.parseFloat(request.getParameter("target-amount"))*100);
-		String category = request.getParameter("category");
-		String stage = request.getParameter("stage");
+		Project.Status status = Project.Status.valueOf(request.getParameter("stage").toUpperCase());
 		String story = request.getParameter("image-text-box");
 		String teamDetails = request.getParameter("image-text-box2");
 		
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		String date = now.format(formatter);
+		String creationDate = now.format(formatter);
 		
-		int projectId = ProjectStore.getInstance().getNewId();
+		Project project = new Project(projectId, pname, uid, category, fundingGoal, pictureName, pDescription, creationDate, status, story, teamDetails);
 		
-		Campaign campaign = new Campaign(projectId, Campaign.ProjectStatus.valueOf(stage.toUpperCase()), story);
-		Project project = new Project(projectId, pname, targetAmount, pDescription, Project.Category.valueOf(category.toUpperCase()), targetAmount, date, teamDetails);
-		ProjectPicture projectPicture = new ProjectPicture(projectId, projectImage);
-		
-		request.getSession().setAttribute("campaign", campaign);
 		request.getSession().setAttribute("project", project);
-		request.getSession().setAttribute("project_picture", projectPicture);
 		response.sendRedirect("./common/new-project-options.jsp");
 //		request.getRequestDispatcher("/common/new-project-options.jsp").forward(request, response);
 		
