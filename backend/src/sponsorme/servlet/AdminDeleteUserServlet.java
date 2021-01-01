@@ -1,12 +1,16 @@
+package sponsorme.servlet;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+
+import sponsorme.ConnectionManager;
 
 @WebServlet("/AdminDeleteUserServlet")
 public class AdminDeleteUserServlet extends HttpServlet
@@ -24,18 +28,10 @@ public class AdminDeleteUserServlet extends HttpServlet
 
         try
         {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/sponsorme",
-                    "root", "root"
-            );
-            PreparedStatement stm = conn.prepareStatement(
-                    "delete from user where user_id = ?"
-            );
+            Connection connection = ConnectionManager.getConnection();
+            PreparedStatement stm = connection.prepareStatement("delete from sponsorme.user where user_id = ?");
             stm.setString(1, userID);
-
             stm.execute();
-
             response.sendRedirect("./common/admin/admin-users.jsp");
         }
         catch(Exception ex)

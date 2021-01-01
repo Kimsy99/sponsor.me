@@ -1,7 +1,7 @@
 <%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="sponsorme.ConnectionManager" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -252,14 +252,22 @@
             <%
                 try
                 {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    Connection conn = DriverManager.getConnection(
-                            "jdbc:mysql://localhost:3306/sponsorme",
-                            "root", "root"
-                    );
+                    Connection connection = ConnectionManager.getConnection();
 
-                    Statement stm = conn.createStatement();
-                    String sql = "select user.user_id, username, email, p.project_created, project_backed\n" + "from \n" + "\tuser, \n" + "    (\n" + "\tselect creator_id as user_id, count(*) as project_created\n" + "    from project\n" + "    group by creator_id\n" + "\t) as P,\n" + "    (\n" + "\t\tselect backer_id as user_id, count(*) as project_backed\n" + "\t\tfrom backed_project\n" + "\t\tgroup by backer_id\n" + "    ) as b\n" + "where user.user_id = p.user_id and user.user_id = b.user_id\n" + "order by user.user_id asc;";
+                    Statement stm = connection.createStatement();
+                    String sql = "select user.user_id, username, email, p.project_created, project_backed\n"
+                      + "from (sponsorme.user left join "
+                      + "( "
+                      + "    select creator_id as user_id, count(*) as project_created "
+                      + "    from sponsorme.project "
+                      + "    group by creator_id "
+                      + ") as P on user.user_id = P.user_id ) left join "
+                      + "( "
+                      + "    select backer_id as user_id, count(*) as project_backed "
+                      + "    from sponsorme.backed_project "
+                      + "    group by backer_id "
+                      + ") as b on user.user_id = b.user_id "
+                      + "order by user.user_id;";
 
                     ResultSet rs = stm.executeQuery(sql);
 
@@ -270,8 +278,8 @@
                             <td><%=rs.getString("user_id")%></td>
                             <td><%=rs.getString("username")%></td>
                             <td><%=rs.getString("email")%>></td>
-                            <td><%=rs.getString("project_created")%></td>
-                            <td><%=rs.getString("project_backed")%></td>
+                            <td><%=rs.getInt("project_created")%></td>
+                            <td><%=rs.getInt("project_backed")%></td>
                             <td class="delete">
                                 <a href="${pageContext.request.contextPath}/AdminDeleteUserServlet?user_id=<%=rs.getString("user_id")%>">
                                     <i class="fas fa-trash-alt"></i>

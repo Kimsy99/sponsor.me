@@ -4,6 +4,7 @@
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.GregorianCalendar" %>
+<%@ page import="sponsorme.ConnectionManager" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,20 +25,16 @@
     ></script>
 
     <%
-      Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection(
-              "jdbc:mysql://localhost:3306/sponsorme",
-              "root", "root"
-      );
+      Connection connection = ConnectionManager.getConnection();
 
       //query for project
-      Statement stm_project = conn.createStatement();
-      String sql_project = "select category, count(*) as count_project\n" + "from project\n" + "group by category";
+      Statement stm_project = connection.createStatement();
+      String sql_project = "select category, count(*) as count_project\n" + "from sponsorme.project\n" + "group by category";
       ResultSet rs_project = stm_project.executeQuery(sql_project);
 
       //query for user
-      Statement stm_user = conn.createStatement();
-      String sql_user = "select registration_date, count(*) as count_user\n" + "from user\n" + "group by registration_date";
+      Statement stm_user = connection.createStatement();
+      String sql_user = "select registration_date, count(*) as count_user\n" + "from sponsorme.user\n" + "group by registration_date";
       ResultSet rs_user = stm_user.executeQuery(sql_user);
     %>
 

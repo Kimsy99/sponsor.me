@@ -3,6 +3,7 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ page import="sponsorme.ConnectionManager" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -260,16 +261,13 @@
             <%
                 try
                 {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    Connection conn = DriverManager.getConnection(
-                            "jdbc:mysql://localhost:3306/sponsorme",
-                            "root", "root"
-                    );
-
-                    Statement stm = conn.createStatement();
-                    String sql = "select project.project_id, project_name, funding_goal, sum(backed_amount) as current_funding, small_description as description, category, username as creator_name, creation_date\n" +
-                            "from (project left join backed_project on project.project_id = backed_project.project_id) left join user on project.creator_id = user.user_id\n" +
-                            "group by project_id";
+                    Connection connection = ConnectionManager.getConnection();
+                    
+                    Statement stm = connection.createStatement();
+                    String sql = "select project.project_id, project_name, funding_goal, sum(backed_amount) as current_funding, small_description as description, category, username as creator_name, creation_date\n"
+                      + "from (sponsorme.project left join sponsorme.backed_project on project.project_id = backed_project.project_id) "
+                      + "left join sponsorme.user on project.creator_id = user.user_id\n"
+                      + "group by project_id";
                     ResultSet rs = stm.executeQuery(sql);
 
                     float fundingGoal, currentFunding, fundingPercentage;
