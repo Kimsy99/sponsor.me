@@ -9,6 +9,7 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="sponsorme.ConnectionManager" %>
+<%@ page import="sponsorme.model.Admin" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -235,9 +236,8 @@
             </button>
         </form>
         <div class="admin-profile">
-            <span class="greeting">Hello admin</span>
+            <span class="greeting">Hello <%=((Admin)session.getAttribute("admin")).username%></span>
             <div class="notifications">
-                <span class="badge">1</span>
                 <svg>
                     <use xlink:href="#users"></use>
                 </svg>
