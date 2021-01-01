@@ -1,3 +1,8 @@
+<%
+    if(session.getAttribute("admin")==null)
+        response.sendRedirect("admin-login.jsp");
+%>
+
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
