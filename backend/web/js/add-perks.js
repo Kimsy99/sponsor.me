@@ -3,7 +3,7 @@ $('.perks-wrapper').each(function () {
   $('.add-perk', $(this)).click(function (e) {
     console.log('add new field');
     $('.perks-item-template')
-        .clone()
+        .clone(true,true)
         .removeClass('perks-item-template')
         .addClass('perks-item')
         .show()

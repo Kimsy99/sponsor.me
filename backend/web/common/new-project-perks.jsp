@@ -118,6 +118,7 @@
                           }
                         %>
                       </datalist>
+                      <input type="hidden" name="count" id="count" value="0"/>
                     </multi-input>
                   </div>
                 </div>
@@ -162,6 +163,7 @@
                             out.write("<option value=\"" + rewardItem.itemName + "\"></option>");
                         %>
                       </datalist>
+                      <input type="hidden" name="count" id="count" value="0"/>
                     </multi-input>
                   </div>
                 </div>
