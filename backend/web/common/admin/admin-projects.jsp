@@ -293,7 +293,7 @@
             %>
 
             <!-- <a href="../../common/project-item.html"></a> -->
-            <tr onclick="document.location = './admin-project-item.html'">
+            <tr>
                 <td><%=rs.getInt("project_id")%></td>
                 <td><%=rs.getString("project_name")%></td>
                 <td><%=format.format(fundingGoal)%></td>
