@@ -1,6 +1,7 @@
 package sponsorme.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +23,12 @@ public class AddRewardItemServlet extends HttpServlet
 		String[] stuff = request.getParameterValues("option-name");
 		int rewardItemId = RewardItemStore.getInstance().getNewId();
 		
-		RewardItem[] rewardItems = new RewardItem[stuff.length - 1];
+		ArrayList<RewardItem> rewardItems = new ArrayList<>();
 		for (int i = 0; i < stuff.length - 1; i++)
-			rewardItems[i] = new RewardItem(rewardItemId + i, stuff[i + 1], projectId);
+		{
+			if (!stuff[i + 1].isEmpty())
+				rewardItems.add(new RewardItem(rewardItemId + rewardItems.size(), stuff[i + 1], projectId));
+		}
 		
 		request.getSession().setAttribute("reward_items", rewardItems);
 		response.sendRedirect("./common/new-project-perks.jsp");

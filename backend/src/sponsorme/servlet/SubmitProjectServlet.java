@@ -28,7 +28,7 @@ public class SubmitProjectServlet extends HttpServlet
 		Project project = (Project)request.getSession().getAttribute("project");
 		ProjectStore.getInstance().store(project); // Store project in database
 		
-		RewardItem[] rewardItems = (RewardItem[])request.getSession().getAttribute("reward_items");
+		ArrayList<RewardItem> rewardItems = (ArrayList<RewardItem>)request.getSession().getAttribute("reward_items");
 		
 		// Map reward items to their names
 		HashMap<String, RewardItem> nameToRewardItemMap = new HashMap<>();

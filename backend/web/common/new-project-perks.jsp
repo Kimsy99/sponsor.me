@@ -1,4 +1,5 @@
 <%@ page import="sponsorme.model.RewardItem" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -81,7 +82,7 @@
             </div> -->
 
             <%
-              RewardItem[] rewardItems = (RewardItem[])session.getAttribute("reward_items");
+              ArrayList<RewardItem> rewardItems = (ArrayList<RewardItem>)session.getAttribute("reward_items");
             %>
             
             <div class="perks-item-template">
@@ -112,7 +113,7 @@
                   type="text"
                   name="price"
                   placeholder="Price"
-                  min="5"
+                  min="1"
                   pattern="^\d*(\.\d{0,2})?$"
                 />
                 <div class="multi-fields perks-types">
@@ -165,7 +166,7 @@
                   type="number"
                   name="price"
                   placeholder="Price"
-                  min="5"
+                  min="1"
                   pattern="^\d*(\.\d{0,2})?$"
                 />
                 <div class="multi-fields perks-types">

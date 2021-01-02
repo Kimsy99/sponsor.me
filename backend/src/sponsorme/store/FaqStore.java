@@ -68,7 +68,7 @@ public class FaqStore extends DataStore<Faq> implements AutoIncrementId
 			statement.setInt(1, faq.id);
 			statement.setInt(2, faq.projectId);
 			statement.setString(3, faq.question);
-			statement.setString(4, faq.question);
+			statement.setString(4, faq.answer);
 			statement.execute();
 			
 			System.out.println("[FaqStore] Successfully stored faq " + faq);

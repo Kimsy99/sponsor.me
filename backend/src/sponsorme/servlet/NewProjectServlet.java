@@ -53,7 +53,7 @@ public class NewProjectServlet extends HttpServlet
 			String question = questions[i].trim();
 			String answer = answers[i].trim();
 			if (!question.isEmpty() || !answer.isEmpty())
-				faqs.add(new Faq(questionId + i, projectId, question, answer));
+				faqs.add(new Faq(questionId + faqs.size(), projectId, question, answer));
 		}
 		
 		System.out.println("[NewProjectServlet] Project " + project + " created");

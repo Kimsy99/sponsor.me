@@ -74,7 +74,7 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		System.out.println("[ProjectStore] Retrieving info for project with id " + projectId);
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT project.project_id, project_name, funding_goal, category, creator_id, u.username, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
-				+ "FROM sponsorme.project LEFT JOIN sponsorme.backed_project "
+				+ "FROM sponsorme.project INNER JOIN sponsorme.backed_project "
 				+ "ON project.project_id = backed_project.project_id "
 				+ "LEFT JOIN sponsorme.user u ON u.user_id = project.creator_id "
 				+ "WHERE project.project_id = ?";

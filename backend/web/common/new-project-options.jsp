@@ -47,36 +47,8 @@
                       type="text"
                       name="option-name"
                       class=""
-                      placeholder="Question"
+                      placeholder="Reward Item Name"
                     />
-              <div class="multi-field-wrapper option-types-wrapper">
-                <label>Item Option</label>
-                <div class="multi-fields-template " style="display: none">
-                  <div class="multi-field option-type">
-                    
-                    <input
-                      type="text"
-                      name="stuff[]"
-                      class=""
-                      placeholder="Question"
-                    />
-                    <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
-                  </div>
-                </div>
-                <div class="multi-fields option-types">
-                  <div class="multi-field option-type">
-                    
-                    <input
-                      type="text"
-                      name="stuff[]"
-                      class=""
-                      placeholder="Question"
-                    />
-                    <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
-                  </div>
-                </div>
-                <button type="button" class="add-field add-option"><i class="fa fa-plus" aria-hidden="true"></i></button><br/><br/>
-              </div>
             </div>
             <div class="reward-item">
               <label>Reward Item Name</label>
@@ -87,34 +59,6 @@
                       class=""
                       placeholder="Question"
                     />
-              <div class="multi-field-wrapper option-types-wrapper">
-                <label>Item Option</label>
-                <div class="multi-fields-template option-types-template" style="display: none">
-                  <div class="multi-field option-type">
-                    
-                    <input
-                      type="text"
-                      name="stuff[]"
-                      class=""
-                      placeholder="Question"
-                    />
-                    <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
-                  </div>
-                </div>
-                <div class="multi-fields option-types">
-                  <div class="multi-field option-type">
-                    
-                    <input
-                      type="text"
-                      name="stuff[]"
-                      class=""
-                      placeholder="Question"
-                    />
-                    <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
-                  </div>
-                </div>
-                <button type="button" class="add-field add-option"><i class="fa fa-plus" aria-hidden="true"></i></button><br/><br/>
-              </div>
             </div>
           </div>
           <button type="button" class="add-item">Add Reward Item</button><br/><br/>
