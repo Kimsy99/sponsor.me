@@ -286,7 +286,7 @@
                     ResultSet rs = stm.executeQuery();
 
                     float fundingGoal, currentFunding, fundingPercentage;
-                    DecimalFormat format = new DecimalFormat("$#0.00");
+                    DecimalFormat format = new DecimalFormat("#0.00");
 
                     while (rs.next())
                     {
@@ -306,8 +306,8 @@
             <tr>
                 <td><%=rs.getInt("project_id")%></td>
                 <td><%=rs.getString("project_name")%></td>
-                <td><%=format.format(fundingGoal)%></td>
-                <td><%=format.format(currentFunding)%></td>
+                <td>$<%=format.format(fundingGoal)%></td>
+                <td>$<%=format.format(currentFunding)%></td>
                 <td><%=format.format(fundingPercentage)%>%</td>
                 <td><%=rs.getString("description")%></td>
                 <td><%=rs.getString("category")%></td>
