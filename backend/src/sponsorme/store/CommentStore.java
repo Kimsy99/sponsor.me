@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import sponsorme.ConnectionManager;
 import sponsorme.model.Comment;
@@ -24,37 +25,51 @@ public class CommentStore extends DataStore<Comment> implements AutoIncrementId
 //				+ "where project_id = " + request.getParameter(\"pid\")+\" and parent_comment is null\";"
 	}
 	
-	public void getCommentTree(int projectId)
+	public TreeMap<Comment, ArrayList<Comment>> getCommentTree(int projectId)
 	{
+		System.out.println("[CommentStore] Retrieving comments for project " + projectId);
 		Connection connection = ConnectionManager.getConnection();
-		String sql = "SELECT c.comment_id, c.project_id, c.user_id, u.username, u.profile_picture_name, c.comment, c.parent_comment, c.comment_date " 
+		String sql = "SELECT c.comment_id, c.user_id, u.username, u.profile_picture_name, c.comment, c.parent_comment, c.comment_date " 
 				+ "FROM sponsorme.comment c LEFT JOIN sponsorme.user u "
 				+ "ON c.user_id = u.user_id "
-				+ "WHERE project_id = ?";
+				+ "WHERE project_id = ? ";
 		
-		ArrayList<ArrayList<Comment>> commentTree = new ArrayList<>();
-		HashMap<Comment, ArrayList<Comment>> commentToGroupMap = new HashMap<>();
+		HashMap<Integer, Comment> parentCommentMap = new HashMap<>();
+		TreeMap<Comment, ArrayList<Comment>> commentTree = new TreeMap<>();
+		
 		try (PreparedStatement statement = connection.prepareStatement(sql))
 		{
 			statement.setInt(1, projectId);
 			try (ResultSet result = statement.executeQuery())
 			{
-				int commentId = result.getInt("comment_id");
-				int userId = result.getInt("user_id");
-				String username = result.getString("username");
-				String profilePictureName = result.getString("profile_picture_name");
-				String commentStr = result.getString("comment");
-				int parentCommentId = result.getInt("parent_comment");
-				String commentDate = result.getString("comment_date");
-				
-				Comment comment = new Comment(commentId, parentCommentId, projectId, userId, username, profilePictureName, commentStr, commentDate);
-				
+				while (result.next())
+				{
+					int commentId = result.getInt("comment_id");
+					int userId = result.getInt("user_id");
+					String username = result.getString("username");
+					String profilePictureName = result.getString("profile_picture_name");
+					String commentStr = result.getString("comment");
+					int parentCommentId = result.getInt("parent_comment");
+					String commentDate = result.getString("comment_date");
+					
+					Comment comment = new Comment(commentId, parentCommentId, projectId, userId, username,
+							profilePictureName, commentStr, commentDate);
+					if (comment.parentId == 0) // Parent node
+					{
+						parentCommentMap.put(comment.id, comment);
+						commentTree.put(comment, new ArrayList<>());
+					}
+					else
+						commentTree.get(parentCommentMap.get(comment.parentId)).add(comment);
+				}
 			}
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
+		System.out.println("[CommentStore] Retrieved " + commentTree.size() + (commentTree.size() == 1 ? " comment" : " comments") + " for project " + projectId);
+		return commentTree;
 	}
 	
 	@Override
