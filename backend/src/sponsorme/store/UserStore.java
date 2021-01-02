@@ -27,7 +27,7 @@ public class UserStore extends DataStore<User>
 	@Override
 	public User get(int id)
 	{
-		System.out.println("[UserStore] Retrieving user with user id \"" + id + "\"");
+		System.out.println("[UserStore] Retrieving user with user id " + id + "");
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT * FROM sponsorme.user WHERE user_id = ? ;";
 		

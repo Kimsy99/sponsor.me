@@ -21,7 +21,7 @@ public class FaqStore extends DataStore<Faq> implements AutoIncrementId
 	
 	public ArrayList<Faq> getProjectFaqs(int projectId)
 	{
-		System.out.println("[FaqStore] Retrieving faqs with from project with id " + projectId);
+		System.out.println("[FaqStore] Retrieving faqs from project with id " + projectId);
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT * FROM sponsorme.faq WHERE project_id = ?";
 		
@@ -46,6 +46,7 @@ public class FaqStore extends DataStore<Faq> implements AutoIncrementId
 		{
 			e.printStackTrace();
 		}
+		System.out.println("[FaqStore] Retrieved " + faqs.size() + (faqs.size() == 1 ? " faq" : " faqs") + " from project with id " + projectId);
 		return faqs;
 	}
 	

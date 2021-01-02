@@ -17,6 +17,11 @@ public class PerkStore extends DataStore<Perk> implements AutoIncrementId
 		return null;
 	}
 	
+//	public ArrayList<Perk> getPerkForProject(int projectId)
+//	{
+//		
+//	}
+	
 	@Override
 	public String getNewIdQuery()
 	{
