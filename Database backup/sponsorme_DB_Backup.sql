@@ -408,7 +408,7 @@ CREATE TABLE `project_picture` (
   PRIMARY KEY (`picture_id`),
   KEY `project_id` (`project_id`),
   CONSTRAINT `project_picture_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -417,6 +417,7 @@ CREATE TABLE `project_picture` (
 
 LOCK TABLES `project_picture` WRITE;
 /*!40000 ALTER TABLE `project_picture` DISABLE KEYS */;
+INSERT INTO `project_picture` VALUES (1,20,'20_Moft.jpg'),(2,21,'21_monument2.png'),(3,22,'22_ARCO_2.jpg'),(4,23,'23_CartaPrat.jpg'),(5,24,'24_Shinto,jpg'),(6,25,'25_AtlantaFilmFestival.png'),(7,26,'26_Strata_2.jpg'),(8,27,'27_Hatsune.png'),(9,28,'28_Dances.jpg'),(10,29,'29_Jaroslav.jpg'),(11,30,'30_theBook.jpg'),(12,31,'31_theFox.jpg'),(13,32,'32_showBloom.jpg'),(14,33,'33_ChefKatsu.jpg'),(15,34,'34_KimChi.png'),(16,35,'35_Storror.png'),(17,36,'36_HellArchitect.jpg'),(18,37,'37_Alhambra.jpg'),(19,38,'38_steven.jpg');
 /*!40000 ALTER TABLE `project_picture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -486,4 +487,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-01 23:05:59
+-- Dump completed on 2021-01-02 15:31:10
