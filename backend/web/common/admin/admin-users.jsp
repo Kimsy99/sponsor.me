@@ -11,6 +11,7 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="sponsorme.ConnectionManager" %>
 <%@ page import="sponsorme.model.Admin" %>
+<%@ page import="java.sql.PreparedStatement" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -269,8 +270,8 @@
                 {
                     Connection connection = ConnectionManager.getConnection();
 
-                    Statement stm = connection.createStatement();
-                    String sql = "select user.user_id, username, email, p.project_created, project_backed\n"
+                    PreparedStatement stm = connection.prepareStatement(
+                     "select user.user_id, username, email, p.project_created, project_backed\n"
                       + "from (sponsorme.user left join "
                       + "( "
                       + "    select creator_id as user_id, count(*) as project_created "
@@ -282,10 +283,12 @@
                       + "    from sponsorme.backed_project "
                       + "    group by backer_id "
                       + ") as b on user.user_id = b.user_id "
-                      + "where username like '%" + search + "%'\n"
-                      + "order by user.user_id;";
+                      + "where username like ? "
+                      + "order by user.user_id;"
+                    );
+                    stm.setString(1, "%" + search + "%");
 
-                    ResultSet rs = stm.executeQuery(sql);
+                    ResultSet rs = stm.executeQuery();
 
                     while(rs.next())
                     {

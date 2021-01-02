@@ -6,13 +6,10 @@
     }
 %>
 
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="sponsorme.ConnectionManager" %>
 <%@ page import="sponsorme.model.Admin" %>
+<%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -277,13 +274,16 @@
                 {
                     Connection connection = ConnectionManager.getConnection();
                     
-                    Statement stm = connection.createStatement();
-                    String sql = "select project.project_id, project_name, funding_goal, sum(backed_amount) as current_funding, small_description as description, category, username as creator_name, creation_date\n"
+                    PreparedStatement stm = connection.prepareStatement(
+                        "select project.project_id, project_name, funding_goal, sum(backed_amount) as current_funding, small_description as description, category, username as creator_name, creation_date\n"
                       + "from (sponsorme.project left join sponsorme.backed_project on project.project_id = backed_project.project_id) "
                       + "left join sponsorme.user on project.creator_id = user.user_id\n"
-                      + "where project_name like '%" + search + "%'\n"
-                      + "group by project_id";
-                    ResultSet rs = stm.executeQuery(sql);
+                      + "where project_name like ? "
+                      + "group by project_id"
+                    );
+                    stm.setString(1, "%" + search + "%");
+
+                    ResultSet rs = stm.executeQuery();
 
                     float fundingGoal, currentFunding, fundingPercentage;
                     DecimalFormat format = new DecimalFormat("$#0.00");
