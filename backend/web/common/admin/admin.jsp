@@ -394,8 +394,8 @@
 <div class="page-content">
     <div class="search-and-user">
         <form>
-            <input type="search" placeholder="Search Pages..." />
-            <button type="submit" aria-label="submit form">
+            <input type="search" placeholder="Search Pages..." style="display: none;"/>
+            <button type="submit" aria-label="submit form" style="display: none;">
                 <svg aria-hidden="true">
                     <use xlink:href="#search"></use>
                 </svg>
