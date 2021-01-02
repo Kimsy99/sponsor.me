@@ -26,6 +26,7 @@ public class NewProjectServlet extends HttpServlet
 		int projectId = ProjectStore.getInstance().getNewId();
 		String pname = request.getParameter("pname");
 		int uid = Integer.parseInt(request.getSession().getAttribute("uid").toString());
+		String creatorUsername = (String)request.getSession().getAttribute("username");
 		Project.Category category = Project.Category.valueOf(request.getParameter("category").toUpperCase());
 		int fundingGoal = (int)(Float.parseFloat(request.getParameter("target-amount"))*100);
 		String pictureName = request.getParameter("img");
@@ -40,7 +41,7 @@ public class NewProjectServlet extends HttpServlet
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String creationDate = now.format(formatter);
 		
-		Project project = new Project(projectId, pname, uid, category, fundingGoal, picture, pDescription, creationDate, campaign, teamDetails);
+		Project project = new Project(projectId, pname, uid, creatorUsername, category, fundingGoal, picture, pDescription, creationDate, campaign, teamDetails, 0, 0);
 		
 		
 		int questionId = FaqStore.getInstance().getNewId();

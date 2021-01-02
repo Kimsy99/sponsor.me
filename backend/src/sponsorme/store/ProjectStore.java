@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import sponsorme.ConnectionManager;
 import sponsorme.model.Campaign;
 import sponsorme.model.Project;
-import sponsorme.model.ProjectBackingInfo;
 import sponsorme.model.ProjectPicture;
 
 public class ProjectStore extends DataStore<Project> implements AutoIncrementId
@@ -22,11 +21,12 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 	{
 		System.out.println("[ProjectStore] Retrieving project with project id " + projectId);
 		Connection connection = ConnectionManager.getConnection();
-		String sql = "SELECT p.project_id, project_name, creator_id, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team\n"
-				+ "FROM sponsorme.project p LEFT JOIN sponsorme.campaign c "
-				+ "ON p.project_id = c.project_id "
-				+ "LEFT JOIN sponsorme.project_picture pp "
-				+ "ON p.project_id = pp.project_id "
+		String sql = "SELECT p.project_id, project_name, creator_id, username, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
+				+ "FROM sponsorme.project p "
+				+ "LEFT JOIN sponsorme.user u ON p.creator_id = u.user_id "
+				+ "LEFT JOIN sponsorme.campaign c ON p.project_id = c.project_id "
+				+ "LEFT JOIN sponsorme.project_picture pp ON p.project_id = pp.project_id "
+				+ "LEFT JOIN sponsorme.backed_project bp on p.project_id = bp.project_id "
 				+ "WHERE p.project_id = ?;";
 		
 		try (PreparedStatement statement = connection.prepareStatement(sql))
@@ -36,22 +36,8 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 			{
 				if (result.next())
 				{
-					String projectName = result.getString("project_name");
-					int creatorId = result.getInt("creator_id");
-					Project.Category category = Project.Category.valueOf(result.getString("category").toUpperCase());
-					int fundingGoal = (int)(result.getFloat("funding_goal")*100);
-					ProjectPicture picture = new ProjectPicture(0, result.getString("picture_name"));
-					String smallDescription = result.getString("small_description");
-					String creationDate = result.getString("creation_date");
-					
-					Campaign.Status status = Campaign.Status.valueOf(result.getString("project_status").toUpperCase());
-					String story = result.getString("story");
-					Campaign campaign = new Campaign(status, story);
-					
-					String team = result.getString("team");
-					
-					Project project = new Project(projectId, projectName, creatorId, category, fundingGoal, picture, smallDescription, creationDate, campaign, team);
-					System.out.println("[ProjectStore] Retrieved project " + projectName);
+					Project project = getProjectFromResult(result);
+					System.out.println("[ProjectStore] Retrieved project " + project);
 					return project;
 				}
 			}
@@ -69,76 +55,56 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		return "SELECT max(project_id) AS max_id FROM sponsorme.project;";
 	}
 	
-	public ProjectBackingInfo getProjectInfoFromResult(int projectId)
+	public ArrayList<Project> getTopProjects(int limit, boolean shouldOrder)
 	{
-		System.out.println("[ProjectStore] Retrieving info for project with id " + projectId);
+		System.out.println("[ProjectStore] Retrieving " + (limit == -1 ? "all" : limit) + " projects");
 		Connection connection = ConnectionManager.getConnection();
-		String sql = "SELECT project.project_id, project_name, funding_goal, category, creator_id, u.username, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
-				+ "FROM sponsorme.project INNER JOIN sponsorme.backed_project "
-				+ "ON project.project_id = backed_project.project_id "
-				+ "LEFT JOIN sponsorme.user u ON u.user_id = project.creator_id "
-				+ "WHERE project.project_id = ?";
+		String sql = "SELECT p.project_id, project_name, creator_id, username, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
+				+ "FROM sponsorme.project p "
+				+ "LEFT JOIN sponsorme.user u ON p.creator_id = u.user_id "
+				+ "LEFT JOIN sponsorme.campaign c ON p.project_id = c.project_id "
+				+ "LEFT JOIN sponsorme.project_picture pp ON p.project_id = pp.project_id "
+				+ "LEFT JOIN sponsorme.backed_project bp on p.project_id = bp.project_id "
+				+ "GROUP BY p.project_id "
+				+ (shouldOrder ? "ORDER BY backer_num DESC " : "")
+				+ (limit == -1 ? ";" : "LIMIT 10;");
 		
-		try (PreparedStatement statement = connection.prepareStatement(sql))
-		{
-			statement.setInt(1, projectId);
-			try (ResultSet result = statement.executeQuery())
-			{
-				result.next();
-				ProjectBackingInfo info = getProjectInfoFromResult(result);
-				System.out.println("[ProjectStore] Retrieved info for project " + info.projectName);
-				return info;
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public ArrayList<ProjectBackingInfo> getTopProjectInfos()
-	{
-		System.out.println("[ProjectStore] Retrieving top 10 project infos");
-		Connection connection = ConnectionManager.getConnection();
-		String sql = "SELECT project.project_id, project_name, funding_goal, category, creator_id, u.username, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
-				+ "FROM sponsorme.project LEFT JOIN sponsorme.backed_project "
-				+ "ON project.project_id = backed_project.project_id "
-				+ "LEFT JOIN sponsorme.user u ON u.user_id = project.creator_id "
-				+ "GROUP BY project.project_id "
-				+ "ORDER BY backer_num DESC "
-				+ "LIMIT 10;";
-		
-		ArrayList<ProjectBackingInfo> projectBackingInfos = new ArrayList<>();
+		ArrayList<Project> projects = new ArrayList<>();
 		try (Statement statement = connection.createStatement(); ResultSet result = statement.executeQuery(sql))
 		{
 			while (result.next())
 			{
-				ProjectBackingInfo info = getProjectInfoFromResult(result);
-				System.out.println("[ProjectStore] Retrieved info for project " + info.projectName);
-				projectBackingInfos.add(info);
+				Project project = getProjectFromResult(result);
+				System.out.println("[ProjectStore] Retrieved project " + project.name);
+				projects.add(project);
 			}
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-		return projectBackingInfos;
+		return projects;
 	}
 	
-	private ProjectBackingInfo getProjectInfoFromResult(ResultSet result) throws SQLException
+	private Project getProjectFromResult(ResultSet result) throws SQLException
 	{
 		int projectId = result.getInt("project_id");
 		String projectName = result.getString("project_name");
-		int fundingGoal = (int)(result.getFloat("funding_goal")*100);
-		Project.Category category = Project.Category.valueOf(result.getString("category").toUpperCase());
 		int creatorId = result.getInt("creator_id");
 		String creatorUsername = result.getString("username");
-		int backerNum = result.getInt("backer_num");
-		int backedAmount = result.getInt("backed_amount_sum");
+		Project.Category category = Project.Category.valueOf(result.getString("category").toUpperCase());
+		int fundingGoal = (int)(result.getFloat("funding_goal")*100);
+		ProjectPicture picture = new ProjectPicture(0, result.getString("picture_name"));
+		String smallDescription = result.getString("small_description");
+		String creationDate = result.getString("creation_date");
+		Campaign.Status status = Campaign.Status.valueOf(result.getString("project_status").toUpperCase());
+		String story = result.getString("story");
+		Campaign campaign = new Campaign(status, story);
+		String team = result.getString("team");
+		int backedAmount = (int)(result.getFloat("backed_amount_sum")*100);
+		int backerNum = backedAmount == 0 ? 0 : result.getInt("backer_num");
 		
-		ProjectBackingInfo info = new ProjectBackingInfo(projectId, projectName, fundingGoal, creatorId, creatorUsername, category, backerNum, backedAmount);
-		return info;
+		return new Project(projectId, projectName, creatorId, creatorUsername, category, fundingGoal, picture, smallDescription, creationDate, campaign, team, backerNum, backedAmount);
 	}
 	
 	@Override
