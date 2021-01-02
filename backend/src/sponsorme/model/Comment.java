@@ -1,6 +1,8 @@
 package sponsorme.model;
 
-public class Comment
+import java.io.Serializable;
+
+public class Comment implements Serializable
 {
 	public final int commentId;
 	public final int parentCommentId;

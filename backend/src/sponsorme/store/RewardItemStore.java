@@ -1,5 +1,11 @@
 package sponsorme.store;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import sponsorme.ConnectionManager;
+import sponsorme.model.Perk;
 import sponsorme.model.RewardItem;
 
 public class RewardItemStore extends DataStore<RewardItem> implements AutoIncrementId
@@ -18,9 +24,46 @@ public class RewardItemStore extends DataStore<RewardItem> implements AutoIncrem
 		return "SELECT max(item_id) AS max_id FROM sponsorme.item;";
 	}
 	
-	public void store(RewardItem value)
+	@Override
+	public void store(RewardItem item)
 	{
+		System.out.println("[RewardItemStore] Storing reward item " + item);
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "INSERT INTO sponsorme.item(item_id, item_name, project_id) "
+				+ "VALUES (?, ?, ?)";
 		
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, item.id);
+			statement.setString(2, item.name);
+			statement.setInt(3, item.projectId);
+			statement.execute();
+			
+			System.out.println("[RewardItemStore] Successfully stored reward item " + item);
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void linkRewardToPerk(Perk perk, RewardItem item)
+	{
+		System.out.println("[RewardItemStore] Linking " + item + " to perk " + perk);
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "INSERT INTO sponsorme.reward_item(perk_id, item_id) "
+				+ "VALUES (?, ?)";
+		
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, perk.id);
+			statement.setInt(2, item.id);
+			statement.execute();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public static RewardItemStore getInstance()

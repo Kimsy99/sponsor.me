@@ -11,6 +11,7 @@
 <%@ page import="sponsorme.store.FaqStore" %>
 <%@ page import="sponsorme.model.Faq" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="sponsorme.model.Campaign" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -89,7 +90,7 @@
         </div>
         <%
           String concept = "", prototype = "", production = "", shipping = "";
-          Project.Status stage = project.status;
+          Campaign.Status stage = project.campaign.status;
           if (stage != null)
           {
             switch (stage)
@@ -148,7 +149,7 @@
             </div>
           </div>
           <div id="campaign" class="campaign-details tab-content">
-            <%=project.story%>
+            <%=project.campaign.story%>
           </div>
           <div id="faq" class="faq-details tab-content">
             <h3>FAQs</h3>

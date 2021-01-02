@@ -9,26 +9,24 @@ public class Project implements Serializable
 	public final int creatorId;
 	public final Category category;
 	public final int fundingGoal;
-	public final String pictureName;
+	public final ProjectPicture picture;
 	public final String smallDescription;
 	public final String creationDate;
-	public final Status status;
-	public final String story;
+	public final Campaign campaign;
 	public final String team;
 	
-	public Project(int id, String name, int creatorId, Category category, int fundingGoal, String pictureName,
-			String smallDescription, String creationDate, Status status, String story, String team)
+	public Project(int id, String name, int creatorId, Category category, int fundingGoal, ProjectPicture picture,
+			String smallDescription, String creationDate, Campaign campaign, String team)
 	{
 		this.id = id;
 		this.name = name;
 		this.creatorId = creatorId;
 		this.category = category;
 		this.fundingGoal = fundingGoal;
-		this.pictureName = pictureName;
+		this.picture = picture;
 		this.smallDescription = smallDescription;
 		this.creationDate = creationDate;
-		this.status = status;
-		this.story = story;
+		this.campaign = campaign;
 		this.team = team;
 	}
 	
@@ -48,13 +46,5 @@ public class Project implements Serializable
 		FOOD,
 		GAME,
 		OTHERS
-	}
-	
-	public enum Status
-	{
-		CONCEPT,
-		PROTOTYPE,
-		PRODUCTION,
-		SHIPPING
 	}
 }

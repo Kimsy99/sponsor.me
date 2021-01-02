@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+  <%
+    if (session.getAttribute("username") == null)
+    {
+    	session.setAttribute("redirect", request.getContextPath() + "/common/new-project.jsp");
+      response.sendRedirect(request.getContextPath() + "/common/sign-in-sign-up.jsp");
+      return;
+    }
+  %>
   <head>
     <title>Sponsor.me</title>
     <meta charset="UTF-8" />
@@ -69,11 +77,11 @@
         <select id="category" name="category">
           <option value="tech">Tech</option>
           <option value="design">Design</option>
-          <option value="Film">Film</option>
-          <option value="Arts">Arts</option>
-          <option value="Publish">Publish</option>
+          <option value="film">Film</option>
+          <option value="art">Art</option>
+          <option value="publish">Publish</option>
           <option value="food">Food</option>
-          <option value="Games">Games</option>
+          <option value="game">Game</option>
           <option value="others">Others</option>
         </select>
 
@@ -86,10 +94,11 @@
         </select>
 
         <label for="image-text-box">Project Story</label><br/>
+        <input id="story" name="story" type="hidden" value="">
         <div id="image-text-box">
-          <h3>Team</h3>
+          <h3>Story</h3>
           <br />
-          <h3>DFds</h3>
+          <p>There was once a quick brown fox, who jumped over the lazy dog...</p>
           <p><br /></p>
         </div>
         <!-- <button id="save">Save</button> -->
@@ -121,10 +130,11 @@
           <button type="button" class="add-field">Add field</button><br /><br />
         </div>
         <label for="image-text-box2">Team Details</label><br/>
+        <input id="team" name="team" type="hidden" value="">
         <div id="image-text-box2">
-          <h3>Team</h3>
+          <h3>My Team</h3>
           <br />
-          <h3>DFds</h3>
+          <p>This is my team details.</p>
           <p><br /></p>
         </div>
         <input type="submit" value="Next: Add Rewards">
@@ -142,11 +152,38 @@
   <script src="${pageContext.request.contextPath}/js/toggleProfile.js"></script>
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
   <script>
+    // This module will copy its editor inner html to a hidden input, which I can extract from jsp
+    // (Mister_Bander)
+    // Implement and register module
+    Quill.register('modules/storyrecorder', function(quill, options) {
+        let input = document.querySelector('#story');
+        quill.on('text-change', function() {
+            // There are a couple issues with counting words
+            // this way but we'll fix these later
+            input.value = quill.root.innerHTML;
+        });
+    });
+
+    Quill.register('modules/teamrecorder', function(quill, options) {
+        let input = document.querySelector('#team');
+        quill.on('text-change', function() {
+            // There are a couple issues with counting words
+            // this way but we'll fix these later
+            input.value = quill.root.innerHTML;
+        });
+    });
+    
     const quill = new Quill('#image-text-box', {
       theme: 'snow',
+      modules: {
+          storyrecorder: true
+      }
     });
     const quill2 = new Quill('#image-text-box2', {
       theme: 'snow',
+      modules: {
+          teamrecorder: true
+      }
     });
     console.log({ quill, quill2 });
   </script>

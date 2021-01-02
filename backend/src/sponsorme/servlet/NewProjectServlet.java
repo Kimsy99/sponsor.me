@@ -3,6 +3,7 @@ package sponsorme.servlet;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sponsorme.model.Campaign;
 import sponsorme.model.Faq;
 import sponsorme.model.Project;
+import sponsorme.model.ProjectPicture;
 import sponsorme.store.FaqStore;
 import sponsorme.store.ProjectStore;
 
@@ -26,101 +29,36 @@ public class NewProjectServlet extends HttpServlet
 		Project.Category category = Project.Category.valueOf(request.getParameter("category").toUpperCase());
 		int fundingGoal = (int)(Float.parseFloat(request.getParameter("target-amount"))*100);
 		String pictureName = request.getParameter("img");
+		ProjectPicture picture = new ProjectPicture(projectId, pictureName);
 		String pDescription = request.getParameter("project-description");
-		Project.Status status = Project.Status.valueOf(request.getParameter("stage").toUpperCase());
-		String story = request.getParameter("image-text-box");
-		String teamDetails = request.getParameter("image-text-box2");
+		Campaign.Status status = Campaign.Status.valueOf(request.getParameter("stage").toUpperCase());
+		String story = request.getParameter("story");
+		Campaign campaign = new Campaign(status, story);
+		String teamDetails = request.getParameter("team");
 		
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String creationDate = now.format(formatter);
 		
-		Project project = new Project(projectId, pname, uid, category, fundingGoal, pictureName, pDescription, creationDate, status, story, teamDetails);
+		Project project = new Project(projectId, pname, uid, category, fundingGoal, picture, pDescription, creationDate, campaign, teamDetails);
 		
 		
 		int questionId = FaqStore.getInstance().getNewId();
 		String[] questions = request.getParameterValues("question");
 		String[] answers = request.getParameterValues("answer");
-		Faq[] faqs = new Faq[questions.length];
+		ArrayList<Faq> faqs = new ArrayList<>();
 		
 		for (int i = 0; i < questions.length; i++)
 		{
-			System.out.println(questions[i] + " " + answers[i]);
-			faqs[i] = new Faq(questionId, projectId, questions[i], answers[i]);
+			String question = questions[i].trim();
+			String answer = answers[i].trim();
+			if (!question.isEmpty() || !answer.isEmpty())
+				faqs.add(new Faq(questionId + i, projectId, question, answer));
 		}
 		
 		System.out.println("[NewProjectServlet] Project " + project + " created");
 		request.getSession().setAttribute("project", project);
 		request.getSession().setAttribute("faqs", faqs);
 		response.sendRedirect("./common/new-project-options.jsp");
-		
-//		request.getRequestDispatcher("/common/new-project-options.jsp").forward(request, response);
-		
-		//		request.getRequestDispatcher()
-		
-		//		Connection connection = ConnectionManager.getConnection();
-		//		
-		//		try
-		//		{
-		//			String sql = "insert into project(project_id,project_name, small_description, funding_goal, category, creation_date, team, creator_id) " + " values(?, ?, ? ,?,?,?,?,?)";
-		//			PreparedStatement stm = connection.prepareStatement(sql);
-		//			stm.setInt(1, project_id);
-		//			stm.setString(2, pname);
-		//			stm.setString(3, pDescription);
-		//			stm.setFloat(4, targetAmount);
-		//			stm.setString(5, category);
-		//			stm.setString(6, cur_time);
-		//			stm.setString(7, teamDetails);
-		//			stm.setInt(8, (int)request.getSession().getAttribute("uid"));
-		//			stm.execute();
-		//		}
-		//		catch (Exception ex)
-		//		{
-		//			ex.printStackTrace();
-		//		}
-		//		
-		//		try
-		//		{
-		//			String sql = "insert into campaign(project_name, small_description, funding_goal, category, creation_date, team, creator_id) " + " values(?, ?, ? ,?,?,?,?)";
-		//			PreparedStatement stm = connection.prepareStatement(sql);
-		//			stm.setInt(1, project_id);
-		//			stm.setString(2, stage);
-		//			stm.setString(3, story);
-		//			stm.execute();
-		//		}
-		//		catch (Exception ex)
-		//		{
-		//			ex.printStackTrace();
-		//		}
-		//		
-		//		// insert faq
-		//		String[] question = new String[10];
-		//		String[] answer = new String[10];
-		//		int count = 0;
-		//		for (int i = 0; request.getParameter("question") != ""; ++i)
-		//		{
-		//			question[i] = request.getParameter("question");
-		//			answer[i] = request.getParameter("answer");
-		//			count++;
-		//		}
-		//		try
-		//		{
-		//			String sql = "insert into faq(project_id, questions, answer)" + "values(?,?,?)";
-		//			PreparedStatement stm = connection.prepareStatement(sql);
-		//			for (int i = 0; i < count; ++i)
-		//			{
-		//				stm.setInt(1, project_id);
-		//				stm.setString(2, question[i]);
-		//				stm.setString(3, answer[i]);
-		//				stm.execute();
-		//			}
-		//		}
-		//		catch (Exception ex)
-		//		{
-		//			ex.printStackTrace();
-		//		}
-		
-		//		response.sendRedirect(
-		//				"/backend_war_exploded/common/new-project-options.jsp?uid=" + request.getParameter("uid"));
 	}
 }

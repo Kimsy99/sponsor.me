@@ -1,7 +1,10 @@
-<%@ page import="sponsorme.model.Project" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%
+      if (session.getAttribute("username") == null)
+        response.sendRedirect(request.getContextPath() + "/common/sign-in-sign-up.jsp");
+    %>
     <title>Sponsor.me</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,11 +24,6 @@
     <jsp:include page="header.jsp"/>
   </head>
   <body>
-    <%
-      Project project = (Project)session.getAttribute("project");
-      
-      System.out.println(project.id + ", " + project.name);
-    %>
     <div class="new-project-item">
       <h1>Add Reward Item</h1>
       <form method="post" action="${pageContext.request.contextPath}/new-project-perks">
@@ -43,7 +41,7 @@
               <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
             </div>
             <div class="reward-item reward-item-template" style="display: none;">
-              <label for="Story">Reward Item Name</label>
+              <label>Reward Item Name</label>
               <i class="fa fa-window-close remove-reward" aria-hidden="true"></i>
               <input
                       type="text"
@@ -81,7 +79,7 @@
               </div>
             </div>
             <div class="reward-item">
-              <label for="Story">Reward Item Name</label>
+              <label>Reward Item Name</label>
               <i class="fa fa-window-close remove-reward" aria-hidden="true"></i>
               <input
                       type="text"

@@ -18,7 +18,7 @@ public interface AutoIncrementId
 			try (ResultSet result = statement.executeQuery(getNewIdQuery()))
 			{
 				if (result.next())
-					return result.getInt("max_id");
+					return result.getInt("max_id") + 1;
 			}
 		}
 		catch (SQLException e)

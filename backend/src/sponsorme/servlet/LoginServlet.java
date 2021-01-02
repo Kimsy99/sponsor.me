@@ -33,8 +33,16 @@ public class LoginServlet extends HttpServlet
 		{
 			session.setAttribute("username", username);
 			session.setAttribute("uid", user.id);
-			response.sendRedirect("index.jsp");
 			System.out.println("[LoginServlet] " + username + " authorized");
+			
+			Object redirect = session.getAttribute("redirect");
+			if (redirect instanceof String)
+			{
+				response.sendRedirect((String)redirect);
+				session.removeAttribute("redirect");
+			}
+			else
+				response.sendRedirect("index.jsp");
 		}
 		else
 		{

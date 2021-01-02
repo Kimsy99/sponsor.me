@@ -1,12 +1,18 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.math.BigDecimal" %>
-<%@ page import="java.math.RoundingMode" %>
 <%@ page import="sponsorme.ConnectionManager" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%
+      if (session.getAttribute("username") == null)
+      {
+        session.setAttribute("redirect", request.getContextPath() + "/common/profile.jsp");
+        response.sendRedirect(request.getContextPath() + "/common/sign-in-sign-up.jsp");
+        return;
+      }
+    %>
     <title>Sponsor.me</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

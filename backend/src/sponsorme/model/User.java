@@ -19,6 +19,11 @@ public class User implements Serializable
 	public final String profilePictureName;
 	public final String registrationDate;
 	
+	public User(String username, String email, String passwordHash, String saltStr, String profilePictureName, String registrationDate)
+	{
+		this(0, username, email, passwordHash, saltStr, profilePictureName, registrationDate);
+	}
+	
 	public User(int id, String username, String email, String passwordHash, String saltStr, String profilePictureName, String registrationDate)
 	{
 		this.id = id;

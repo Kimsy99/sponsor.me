@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%
+      if (session.getAttribute("username") == null)
+      {
+        response.sendRedirect(request.getContextPath() + "/common/sign-in-sign-up.jsp");
+        return;
+      }
+    %>
     <title>Sponsor.me</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -78,7 +85,7 @@
             %>
             
             <div class="perks-item-template">
-              <label for="Story">Perks Item Name</label>
+              <label>Perks Item Name</label>
               <i class="fa fa-window-close remove-field" aria-hidden="true"></i>
               <input
                 type="text"
@@ -94,27 +101,33 @@
                       rows="10"
                       cols="50"
                       name="comment"
-                      form="usrform"
                       style="width: 100%"
                       wrap
                       placeholder="Description..."
                     ></textarea>
                   </div>
                 </div>
+                <label>Price</label>
+                <input
+                  type="text"
+                  name="price"
+                  placeholder="Price"
+                  min="5"
+                  pattern="^\d*(\.\d{0,2})?$"
+                />
                 <div class="multi-fields perks-types">
-                  <label for="">Rewards</label>
+                  <label>Rewards</label>
                   <div class="multi-field perks-reward">
                     <multi-input>
                       <input
                         list="speakers"
-                        name="perks"
                         placeholder="Double click to toggle dropdown"
                       />
                       <datalist id="speakers">
                         <%
                           for (RewardItem rewardItem : rewardItems)
                           {
-                            out.write("<option value=\"" + rewardItem.itemName + "\"></option>");
+                            out.write("<option value=\"" + rewardItem.name + "\"></option>");
                           }
                         %>
                       </datalist>
@@ -125,7 +138,7 @@
               </div>
             </div>
             <div class="perks-item">
-              <label for="Story">Perks Item Name</label>
+              <label>Perks Item Name</label>
               <i class="fa fa-window-close remove-field" aria-hidden="true"></i>
               <input
                 type="text"
@@ -141,26 +154,32 @@
                       rows="10"
                       cols="50"
                       name="comment"
-                      form="usrform"
                       style="width: 100%"
                       wrap
                       placeholder="Description..."
                     ></textarea>
                   </div>
                 </div>
+                <label>Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  placeholder="Price"
+                  min="5"
+                  pattern="^\d*(\.\d{0,2})?$"
+                />
                 <div class="multi-fields perks-types">
-                  <label for="">Rewards</label>
+                  <label>Rewards</label>
                   <div class="multi-field perks-reward">
                     <multi-input>
                       <input
                         list="perks"
-                        name="perks"
                         placeholder="Double click to toggle dropdown"
                       />
                       <datalist id="perks">
                         <%
                           for (RewardItem rewardItem : rewardItems)
-                            out.write("<option value=\"" + rewardItem.itemName + "\"></option>");
+                            out.write("<option value=\"" + rewardItem.name + "\"></option>");
                         %>
                       </datalist>
                       <input type="hidden" name="count" id="count" value="0"/>

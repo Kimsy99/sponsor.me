@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css"/>
-    
     <%
       boolean isLoggedIn = session.getAttribute("username") != null;
     %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css"/>
     <div class="header">
       <a href="${pageContext.request.contextPath}/index.jsp" class="logo-container">
         <img class="logo" src="${pageContext.request.contextPath}/assets/logo.svg" />

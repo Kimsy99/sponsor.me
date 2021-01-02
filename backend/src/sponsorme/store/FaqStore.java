@@ -56,9 +56,27 @@ public class FaqStore extends DataStore<Faq> implements AutoIncrementId
 	}
 	
 	@Override
-	public void store(Faq value)
+	public void store(Faq faq)
 	{
+		System.out.println("[FaqStore] Storing faq " + faq);
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "INSERT INTO sponsorme.faq(question_id, project_id, question, answer) "
+				+ "VALUES (?, ?, ?, ?)";
 		
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, faq.id);
+			statement.setInt(2, faq.projectId);
+			statement.setString(3, faq.question);
+			statement.setString(4, faq.question);
+			statement.execute();
+			
+			System.out.println("[FaqStore] Successfully stored faq " + faq);
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public static FaqStore getInstance()

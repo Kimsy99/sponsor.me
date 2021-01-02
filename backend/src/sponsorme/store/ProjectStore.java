@@ -8,8 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import sponsorme.ConnectionManager;
+import sponsorme.model.Campaign;
 import sponsorme.model.Project;
 import sponsorme.model.ProjectBackingInfo;
+import sponsorme.model.ProjectPicture;
 
 public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 {
@@ -38,14 +40,17 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 					int creatorId = result.getInt("creator_id");
 					Project.Category category = Project.Category.valueOf(result.getString("category").toUpperCase());
 					int fundingGoal = (int)(result.getFloat("funding_goal")*100);
-					String pictureName = result.getString("picture_name");
+					ProjectPicture picture = new ProjectPicture(0, result.getString("picture_name"));
 					String smallDescription = result.getString("small_description");
 					String creationDate = result.getString("creation_date");
-					Project.Status status = Project.Status.valueOf(result.getString("project_status").toUpperCase());
+					
+					Campaign.Status status = Campaign.Status.valueOf(result.getString("project_status").toUpperCase());
 					String story = result.getString("story");
+					Campaign campaign = new Campaign(status, story);
+					
 					String team = result.getString("team");
 					
-					Project project = new Project(projectId, projectName, creatorId, category, fundingGoal, pictureName, smallDescription, creationDate, status, story, team);
+					Project project = new Project(projectId, projectName, creatorId, category, fundingGoal, picture, smallDescription, creationDate, campaign, team);
 					System.out.println("[ProjectStore] Retrieved project " + projectName);
 					return project;
 				}
@@ -139,20 +144,48 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 	@Override
 	public void store(Project project)
 	{
-//		Connection connection = ConnectionManager.getConnection();
-//		PreparedStatement statement = connection.prepareStatement(
-//				"INSERT INTO sponsorme.project (project_name, funding_goal, small_description, category, creator_id, creation_date, team)"
-//				+ "VALUES (?, ?, ?, ?, ?, ?, ?);"
-//		);
-//		statement.setString(1, project.projectName);
-//		statement.setInt(2, project.fundingGoal);
-//		statement.setString(3, project.smallDescription);
-//		statement.setString(4, project.category.toString().toLowerCase());
-//		statement.setInt(5, project.creatorId);
-//		statement.setString(6, simpleDateFormat.format(project.date));
-//		statement.setString(7, project.team);
-//		
-//		statement.executeQuery();
+		System.out.println("[ProjectStore] Storing project " + project.name);
+		Connection connection = ConnectionManager.getConnection();
+		
+		try (
+				PreparedStatement statement1 = connection.prepareStatement(
+				"INSERT INTO sponsorme.project (project_id, project_name, funding_goal, small_description, category, creator_id, creation_date, team)"
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+				);
+				PreparedStatement statement2 = connection.prepareStatement(
+						"INSERT INTO sponsorme.project_picture (project_id, picture_name) "
+								+ "VALUES (?, ?);"
+				);
+				PreparedStatement statement3 = connection.prepareStatement(
+						"INSERT INTO sponsorme.campaign(project_id, project_status, story) "
+								+ "VALUES (?, ?, ?);"
+				))
+		{
+			statement1.setInt(1, project.id);
+			statement1.setString(2, project.name);
+			statement1.setFloat(3, project.fundingGoal/100F);
+			statement1.setString(4, project.smallDescription);
+			statement1.setString(5, project.category.toString().toLowerCase());
+			statement1.setInt(6, project.creatorId);
+			statement1.setString(7, project.creationDate);
+			statement1.setString(8, project.team);
+			statement1.execute();
+			
+			statement2.setInt(1, project.id);
+			statement2.setString(2, project.picture.name);
+			statement2.execute();
+			
+			statement3.setInt(1, project.id);
+			statement3.setString(2, project.campaign.status.toString().toLowerCase());
+			statement3.setString(3, project.campaign.story);
+			statement3.execute();
+			
+			System.out.println("[ProjectStore] Successfully stored project " + project);
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public static ProjectStore getInstance()
