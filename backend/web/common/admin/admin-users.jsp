@@ -228,8 +228,8 @@
 </header>
 <div class="page-content">
     <div class="search-and-user">
-        <form>
-            <input type="search" placeholder="Search Pages..." />
+        <form method="get" action="admin-users.jsp?searchValue=<%=request.getParameter("searchValue")%>">
+            <input name="searchValue" type="search" placeholder="Search Usernames..." />
             <button type="submit" aria-label="submit form">
                 <svg aria-hidden="true">
                     <use xlink:href="#search"></use>
@@ -259,6 +259,12 @@
             </thead>
             <tbody>
             <%
+                String search = "";
+                if (request.getParameter("searchValue")!=null)
+                {
+                    search = request.getParameter("searchValue");
+                }
+
                 try
                 {
                     Connection connection = ConnectionManager.getConnection();
@@ -276,6 +282,7 @@
                       + "    from sponsorme.backed_project "
                       + "    group by backer_id "
                       + ") as b on user.user_id = b.user_id "
+                      + "where username like '%" + search + "%'\n"
                       + "order by user.user_id;";
 
                     ResultSet rs = stm.executeQuery(sql);

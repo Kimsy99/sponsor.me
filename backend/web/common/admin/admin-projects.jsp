@@ -230,8 +230,8 @@
 </header>
 <div class="page-content">
     <div class="search-and-user">
-        <form>
-            <input type="search" placeholder="Search Pages..." />
+        <form method="get" action="admin-projects.jsp?searchValue=<%=request.getParameter("searchValue")%>">
+            <input name="searchValue" type="search" placeholder="Search Projects..." />
             <button type="submit" aria-label="submit form">
                 <svg aria-hidden="true">
                     <use xlink:href="#search"></use>
@@ -267,6 +267,12 @@
 
 
             <%
+                String search = "";
+                if (request.getParameter("searchValue")!=null)
+                {
+                    search = request.getParameter("searchValue");
+                }
+
                 try
                 {
                     Connection connection = ConnectionManager.getConnection();
@@ -275,6 +281,7 @@
                     String sql = "select project.project_id, project_name, funding_goal, sum(backed_amount) as current_funding, small_description as description, category, username as creator_name, creation_date\n"
                       + "from (sponsorme.project left join sponsorme.backed_project on project.project_id = backed_project.project_id) "
                       + "left join sponsorme.user on project.creator_id = user.user_id\n"
+                      + "where project_name like '%" + search + "%'\n"
                       + "group by project_id";
                     ResultSet rs = stm.executeQuery(sql);
 
