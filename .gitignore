@@ -6,3 +6,4 @@
 .DS_Store
 .vscode/
 backend/Database/
+sponsorme.session.sql
