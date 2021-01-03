@@ -2,7 +2,9 @@ package sponsorme.store;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import sponsorme.ConnectionManager;
 import sponsorme.model.Perk;
@@ -17,10 +19,41 @@ public class PerkStore extends DataStore<Perk> implements AutoIncrementId
 		return null;
 	}
 	
-//	public ArrayList<Perk> getPerkForProject(int projectId)
-//	{
-//		
-//	}
+	public ArrayList<Perk> getPerkForProject(int projectId)
+	{
+		System.out.println("[PerkStore] Retrieving perk fro project with id " + projectId);
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "SELECT p.perk_id, title, price, description, count(*) AS backer_count " 
+				+ "FROM sponsorme.perk p "
+				+ "LEFT JOIN sponsorme.backed_project bp ON p.perk_id = bp.perk_id AND p.project_id = bp.project_id "
+				+ "WHERE p.project_id = ? "
+				+ "GROUP BY p.perk_id";
+		
+		ArrayList<Perk> perks = new ArrayList<>();
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, projectId);
+			try (ResultSet result = statement.executeQuery())
+			{
+				while (result.next())
+				{
+					int perkId = result.getInt("perk_id");
+					String title = result.getString("title");
+					int price = (int)(result.getFloat("price")*100);
+					String description = result.getString("description");
+					int backerNum = result.getInt("backer_count");
+					
+					System.out.println("[PerkStore] " + title);
+					perks.add(new Perk(perkId, projectId, title, price, description, backerNum));
+				}
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return perks;
+	}
 	
 	@Override
 	public String getNewIdQuery()

@@ -13,6 +13,8 @@
 <%@ page import="sponsorme.store.CommentStore" %>
 <%@ page import="sponsorme.model.Comment" %>
 <%@ page import="java.util.TreeMap" %>
+<%@ page import="sponsorme.model.Perk" %>
+<%@ page import="sponsorme.store.PerkStore" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -325,21 +327,16 @@
         <div class="perks-items">
           <h3>Select a Perk</h3>
           <%
-            Statement stm5 = connection.createStatement();
-            String sql5 = "select p.perk_id, title, price, description, count(*) as backerCount\n" +
-                    "from sponsorme.perk as p left join sponsorme.backed_project as bp\n" +
-                    "on p.perk_id = bp.perk_id and p.project_id = bp.project_id\n" +
-                    "where p.project_id = "+ request.getParameter("pid")+"\n" +
-                    "group by p.perk_id";
-            ResultSet rs5 = stm5.executeQuery(sql5);
-            while(rs5.next()){
+            ArrayList<Perk> projectPerks = PerkStore.getInstance().getPerkForProject(project.id);
+            for (Perk perk : projectPerks)
+            {
           %>
           <a href=""
             ><div class="perk-item">
-              <h2>MYR <%=rs5.getBigDecimal("price")%></h2>
-              <h6><%=rs5.getString("title")%></h6>
-              <p><%=rs5.getString("description")%></p>
-              <h5><%=rs5.getInt("backerCount")%> backers</h5>
+              <h2>MYR <%=perk.getFormattedPrice()%></h2>
+              <h6><%=perk.title%></h6>
+              <p><%=perk.description%></p>
+              <h5><%=perk.backerNum%> backers</h5>
             </div></a
           >
           <%}%>
