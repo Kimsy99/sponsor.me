@@ -1,9 +1,15 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
+<%
+    if(session.getAttribute("admin")==null)
+    {
+        response.sendRedirect("admin-login.jsp");
+        return;
+    }
+%>
+
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="sponsorme.ConnectionManager" %>
+<%@ page import="sponsorme.model.Admin" %>
+<%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -221,8 +227,8 @@
 </header>
 <div class="page-content">
     <div class="search-and-user">
-        <form>
-            <input type="search" placeholder="Search Pages..." />
+        <form method="get" action="admin-projects.jsp?searchValue=<%=request.getParameter("searchValue")%>">
+            <input name="searchValue" type="search" placeholder="Search Projects..." />
             <button type="submit" aria-label="submit form">
                 <svg aria-hidden="true">
                     <use xlink:href="#search"></use>
@@ -230,9 +236,8 @@
             </button>
         </form>
         <div class="admin-profile">
-            <span class="greeting">Hello admin</span>
+            <span class="greeting">Hello <%=((Admin)session.getAttribute("admin")).username%></span>
             <div class="notifications">
-                <span class="badge">1</span>
                 <svg>
                     <use xlink:href="#users"></use>
                 </svg>
@@ -259,19 +264,29 @@
 
 
             <%
+                String search = "";
+                if (request.getParameter("searchValue")!=null)
+                {
+                    search = request.getParameter("searchValue");
+                }
+
                 try
                 {
                     Connection connection = ConnectionManager.getConnection();
                     
-                    Statement stm = connection.createStatement();
-                    String sql = "select project.project_id, project_name, funding_goal, sum(backed_amount) as current_funding, small_description as description, category, username as creator_name, creation_date\n"
+                    PreparedStatement stm = connection.prepareStatement(
+                        "select project.project_id, project_name, funding_goal, sum(backed_amount) as current_funding, small_description as description, category, username as creator_name, creation_date\n"
                       + "from (sponsorme.project left join sponsorme.backed_project on project.project_id = backed_project.project_id) "
                       + "left join sponsorme.user on project.creator_id = user.user_id\n"
-                      + "group by project_id";
-                    ResultSet rs = stm.executeQuery(sql);
+                      + "where project_name like ? "
+                      + "group by project_id"
+                    );
+                    stm.setString(1, "%" + search + "%");
+
+                    ResultSet rs = stm.executeQuery();
 
                     float fundingGoal, currentFunding, fundingPercentage;
-                    DecimalFormat format = new DecimalFormat("$#0.00");
+                    DecimalFormat format = new DecimalFormat("#0.00");
 
                     while (rs.next())
                     {
@@ -288,11 +303,11 @@
             %>
 
             <!-- <a href="../../common/project-item.html"></a> -->
-            <tr onclick="document.location = './admin-project-item.html'">
+            <tr>
                 <td><%=rs.getInt("project_id")%></td>
                 <td><%=rs.getString("project_name")%></td>
-                <td><%=format.format(fundingGoal)%></td>
-                <td><%=format.format(currentFunding)%></td>
+                <td>$<%=format.format(fundingGoal)%></td>
+                <td>$<%=format.format(currentFunding)%></td>
                 <td><%=format.format(fundingPercentage)%>%</td>
                 <td><%=rs.getString("description")%></td>
                 <td><%=rs.getString("category")%></td>
