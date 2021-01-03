@@ -76,7 +76,7 @@ public class SignupServlet extends HttpServlet
 			byte[] salt = Utils.generateSalt();
 			String passwordHash = Utils.hashPassword(password, salt);
 			
-			User newUser = new User(0, username, email, passwordHash, Utils.byteArrayToHexString(salt), "default_user_icon", userRegistrationDate);
+			User newUser = new User(0, username, email, passwordHash, Utils.byteArrayToHexString(salt), "default_user_icon.svg", userRegistrationDate);
 			
 			try
 			{

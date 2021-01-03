@@ -40,6 +40,8 @@ footer{
     }
     .menu-item{
       padding-bottom: 20px;
+      color: white;
+      cursor: pointer;
     }
     .menu-item img{
       /* padding-bottom: 4px; */

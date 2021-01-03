@@ -1,3 +1,6 @@
+<%@ page import="sponsorme.store.ProjectStore" %>
+<%@ page import="sponsorme.model.Project" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,7 +26,11 @@
           </button>
         </form>
         <a class="option" href="${pageContext.request.contextPath}/common/sign-in-sign-up.jsp" <%=!isLoggedIn ? "" : "style=\"display: none\""%>> Sign in </a>
-        <div class="dropdown" <%=isLoggedIn ? "onclick=\"toggleProfile()\"" : "style=\"display: none\""%>>
+        <%
+          if (isLoggedIn)
+          {
+        %>
+        <div class="dropdown" onclick="toggleProfile()">
           <i class="fa fa-user dropbtn" aria-hidden="true"> <%=session.getAttribute("username")%></i>
           <div class="dropdown-content" id="dropdown-content">
             <div class="account">
@@ -36,26 +43,46 @@
             </div>
             <br />
             <div class="create-project">
+              <%
+                ArrayList<Project> projects = ProjectStore.getInstance().getProjectsByUser((int)session.getAttribute("uid"));
+                Project newestProject = projects.isEmpty() ? null : projects.get(projects.size() - 1);
+              %>
               Created Projects
               <hr />
-              <a>
+              <%
+                if (newestProject != null)
+                {
+              %>
+              <a href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=newestProject.id%>">
                 <div class="mini-project-preview">
                   <img
-                    src="./assets/project-categories-header-image/all.jpg"
+                    src="${pageContext.request.contextPath}/images/project-pictures/<%=newestProject.picture.name%>"
                     alt=""
                   />
                   <div class="mini-project-preview-content">
-                    <h5>Title about the project</h5>
-                    <h6>65% funded</h6>
+                    <h5><%=newestProject.name%></h5>
+                    <h6><%=newestProject.getFundingPercentage()%>% funded</h6>
                   </div>
                 </div>
               </a>
-              <a href="./new-project.jsp" class="add-new-project">
+              <%
+                }
+                else
+                {
+              %>
+              <p>No projects</p>
+              <%
+                }
+              %>
+              <a href="${pageContext.request.contextPath}/common/new-project.jsp" class="add-new-project">
                 &#43; Add New Project
               </a>
             </div>
           </div>
         </div>
+        <%
+          }
+        %>
       </div>
     </div>
   </head>

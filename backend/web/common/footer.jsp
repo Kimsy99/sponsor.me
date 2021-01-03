@@ -5,22 +5,22 @@
   <div class="footer">
     <div class="footer-item-container">
       <div class="menu-items">
-        <div class="menu-item">
+        <a class="menu-item" href="${pageContext.request.contextPath}/index.jsp">
           <img class="icon" src="${pageContext.request.contextPath}/assets/footer-image/Home.svg" />
           <span>Home</span>
-        </div>
-        <div class="menu-item">
+        </a>
+        <a class="menu-item" href="${pageContext.request.contextPath}/common/my-projects.jsp">
           <img class="icon" src="${pageContext.request.contextPath}/assets/footer-image/Projects.svg" />
           <span>Projects</span>
-        </div>
-        <div class="menu-item">
+        </a>
+        <a class="menu-item" href="${pageContext.request.contextPath}/common/profile.jsp">
           <img class="icon" src="${pageContext.request.contextPath}/assets/footer-image/Account.svg" />
           <span>Account</span>
-        </div>
-        <div class="menu-item">
+        </a>
+        <a class="menu-item" href="${pageContext.request.contextPath}/common/help.jsp">
           <img class="icon" src="${pageContext.request.contextPath}/assets/footer-image/Help.svg" />
           <span>Help</span>
-        </div>
+        </a>
       </div>
       <div class="description">
         <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>

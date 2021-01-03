@@ -1,7 +1,6 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="sponsorme.ConnectionManager" %>
+<%@ page import="sponsorme.store.ProjectStore" %>
+<%@ page import="sponsorme.model.Project" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,46 +22,39 @@
 </head>
 <body>
 <div class="preview-items">
-    <h1>Projects that contain "<%=request.getParameter("search")%>"</h1>
+    <h1>Projects that contain "<%=searchStr%>"</h1>
     <div class="preview-items-filter text-center">
         <ul class="filter-list">
             <button class="active" onClick="filterSelection('all')">All</button>
             <button onClick="filterSelection('tech')">Tech</button>
             <button onClick="filterSelection('design')">Design</button>
             <button onClick="filterSelection('film')">Film</button>
-            <button onClick="filterSelection('arts')">Arts</button>
-            <button onClick="filterSelection('publish')">Publish</li>
-                <button onClick="filterSelection('food')">Food</button>
-                <button onClick="filterSelection('games')">Games</li>
-                    <button onClick="filterSelection('others')">Others</li>
+            <button onClick="filterSelection('art')">Arts</button>
+            <button onClick="filterSelection('publish')">Publish</button>
+            <button onClick="filterSelection('food')">Food</button>
+            <button onClick="filterSelection('game')">Games</button>
+            <button onClick="filterSelection('others')">Others</button>
         </ul>
     </div>
     <div class="preview-item-container">
         <%
-            Connection connection = ConnectionManager.getConnection();
-            Statement stm = connection.createStatement();
-            String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username\n" +
-                    "from project as p left join backed_project as bp ON p.project_id = bp.project_id\n" +
-                    "left join user as u ON p.creator_id = u.user_id\n" +
-                    "where UPPER(project_name) like '%"+ request.getParameter("search") + "%'\n" +
-                    "group by p.project_id\n";
-            ResultSet rs = stm.executeQuery(sql);
-            while(rs.next())
+            ArrayList<Project> projects = ProjectStore.getInstance().findProjectsContainingString(searchStr);
+            
+            for (Project project : projects)
             {
-                float percentage = rs.getFloat("amount")/(rs.getFloat("funding_goal"))*100;
+                float percentage = project.getFundingPercentage();
         %>
-        <a class="project-item <%=rs.getString("category")%>" href="./project-item.jsp?pid=<%=rs.getInt("pid")%>">
-            <img src="${pageContext.request.contextPath}/images/project-pictures/<%=project.picture.name%>" class="image"></img>
+        <a class="project-item <%=project.category%>" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=project.id%>">
+            <img src="${pageContext.request.contextPath}/images/project-pictures/<%=project.picture.name%>" class="image">
             <div class="project-footer">
-            <span class="name"
-            ><%=rs.getString("project_name")%></span
-            >
-                <span class="target-fund">Target Fund: MYR <%=rs.getBigDecimal("funding_goal")%></span>
+                <span class="name"><%=project.name%></span>
+                <span class="target-fund">Target Fund: MYR <%=project.getFormattedFundingGoal()%></span>
                 <span class="funded-percentage"><%=percentage%>% funded</span>
-                <span>By <%=rs.getString("username")%></span>
+                <span>By <%=project.creatorUsername%></span>
+                <span><strong><%=project.category.getDisplayName()%></strong></span>
                 <button type="submit">Back Project</button>
-            </div></a>
-
+            </div>
+        </a>
         <%}%>
     </div>
 </div>

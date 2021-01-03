@@ -2,19 +2,20 @@
 <%@ page import="sponsorme.model.Project" %>
 <%@ page import="sponsorme.store.UserStore" %>
 <%@ page import="sponsorme.model.User" %>
-<%@ page import="sponsorme.store.FaqStore" %>
-<%@ page import="sponsorme.model.Faq" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="sponsorme.model.Campaign" %>
 <%@ page import="sponsorme.store.CommentStore" %>
 <%@ page import="sponsorme.model.Comment" %>
 <%@ page import="java.util.TreeMap" %>
-<%@ page import="sponsorme.model.Perk" %>
+<%@ page import="sponsorme.model.Campaign" %>
+<%@ page import="sponsorme.store.FaqStore" %>
+<%@ page import="sponsorme.model.Faq" %>
 <%@ page import="sponsorme.store.PerkStore" %>
+<%@ page import="sponsorme.model.Perk" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <%
+      int uid = (int)session.getAttribute("uid");
       int pid = Integer.parseInt(request.getParameter("pid"));
       if (session.getAttribute("username") == null)
         session.setAttribute("redirect", request.getContextPath() + "/common/project-item.jsp?pid=" + pid);
@@ -45,6 +46,9 @@
       
       session.setAttribute("redirect", request.getContextPath() + "/common/project-item.jsp?pid=" + project.id);
       boolean isLoggedIn = session.getAttribute("username") != null;
+      
+      if (project.creatorId == uid)
+      {
     %>
     <form method="post" action="${pageContext.request.contextPath}/delete-project">
       <input type="hidden" name="pid" value="<%=project.id%>">
@@ -53,6 +57,9 @@
         <span>Delete Project</span>
       </button>
     </form>
+    <%
+      }
+    %>
     <div class="project-item">
       <div class="project-item-info">
         <div class="image-slider">
