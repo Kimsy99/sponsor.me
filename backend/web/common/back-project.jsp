@@ -82,23 +82,22 @@
                           </div>
                           <input
                             class="amount-box"
-                            tabindex="-1"
+                            type="number"
                             min="<%=perk.getFormattedPrice()%>"
                             value="<%=perk.getFormattedPrice()%>"
                             type="text"
                             name="backing-amount"
                             id="backing-amount"
-                            data-type="currency" 
                           />
                           
                         </div>
   
                     </div>
                     <button
-<%--                      id="multiple-reward-continue-button"--%>
+                      id="multiple-reward-continue-button"
 <%--                      name="multiple-reward-continue-button"--%>
                       type="submit"
-                      onclick="document.getElementById('pledge-content').submit();"
+<%--                      onclick="document.getElementById('pledge-content').submit();"--%>
                     >
                       Continue
                     </button>
