@@ -283,8 +283,8 @@
       <tr>
         <td><%=project.id%></td>
         <td><%=project.name%></td>
-        <td>$<%=project.getFormattedFundingGoal()%></td>
-        <td>$<%=project.getFormattedBackedAmount()%></td>
+        <td>MYR <%=project.getFormattedFundingGoal()%></td>
+        <td>MYR <%=project.getFormattedBackedAmount()%></td>
         <td><%=project.getFundingPercentage()%>%</td>
         <td><%=project.smallDescription%></td>
         <td><%=project.category.getDisplayName()%></td>

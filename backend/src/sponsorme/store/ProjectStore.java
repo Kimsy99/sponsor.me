@@ -182,6 +182,24 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		}
 	}
 	
+	public void delete(int projectId)
+	{
+		System.out.println("[ProjectStore] Deleting project with id " + projectId);
+		Connection connection = ConnectionManager.getConnection();
+		
+		String sql = "DELETE FROM sponsorme.project WHERE project_id = " + projectId;
+		
+		try (Statement statement = connection.createStatement())
+		{
+			statement.execute(sql);
+			System.out.println("[ProjectStore] Successfully deleted project " + projectId);
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public static ProjectStore getInstance()
 	{
 		if (instance == null)

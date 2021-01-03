@@ -34,7 +34,7 @@
   <body>
     <div class="new-project-item">
       <h1>New Project</h1>
-      <form method="post" action="${pageContext.request.contextPath}/new-project-options">
+      <form method="post" action="${pageContext.request.contextPath}/new-project-options" enctype='multipart/form-data'>
 
         <label for="pname">Project Name</label>
         <input

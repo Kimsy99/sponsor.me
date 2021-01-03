@@ -42,7 +42,7 @@
         {
       %>
       <a class="project-item" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=project.id%>">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image">
+        <img src="${pageContext.request.contextPath}/images/project-pictures/<%=project.picture.name%>" class="image">
         <div class="project-footer">
             <span class="name"
             ><%=project.name%></span

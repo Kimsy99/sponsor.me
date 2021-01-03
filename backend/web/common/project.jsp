@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%
+      if (session.getAttribute("username") == null)
+        session.setAttribute("redirect", request.getContextPath() + "/common/project.jsp");
+    %>
     <title>Sponsor.me</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +52,7 @@
             int percentage = project.getFundingPercentage();
         %>
             <a class="project-item <%=project.category.toString().toLowerCase()%>" href="./project-item.jsp?pid=<%=project.id%>">
-          <img src="https://i.imgur.com/zm10H4x.jpg" class="image">
+          <img src="${pageContext.request.contextPath}/images/project-pictures/<%=project.picture.name%>" class="image">
           <div class="project-footer">
             <span class="name"><%=project.name%></span>
             <span class="target-fund">Target Fund: MYR <%=project.getFormattedFundingGoal()%></span>

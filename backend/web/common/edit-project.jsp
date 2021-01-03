@@ -14,9 +14,7 @@
       integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../styles/header.css" />
     <link rel="stylesheet" href="../styles/preview-item.css" />
-    <link rel="stylesheet" href="../styles/footer.css" />
     <link rel="stylesheet" href="../styles/project.css" />
     <link rel="stylesheet" href="../styles/new-project.css" />
     <link

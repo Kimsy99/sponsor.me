@@ -3,7 +3,11 @@
   <head>
     <%
       if (session.getAttribute("username") == null)
+      {
+        session.setAttribute("redirect", request.getContextPath() + "/common/new-project.jsp");
         response.sendRedirect(request.getContextPath() + "/common/sign-in-sign-up.jsp");
+        return;
+      }
     %>
     <title>Sponsor.me</title>
     <meta charset="UTF-8"/>

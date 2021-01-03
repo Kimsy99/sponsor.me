@@ -4,6 +4,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%
+      if (session.getAttribute("username") == null)
+      {
+        session.setAttribute("redirect", request.getContextPath() + "/common/my-projects.jsp");
+        response.sendRedirect(request.getContextPath() + "/common/sign-in-sign-up.jsp");
+        return;
+      }
+    %>
     <title>Sponsor.me</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,7 +35,7 @@
           int percentage = project.getFundingPercentage();
       %>
       <a class="project-item <%=project.category%>" href="./project-item.jsp?pid=<%=project.id%>">
-        <img src="https://i.imgur.com/zm10H4x.jpg" class="image">
+        <img src="${pageContext.request.contextPath}/images/project-pictures/<%=project.picture.name%>" class="image">
         <div class="project-footer">
             <span class="name"
             ><%=project.name%></span
@@ -41,7 +49,7 @@
       <%}%>
     </div>
   </body>
-  <<jsp:include page="./footer.jsp"/>
+  <jsp:include page="./footer.jsp"/>
 
   <script src="${pageContext.request.contextPath}/js/script.js"></script>
   <script src="${pageContext.request.contextPath}/js/faq-text-field.js"></script>

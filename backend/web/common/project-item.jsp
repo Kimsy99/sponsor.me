@@ -14,6 +14,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%
+      int pid = Integer.parseInt(request.getParameter("pid"));
+      if (session.getAttribute("username") == null)
+        session.setAttribute("redirect", request.getContextPath() + "/common/project-item.jsp?pid=" + pid);
+    %>
     <title>Sponsor.me</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,12 +29,13 @@
     <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css" /> -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/project.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/project-item.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/edit-button.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <jsp:include page="./header.jsp"/>
   </head>
   <body>
     <%
-      Project project = ProjectStore.getInstance().get(Integer.parseInt(request.getParameter("pid")));
+      Project project = ProjectStore.getInstance().get(pid);
       User creator = UserStore.getInstance().get(project.creatorId);
       
       TreeMap<Comment, ArrayList<Comment>> commentTree = CommentStore.getInstance().getCommentTree(project.id);
@@ -40,12 +46,19 @@
       session.setAttribute("redirect", request.getContextPath() + "/common/project-item.jsp?pid=" + project.id);
       boolean isLoggedIn = session.getAttribute("username") != null;
     %>
+    <form method="post" action="${pageContext.request.contextPath}/delete-project">
+      <input type="hidden" name="pid" value="<%=project.id%>">
+      <button type="submit" class="delete-button">
+        <i class="fa fa-trash" style="font-size: 36px; padding-right: 16px"></i>
+        <span>Delete Project</span>
+      </button>
+    </form>
     <div class="project-item">
       <div class="project-item-info">
         <div class="image-slider">
           <img
             class="heading-image"
-            src="${pageContext.request.contextPath}/assets/project-moft-image/moftFloatImage 1.png"
+            src="${pageContext.request.contextPath}/images/project-pictures/<%=project.picture.name%>"
             alt=""
           />
         </div>
@@ -61,7 +74,7 @@
             %>
             <h3>MYR <%=project.getFormattedBackedAmount()%></h3>
   
-            <span>Backed <%=project.backerNum + (project.backerNum == 1 ? " time" : " times")%></span>
+            <span>By <%=project.backerNum + (project.backerNum == 1 ? " backer" : " backers")%></span>
             <div class="funding-bar">
               <div class="funding-bar-color" style="<%="width: clamp(0%," + percentage + "%, 100%);"%>"></div>
             </div>
@@ -225,7 +238,7 @@
                     <li class="comment">
                       <div class="avatar">
                         <img
-                          src="${pageContext.request.contextPath}/assets/project-categories-header-image/all.jpg"
+                          src="${pageContext.request.contextPath}/images/profile-pictures/<%=parentComment.profilePictureName%>"
                           alt="AvatarPic"
                           width="55"
                           height="55"
@@ -285,7 +298,7 @@
                         <li class="comment">
                           <div class="avatar">
                             <img
-                              src="${pageContext.request.contextPath}/assets/project-categories-header-image/all.jpg"
+                              src="${pageContext.request.contextPath}/images/profile-pictures/<%=childComment.profilePictureName%>"
                               alt="AvatarPic"
                               width="55"
                               height="55"
@@ -331,7 +344,7 @@
                 <h2>MYR <%=perk.getFormattedPrice()%></h2>
                 <h6><%=perk.title%></h6>
                 <p><%=perk.description%></p>
-                <h5>Backed <%=perk.backerNum + (perk.backerNum == 1 ? " time" : " times")%></h5>
+                <h5>By <%=perk.backerNum + (perk.backerNum == 1 ? " backer" : " backers")%></h5>
               </div></a
             >
             <%}%>

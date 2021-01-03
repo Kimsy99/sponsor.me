@@ -6,6 +6,7 @@
     <%
       if (session.getAttribute("username") == null)
       {
+        session.setAttribute("redirect", request.getContextPath() + "/common/new-project.jsp");
         response.sendRedirect(request.getContextPath() + "/common/sign-in-sign-up.jsp");
         return;
       }
@@ -121,10 +122,12 @@
                   <div class="multi-field perks-reward">
                     <multi-input>
                       <input
-                        list="speakers"
+                        list="perks"
+                        name="perks"
+                        class="perks"
                         placeholder="Double click to toggle dropdown"
                       />
-                      <datalist id="speakers">
+                      <datalist id="perks" class="perk-list">
                         <%
                           for (RewardItem rewardItem : rewardItems)
                           {
@@ -174,10 +177,10 @@
                   <div class="multi-field perks-reward">
                     <multi-input>
                       <input
-                        list="perks"
+                        list="perks-0"
                         placeholder="Double click to toggle dropdown"
                       />
-                      <datalist id="perks">
+                      <datalist id="perks-0">
                         <%
                           for (RewardItem rewardItem : rewardItems)
                             out.write("<option value=\"" + rewardItem.name + "\"></option>");

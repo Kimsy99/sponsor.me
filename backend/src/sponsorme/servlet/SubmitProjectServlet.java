@@ -72,5 +72,7 @@ public class SubmitProjectServlet extends HttpServlet
 		ArrayList<Faq> faqs = (ArrayList<Faq>)request.getSession().getAttribute("faqs");
 		for (Faq faq : faqs)
 			FaqStore.getInstance().store(faq);
+		
+		response.sendRedirect(request.getContextPath() + "/common/project-item.jsp?pid=" + project.id);
 	}
 }

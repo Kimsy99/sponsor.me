@@ -1,12 +1,15 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.math.RoundingMode" %>
-<%@ page import="java.math.BigDecimal" %>
 <%@ page import="sponsorme.ConnectionManager" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <%
+        String searchStr = request.getParameter("search");
+        if (session.getAttribute("username") == null)
+            session.setAttribute("redirect", request.getContextPath() + "/common/search-project.jsp?search=" + searchStr);
+    %>
     <title>Sponsor.me</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +52,7 @@
                 float percentage = rs.getFloat("amount")/(rs.getFloat("funding_goal"))*100;
         %>
         <a class="project-item <%=rs.getString("category")%>" href="./project-item.jsp?pid=<%=rs.getInt("pid")%>">
-            <img src="https://i.imgur.com/zm10H4x.jpg" class="image"></img>
+            <img src="${pageContext.request.contextPath}/images/project-pictures/<%=project.picture.name%>" class="image"></img>
             <div class="project-footer">
             <span class="name"
             ><%=rs.getString("project_name")%></span

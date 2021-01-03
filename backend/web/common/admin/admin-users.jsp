@@ -7,7 +7,6 @@
 %>
 
 <%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="sponsorme.ConnectionManager" %>
 <%@ page import="sponsorme.model.Admin" %>
@@ -296,7 +295,7 @@
                         <tr>
                             <td><%=rs.getString("user_id")%></td>
                             <td><%=rs.getString("username")%></td>
-                            <td><%=rs.getString("email")%>></td>
+                            <td><%=rs.getString("email")%></td>
                             <td><%=rs.getInt("project_created")%></td>
                             <td><%=rs.getInt("project_backed")%></td>
                             <td class="delete">

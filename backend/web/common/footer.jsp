@@ -24,7 +24,7 @@
       </div>
       <div class="description">
         <p>Created by Kenneth Tan, Kim Sheng Yong, Chua Tuan Hong</p>
-        <p class="copyright">Sponsor.me © 2020</p>
+        <p class="copyright">Sponsor.me &#169 2020</p>
         <p class="tnc">Terms of Service - Privacy Policy</p>
       </div>
     </div>

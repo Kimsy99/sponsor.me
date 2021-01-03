@@ -1,15 +1,19 @@
 package sponsorme.servlet;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import sponsorme.model.Campaign;
 import sponsorme.model.Faq;
@@ -18,6 +22,7 @@ import sponsorme.model.ProjectPicture;
 import sponsorme.store.FaqStore;
 import sponsorme.store.ProjectStore;
 
+@MultipartConfig
 @WebServlet("/new-project-options")
 public class NewProjectServlet extends HttpServlet
 {
@@ -30,7 +35,7 @@ public class NewProjectServlet extends HttpServlet
 		Project.Category category = Project.Category.valueOf(request.getParameter("category").toUpperCase());
 		int fundingGoal = (int)(Float.parseFloat(request.getParameter("target-amount"))*100);
 		String pictureName = request.getParameter("img");
-		ProjectPicture picture = new ProjectPicture(projectId, pictureName);
+		ProjectPicture picture = new ProjectPicture(projectId, projectId + "_" + pictureName);
 		String pDescription = request.getParameter("project-description");
 		Campaign.Status status = Campaign.Status.valueOf(request.getParameter("stage").toUpperCase());
 		String story = request.getParameter("story");
@@ -43,6 +48,13 @@ public class NewProjectServlet extends HttpServlet
 		
 		Project project = new Project(projectId, pname, uid, creatorUsername, category, fundingGoal, picture, pDescription, creationDate, campaign, teamDetails, 0, 0);
 		
+		// Read project image
+		Part imagePart = request.getPart("img");
+		InputStream in = imagePart.getInputStream();
+		byte[] bytes = in.readAllBytes();
+		FileOutputStream out = new FileOutputStream(request.getSession().getServletContext().getRealPath("images") + "/project-pictures/" + projectId + "_" + pictureName);
+		out.write(bytes);
+		out.close();
 		
 		int questionId = FaqStore.getInstance().getNewId();
 		String[] questions = request.getParameterValues("question");
