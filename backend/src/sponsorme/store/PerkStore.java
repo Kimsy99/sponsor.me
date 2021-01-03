@@ -24,7 +24,7 @@ public class PerkStore extends DataStore<Perk> implements AutoIncrementId
 	{
 		System.out.println("[PerkStore] Retrieving perk for project with id " + projectId);
 		Connection connection = ConnectionManager.getConnection();
-		String sql = "SELECT p.perk_id, title, price, description, count(*) AS backer_count " 
+		String sql = "SELECT p.perk_id, title, price, description, count(*) AS backer_count, sum(backed_amount) as backed_amount_sum " 
 				+ "FROM sponsorme.perk p "
 				+ "LEFT JOIN sponsorme.backed_project bp ON p.perk_id = bp.perk_id AND p.project_id = bp.project_id "
 				+ "WHERE p.project_id = ? "
@@ -42,7 +42,8 @@ public class PerkStore extends DataStore<Perk> implements AutoIncrementId
 					String title = result.getString("title");
 					int price = (int)(result.getFloat("price")*100);
 					String description = result.getString("description");
-					int backerNum = result.getInt("backer_count");
+					int backedAmount = (int)(result.getFloat("backed_amount_sum")*100);
+					int backerNum = backedAmount == 0 ? 0 : result.getInt("backer_count");
 					
 					System.out.println("[PerkStore] " + title);
 					perks.add(new Perk(perkId, projectId, title, price, description, backerNum));

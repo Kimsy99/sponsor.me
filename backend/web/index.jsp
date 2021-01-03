@@ -60,7 +60,7 @@
 //      ResultSet rs = stm.executeQuery(sql);
       for (Project project : topProjects)
       {
-        float percentage = (float)project.backedAmount/project.fundingGoal*100;
+        int percentage = project.getFundingPercentage();
     %>
     <a class="project-item <%=project.category%>" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=project.id%>">
       <img src="https://i.imgur.com/zm10H4x.jpg" class="image">

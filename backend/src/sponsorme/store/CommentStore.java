@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -90,7 +91,10 @@ public class CommentStore extends DataStore<Comment> implements AutoIncrementId
 			statement.setInt(1, comment.projectId);
 			statement.setInt(2, comment.userId);
 			statement.setString(3, comment.text);
-			statement.setInt(4, comment.parentId);
+			if (comment.parentId == 0)
+				statement.setNull(4, Types.NULL);
+			else 
+				statement.setInt(4, comment.parentId);
 			statement.setString(5, comment.dateStr);
 			statement.execute();
 		}

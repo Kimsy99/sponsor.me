@@ -1,3 +1,4 @@
+<%--@elvariable id="error_message" type=""--%>
 <%
     if(session.getAttribute("admin")!=null)
         response.sendRedirect("admin.jsp");

@@ -43,6 +43,40 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		return getProjectsWithCondition("WHERE bp.backer_id = " + userId + " GROUP BY p.project_id");
 	}
 	
+	public ArrayList<Project> findProjectsContainingString(String str)
+	{
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "SELECT p.project_id, project_name, creator_id, username, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
+				+ "FROM sponsorme.project p "
+				+ "LEFT JOIN sponsorme.user u ON p.creator_id = u.user_id "
+				+ "LEFT JOIN sponsorme.campaign c ON p.project_id = c.project_id "
+				+ "LEFT JOIN sponsorme.project_picture pp ON p.project_id = pp.project_id "
+				+ "LEFT JOIN sponsorme.backed_project bp on p.project_id = bp.project_id "
+				+ "WHERE p.project_name LIKE ? "
+				+ "GROUP BY c.project_id";
+		
+		ArrayList<Project> projects = new ArrayList<>();
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setString(1, "%" + str + "%");
+			System.out.println(statement.toString());
+			try (ResultSet result = statement.executeQuery())
+			{
+				while (result.next())
+				{
+					Project project = getProjectFromResult(result);
+					System.out.println("[ProjectStore] Retrieved project " + project);
+					projects.add(project);
+				}
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return projects;
+	}
+	
 	private ArrayList<Project> getProjectsWithCondition(String sqlCondition)
 	{
 		Connection connection = ConnectionManager.getConnection();

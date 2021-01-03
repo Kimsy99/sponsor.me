@@ -45,7 +45,7 @@
           
           for (Project project : projectBackingInfos)
           {
-            float percentage = project.getFundingPercentage();
+            int percentage = project.getFundingPercentage();
         %>
             <a class="project-item <%=project.category.toString().toLowerCase()%>" href="./project-item.jsp?pid=<%=project.id%>">
           <img src="https://i.imgur.com/zm10H4x.jpg" class="image">

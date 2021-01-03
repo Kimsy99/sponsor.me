@@ -57,11 +57,11 @@
           <h6>Created by <%=creator.username%></h6>
           <div class="funding-details">
             <%
-              float percentage = project.getFundingPercentage();
+              int percentage = project.getFundingPercentage();
             %>
             <h3>MYR <%=project.getFormattedBackedAmount()%></h3>
   
-            <span>by <%=project.backerNum + (project.backerNum == 1 ? " backer" : " backers")%></span>
+            <span>Backed <%=project.backerNum + (project.backerNum == 1 ? " time" : " times")%></span>
             <div class="funding-bar">
               <div class="funding-bar-color" style="<%="width: clamp(0%," + percentage + "%, 100%);"%>"></div>
             </div>
@@ -326,12 +326,12 @@
               for (Perk perk : projectPerks)
               {
             %>
-            <a href=""
+            <a href="${pageContext.request.contextPath}/common/back-project.jsp?pid=<%=project.id%>&perkid=<%=perk.id%>"
               ><div class="perk-item">
                 <h2>MYR <%=perk.getFormattedPrice()%></h2>
                 <h6><%=perk.title%></h6>
                 <p><%=perk.description%></p>
-                <h5><%=perk.backerNum%> backers</h5>
+                <h5>Backed <%=perk.backerNum + (perk.backerNum == 1 ? " time" : " times")%></h5>
               </div></a
             >
             <%}%>

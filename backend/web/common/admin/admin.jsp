@@ -7,11 +7,8 @@
 %>
 
 <%@ page import="java.sql.*" %>
-<%@ page import="java.time.LocalDate" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Calendar" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.util.GregorianCalendar" %>
 <%@ page import="sponsorme.ConnectionManager" %>
 <%@ page import="sponsorme.model.Admin" %>
 <!DOCTYPE html>
@@ -444,10 +441,10 @@
 
     collapseBtn.addEventListener('click', function ()
     {
-        this.getAttribute('aria-expanded') == 'true'
+        this.getAttribute('aria-expanded') === 'true'
             ? this.setAttribute('aria-expanded', 'false')
             : this.setAttribute('aria-expanded', 'true');
-        this.getAttribute('aria-label') == 'collapse menu'
+        this.getAttribute('aria-label') === 'collapse menu'
             ? this.setAttribute('aria-label', 'expand menu')
             : this.setAttribute('aria-label', 'collapse menu');
         body.classList.toggle(collapsedClass);
@@ -455,10 +452,10 @@
 
     toggleMobileMenu.addEventListener('click', function ()
     {
-        this.getAttribute('aria-expanded') == 'true'
+        this.getAttribute('aria-expanded') === 'true'
             ? this.setAttribute('aria-expanded', 'false')
             : this.setAttribute('aria-expanded', 'true');
-        this.getAttribute('aria-label') == 'open menu'
+        this.getAttribute('aria-label') === 'open menu'
             ? this.setAttribute('aria-label', 'close menu')
             : this.setAttribute('aria-label', 'open menu');
         body.classList.toggle('mob-menu-opened');

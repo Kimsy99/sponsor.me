@@ -46,9 +46,9 @@ public class Project implements Serializable
 		return String.format("%.2f", backedAmount/100F);
 	}
 	
-	public float getFundingPercentage()
+	public int getFundingPercentage()
 	{
-		return (float)backedAmount/fundingGoal*100;
+		return (int)((float)backedAmount/fundingGoal*100);
 	}
 	
 	@Override
