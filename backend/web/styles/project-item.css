@@ -197,7 +197,7 @@
   width:80%;
 }
 /* add comment button */
-#add-comment{
+.add-comment{
   justify-content: center;
   display:inline-block;
   padding:0.3em 1.2em;
@@ -216,7 +216,7 @@
   font-size: 1rem;
   cursor: pointer;
 }
-#add-comment:hover{
+.add-comment:hover{
   border-color: var(--main-color);
   background-color: var(--bg-grey);
 }

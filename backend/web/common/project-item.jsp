@@ -39,6 +39,9 @@
     int commentCount = 0;
     for (Comment comment : commentTree.keySet())
       commentCount += commentTree.get(comment).size() + 1;
+    
+    session.setAttribute("redirect", request.getContextPath() + "/common/project-item.jsp?pid=" + project.id);
+    boolean isLoggedIn = session.getAttribute("username") != null;
   %>
   <div class="project-item">
     <div class="project-item-info">
@@ -187,7 +190,12 @@
         <div id="comments" class="tab-content">
           <span>
             <%=commentCount + (commentCount == 1 ? " comment" : " comments")%>
-            <button id="add-comment">Leave a comment</button>
+            <%
+              if (!isLoggedIn)
+              	out.write("<a class=\"add-comment\" href=\"sign-in-sign-up.jsp\">Leave a comment</a>");
+              else
+              	out.write("<button class=\"add-comment\" id=\"add-comment\">Leave a comment</button>");
+            %>
           </span>
           <div id="insert-comment" class="insert-comment">
             <!-- insert comments -->
@@ -235,12 +243,13 @@
                       <p>
                         <%=parentComment.text%>
                       </p>
-                      <button 
-                        class="add-reply" 
-                        onclick="replyPopUp(<%=parentComment.id%>)"
-                      >
-                        Reply
-                      </button>
+                      <%
+                        if (!isLoggedIn)
+                          out.write("<a class=\"add-reply\" href=\"sign-in-sign-up.jsp\">Reply</a>");
+                        else
+                          out.write("<button class=\"add-reply\" onclick=\"replyPopUp(" + parentComment.id + ")\">Reply</button>");
+                      %>
+                      
                       <div id="insert-reply" class="insert-comment">
                         <!-- insert comments -->
                         <div class="insert-reply-content">
