@@ -49,12 +49,6 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		return null;
 	}
 	
-	@Override
-	public String getNewIdQuery()
-	{
-		return "SELECT max(project_id) AS max_id FROM sponsorme.project;";
-	}
-	
 	public ArrayList<Project> getTopProjects(int limit, boolean shouldOrder)
 	{
 		System.out.println("[ProjectStore] Retrieving " + (limit == -1 ? "all" : limit) + " projects");
@@ -86,6 +80,39 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		return projects;
 	}
 	
+	public ArrayList<Project> getProjectsFromUser(int userId)
+	{
+		System.out.println("[ProjectStore] Retrieving project with from user with id " + userId);
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "SELECT p.project_id, project_name, creator_id, username, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
+				+ "FROM sponsorme.project p "
+				+ "LEFT JOIN sponsorme.user u ON p.creator_id = u.user_id "
+				+ "LEFT JOIN sponsorme.campaign c ON p.project_id = c.project_id "
+				+ "LEFT JOIN sponsorme.project_picture pp ON p.project_id = pp.project_id "
+				+ "LEFT JOIN sponsorme.backed_project bp on p.project_id = bp.project_id "
+				+ "WHERE p.creator_id = ?;";
+		
+		ArrayList<Project> projects = new ArrayList<>();
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, userId);
+			try (ResultSet result = statement.executeQuery())
+			{
+				while (result.next())
+				{
+					Project project = getProjectFromResult(result);
+					System.out.println("[ProjectStore] Retrieved project " + project);
+					projects.add(project);
+				}
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return projects;
+	}
+	
 	private Project getProjectFromResult(ResultSet result) throws SQLException
 	{
 		int projectId = result.getInt("project_id");
@@ -105,6 +132,12 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 		int backerNum = backedAmount == 0 ? 0 : result.getInt("backer_num");
 		
 		return new Project(projectId, projectName, creatorId, creatorUsername, category, fundingGoal, picture, smallDescription, creationDate, campaign, team, backerNum, backedAmount);
+	}
+	
+	@Override
+	public String getNewIdQuery()
+	{
+		return "SELECT max(project_id) AS max_id FROM sponsorme.project;";
 	}
 	
 	@Override

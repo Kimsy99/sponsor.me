@@ -30,7 +30,7 @@
 // })(jQuery);
 document.getElementById('campaign').click();
 function openCity(event, sectionName) {
-  var i, tabcontent, tablinks;
+  let i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName('tab-content');
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = 'none';
@@ -44,13 +44,13 @@ function openCity(event, sectionName) {
 }
 
 //accordion
-var acc = document.getElementsByClassName('accordion');
-var i;
+const acc = document.getElementsByClassName('accordion');
+let i;
 
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener('click', function () {
     this.classList.toggle('active');
-    var panel = this.nextElementSibling;
+    const panel = this.nextElementSibling;
     if (panel.style.display === 'block') {
       panel.style.display = 'none';
     } else {
@@ -69,6 +69,7 @@ let closeBtnReply = document.getElementsByClassName('close-reply')[0];
 
 addCommentBtn.onclick = function () {
   commentBox.style.display = 'block';
+  document.getElementById('scroll-top-var-1').value = document.documentElement.scrollTop;
 };
 closeBtn.onclick = function () {
   console.log('closebtn triggered');
@@ -77,7 +78,7 @@ closeBtn.onclick = function () {
 
 //click outside windows to close it
 window.onclick = function (event) {
-  if (event.target == commentBox) {
+  if (event.target === commentBox) {
     commentBox.style.display = 'none';
     // replyBox.style.display = 'none';
   }
@@ -87,6 +88,9 @@ function replyPopUp(pcid) {
   replyBox.style.display = 'block';
   console.log(pcid);
   document.getElementById("pcid").value = pcid;
+  let elements = document.getElementsByClassName('scroll-top-var-2');
+  for (let i = 0; i < elements.length; i++)
+    elements[i].value = document.documentElement.scrollTop;
 }
 function closeReply() {
   replyBox.style.display = 'none';

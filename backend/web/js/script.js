@@ -3,7 +3,7 @@ filterSelection('all');
 function removeClass(element, name) {
   let arr1 = element.className.split(' ');
   let arr2 = name.split(' ');
-  for (i = 0; i < arr2.length; i++) {
+  for (let i = 0; i < arr2.length; i++) {
     while (arr1.indexOf(arr2[i]) > -1) {
       arr1.splice(arr1.indexOf(arr2[i]), 1);
     }
@@ -14,8 +14,8 @@ function removeClass(element, name) {
 function addClass(element, name) {
   let arr1 = element.className.split(' ');
   let arr2 = name.split(' ');
-  for (i = 0; i < arr2.length; i++) {
-    if (arr1.indexOf(arr2[i]) == -1) {
+  for (let i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) === -1) {
       element.className += ' ' + arr2[i];
     }
   }

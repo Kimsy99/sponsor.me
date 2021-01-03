@@ -81,20 +81,23 @@ public class CommentStore extends DataStore<Comment> implements AutoIncrementId
 	@Override
 	public void store(Comment comment)
 	{
-//		Connection connection = ConnectionManager.getConnection();
-//		PreparedStatement statement = connection.prepareStatement(
-//				"INSERT INTO sponsorme.project (project_name, funding_goal, small_description, category, creator_id, creation_date, team)"
-//				+ "VALUES (?, ?, ?, ?, ?, ?, ?);"
-//		);
-//		statement.setString(1, project.projectName);
-//		statement.setInt(2, project.fundingGoal);
-//		statement.setString(3, project.smallDescription);
-//		statement.setString(4, project.category.toString().toLowerCase());
-//		statement.setInt(5, project.creatorId);
-//		statement.setString(6, simpleDateFormat.format(project.date));
-//		statement.setString(7, project.team);
-//		
-//		statement.executeQuery();
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "INSERT INTO sponsorme.comment(project_id, user_id, comment, parent_comment, comment_date) "
+				+ "VALUES (?, ?, ?, ?, ?)";
+		
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, comment.projectId);
+			statement.setInt(2, comment.userId);
+			statement.setString(3, comment.text);
+			statement.setInt(4, comment.parentId);
+			statement.setString(5, comment.dateStr);
+			statement.execute();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public static CommentStore getInstance()

@@ -1,7 +1,7 @@
 package sponsorme.servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class NewProjectServlet extends HttpServlet
 	{
 		int projectId = ProjectStore.getInstance().getNewId();
 		String pname = request.getParameter("pname");
-		int uid = Integer.parseInt(request.getSession().getAttribute("uid").toString());
+		int uid = (int)request.getSession().getAttribute("uid");
 		String creatorUsername = (String)request.getSession().getAttribute("username");
 		Project.Category category = Project.Category.valueOf(request.getParameter("category").toUpperCase());
 		int fundingGoal = (int)(Float.parseFloat(request.getParameter("target-amount"))*100);
@@ -37,7 +37,7 @@ public class NewProjectServlet extends HttpServlet
 		Campaign campaign = new Campaign(status, story);
 		String teamDetails = request.getParameter("team");
 		
-		LocalDateTime now = LocalDateTime.now();
+		LocalDate now = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String creationDate = now.format(formatter);
 		

@@ -1,9 +1,6 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="sponsorme.ConnectionManager" %>
-<%@ page import="sponsorme.model.ProjectBackingInfo" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="sponsorme.store.ProjectStore" %>
-<%@ page import="sponsorme.model.ProjectBackingInfo" %>
+<%@ page import="sponsorme.model.Project" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,17 +39,16 @@
       <button onClick="filterSelection('tech')">Tech</button>
       <button onClick="filterSelection('design')">Design</button>
       <button onClick="filterSelection('film')">Film</button>
-      <button onClick="filterSelection('arts')">Arts</button>
+      <button onClick="filterSelection('art')">Art</button>
       <button onClick="filterSelection('publish')">Publish</button>
       <button onClick="filterSelection('food')">Food</button>
-      <button onClick="filterSelection('games')">Games</button>
+      <button onClick="filterSelection('game')">Game</button>
       <button onClick="filterSelection('others')">Others</button>
     </ul>
   </div>
   <div class="preview-item-container">
     <%
-      Connection connection = ConnectionManager.getConnection();
-      ArrayList<ProjectBackingInfo> topProjects = ProjectStore.getInstance().getTopProjectInfos();
+      ArrayList<Project> topProjects = ProjectStore.getInstance().getTopProjects(10, true);
       
 //      Statement stm = conn.createStatement();
 //      String sql = "select p.project_id as pid, project_name, funding_goal, category,SUM(backed_amount) as amount, username, count(user_id) as backerNum\n" +
@@ -62,19 +58,18 @@
 //              "order by backerNum desc\n" +
 //              "LIMIT 10; ";
 //      ResultSet rs = stm.executeQuery(sql);
-      for (ProjectBackingInfo projectBackingInfo : topProjects)
+      for (Project project : topProjects)
       {
-        float percentage = (float)projectBackingInfo.backedAmount/projectBackingInfo.fundingGoal*100;
+        float percentage = (float)project.backedAmount/project.fundingGoal*100;
     %>
-    <a class="project-item <%=projectBackingInfo.category%>" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=projectBackingInfo.projectId%>">
+    <a class="project-item <%=project.category%>" href="${pageContext.request.contextPath}/common/project-item.jsp?pid=<%=project.id%>">
       <img src="https://i.imgur.com/zm10H4x.jpg" class="image">
       <div class="project-footer">
-            <span class="name"
-            ><%=projectBackingInfo.projectName%></span
-            >
-        <span class="target-fund">Target Fund: MYR <%=projectBackingInfo.getFormattedFundingGoal()%></span>
+        <span class="name"><%=project.name%></span>
+        <span class="target-fund">Target Fund: MYR <%=project.getFormattedFundingGoal()%></span>
         <span class="funded-percentage"><%=percentage%>% funded</span>
-        <span>By <%=projectBackingInfo.creatorUsername%></span>
+        <span>By <%=project.creatorUsername%></span>
+        <span><strong><%=project.category.getDisplayName()%></strong></span>
         <button type="submit">Back Project</button>
       </div>
     </a>

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
@@ -69,7 +69,7 @@ public class SignupServlet extends HttpServlet
 		else
 		{
 			// Information validated
-			LocalDateTime now = LocalDateTime.now();
+			LocalDate now = LocalDate.now();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			String userRegistrationDate = now.format(formatter);
 			

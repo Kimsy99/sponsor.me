@@ -9,19 +9,19 @@ window.onclick = function (event) {
   ) {
     console.log('close');
     dropdownContent.style.display = 'none';
-    dropdown.style.backgroundColor = '#f1f1f1';
+    document.getElementsByClassName('dropdown')[0].style.backgroundColor = '#f5f5f5';
   }
 };
 function toggleProfile() {
   console.log('pressed');
-  if (document.getElementById('dropdown-content').style.display != 'block') {
+  if (document.getElementById('dropdown-content').style.display !== 'block') {
     document.getElementById('dropdown-content').style.display = 'block';
     document.getElementsByClassName('dropdown')[0].style.backgroundColor =
       '#FF8A65';
   } else {
     document.getElementById('dropdown-content').style.display = 'none';
     document.getElementsByClassName('dropdown')[0].style.backgroundColor =
-      '#f1f1f1';
+      '#f5f5f5';
   }
 }
 
