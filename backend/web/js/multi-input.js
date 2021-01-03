@@ -82,6 +82,7 @@ class MultiInput extends HTMLElement {
 
     const itemHide = document.createElement('input');
     itemHide.value = value;
+    itemHide.id = value;
     itemHide.type = "hidden";
     itemHide.name = "reward-item-name"
     this.insertBefore(itemHide, this._input);
@@ -103,7 +104,7 @@ class MultiInput extends HTMLElement {
         }
       }
       this._allowedValues = this._allowedValues.filter(
-        (item) => item !== value
+          (item) => item !== value
       );
     }
   }
@@ -112,12 +113,15 @@ class MultiInput extends HTMLElement {
   // by _handleKeydown() when Backspace is entered.
   _deleteItem(item) {
     const value = item.textContent;
-    item.remove();
     const itemCountTemp = document.getElementById("count");
     const itemCount= (getSiblings(item, itemCountTemp));
-
+    let itemHidden = document.getElementById(value);
+    console.log(itemHidden)
+    itemHidden= (getSiblings(item, itemHidden));
+    itemHidden.remove();
     itemCount.value--;
     console.log(itemCount.value);
+    item.remove();
     // If duplicates aren't allowed, value is removed (in _addItem())
     // as a datalist option and from the _allowedValues array.
     // So — need to add it back here.
