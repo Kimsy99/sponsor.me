@@ -2,7 +2,9 @@ package sponsorme.store;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import sponsorme.ConnectionManager;
 import sponsorme.model.Perk;
@@ -16,6 +18,37 @@ public class RewardItemStore extends DataStore<RewardItem> implements AutoIncrem
 	public RewardItem get(int key)
 	{
 		return null;
+	}
+	
+	public ArrayList<RewardItem> getRewardItemsForPerk(Perk perk)
+	{
+		System.out.println("[RewardItemStore] Retrieving reward items for perk " + perk);
+		Connection connection = ConnectionManager.getConnection();
+		String sql = "SELECT * "
+				+ "FROM sponsorme.reward_item "
+				+ "LEFT JOIN sponsorme.item ON reward_item.item_id = item.item_id "
+				+ "WHERE project_id = ? AND perk_id = ?";
+		
+		ArrayList<RewardItem> rewardItems = new ArrayList<>();
+		try (PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, perk.projectId);
+			statement.setInt(2, perk.id);
+			try (ResultSet result = statement.executeQuery())
+			{
+				while (result.next())
+				{
+					String itemName = result.getString("item_name");
+					int id = result.getInt("item_id");
+					rewardItems.add(new RewardItem(id, itemName, perk.projectId));
+				}
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return rewardItems;
 	}
 	
 	@Override
