@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import sponsorme.ConnectionManager;
+import sponsorme.model.BackingInfo;
 import sponsorme.model.Perk;
 
 public class PerkStore extends DataStore<Perk> implements AutoIncrementId
@@ -21,7 +22,7 @@ public class PerkStore extends DataStore<Perk> implements AutoIncrementId
 	
 	public ArrayList<Perk> getPerkForProject(int projectId)
 	{
-		System.out.println("[PerkStore] Retrieving perk fro project with id " + projectId);
+		System.out.println("[PerkStore] Retrieving perk for project with id " + projectId);
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT p.perk_id, title, price, description, count(*) AS backer_count " 
 				+ "FROM sponsorme.perk p "
@@ -53,6 +54,41 @@ public class PerkStore extends DataStore<Perk> implements AutoIncrementId
 			e.printStackTrace();
 		}
 		return perks;
+	}
+	
+	public BackingInfo getBackingInfoForUser(int userId)
+	{
+		return null;
+//		System.out.println("[PerkStore] Retrieving backing info of user with id " + userId);
+//		Connection connection = ConnectionManager.getConnection();
+//		String sql = "SELECT * "
+//				+ "FROM sponsorme.backed_project bp "
+//				+ "WHERE bp.project_id = ? ";
+//		
+//		ArrayList<Perk> perks = new ArrayList<>();
+//		try (PreparedStatement statement = connection.prepareStatement(sql))
+//		{
+//			statement.setInt(1, projectId);
+//			try (ResultSet result = statement.executeQuery())
+//			{
+//				while (result.next())
+//				{
+//					int perkId = result.getInt("perk_id");
+//					String title = result.getString("title");
+//					int price = (int)(result.getFloat("price")*100);
+//					String description = result.getString("description");
+//					int backerNum = result.getInt("backer_count");
+//					
+//					System.out.println("[PerkStore] " + title);
+//					perks.add(new Perk(perkId, projectId, title, price, description, backerNum));
+//				}
+//			}
+//		}
+//		catch (SQLException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		return perks;
 	}
 	
 	@Override

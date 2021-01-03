@@ -20,9 +20,9 @@ public class ReplyCommentServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		HttpSession session = request.getSession();
-		int pcid = Integer.parseInt(request.getParameter("pcid"));
 		int pid = Integer.parseInt(request.getParameter("pid"));
 		int uid = (int)session.getAttribute("uid");
+		int pcid = Integer.parseInt(request.getParameter("pcid"));
 		String commentStr = request.getParameter("comment");
 		
 		LocalDate now = LocalDate.now();

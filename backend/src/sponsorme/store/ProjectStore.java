@@ -20,69 +20,31 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 	public Project get(int projectId)
 	{
 		System.out.println("[ProjectStore] Retrieving project with project id " + projectId);
-		Connection connection = ConnectionManager.getConnection();
-		String sql = "SELECT p.project_id, project_name, creator_id, username, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
-				+ "FROM sponsorme.project p "
-				+ "LEFT JOIN sponsorme.user u ON p.creator_id = u.user_id "
-				+ "LEFT JOIN sponsorme.campaign c ON p.project_id = c.project_id "
-				+ "LEFT JOIN sponsorme.project_picture pp ON p.project_id = pp.project_id "
-				+ "LEFT JOIN sponsorme.backed_project bp on p.project_id = bp.project_id "
-				+ "WHERE p.project_id = ?;";
-		
-		try (PreparedStatement statement = connection.prepareStatement(sql))
-		{
-			statement.setInt(1, projectId);
-			try (ResultSet result = statement.executeQuery())
-			{
-				if (result.next())
-				{
-					Project project = getProjectFromResult(result);
-					System.out.println("[ProjectStore] Retrieved project " + project);
-					return project;
-				}
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return null;
+		return getProjectsWithCondition("WHERE p.project_id = " + projectId).get(0);
 	}
 	
 	public ArrayList<Project> getTopProjects(int limit, boolean shouldOrder)
 	{
-		System.out.println("[ProjectStore] Retrieving " + (limit == -1 ? "all" : limit) + " projects");
-		Connection connection = ConnectionManager.getConnection();
-		String sql = "SELECT p.project_id, project_name, creator_id, username, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
-				+ "FROM sponsorme.project p "
-				+ "LEFT JOIN sponsorme.user u ON p.creator_id = u.user_id "
-				+ "LEFT JOIN sponsorme.campaign c ON p.project_id = c.project_id "
-				+ "LEFT JOIN sponsorme.project_picture pp ON p.project_id = pp.project_id "
-				+ "LEFT JOIN sponsorme.backed_project bp on p.project_id = bp.project_id "
-				+ "GROUP BY p.project_id "
+		System.out.println("[ProjectStore] Retrieving " + (limit == -1 ? "all" : limit) + (limit == 1 ? " project" : " projects"));
+		return getProjectsWithCondition("GROUP BY p.project_id "
 				+ (shouldOrder ? "ORDER BY backer_num DESC " : "")
-				+ (limit == -1 ? ";" : "LIMIT 10;");
-		
-		ArrayList<Project> projects = new ArrayList<>();
-		try (Statement statement = connection.createStatement(); ResultSet result = statement.executeQuery(sql))
-		{
-			while (result.next())
-			{
-				Project project = getProjectFromResult(result);
-				System.out.println("[ProjectStore] Retrieved project " + project.name);
-				projects.add(project);
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return projects;
+				+ (limit == -1 ? ";" : "LIMIT 10;"));
 	}
 	
-	public ArrayList<Project> getProjectsFromUser(int userId)
+	public ArrayList<Project> getProjectsByUser(int userId)
 	{
-		System.out.println("[ProjectStore] Retrieving project with from user with id " + userId);
+		System.out.println("[ProjectStore] Retrieving all projects by user with id " + userId);
+		return getProjectsWithCondition("WHERE p.creator_id = " + userId + " GROUP BY p.project_id");
+	}
+	
+	public ArrayList<Project> getBackedProjectsByUser(int userId)
+	{
+		System.out.println("[ProjectStore] Retrieving projects backed by user with id " + userId);
+		return getProjectsWithCondition("WHERE bp.backer_id = " + userId + " GROUP BY p.project_id");
+	}
+	
+	private ArrayList<Project> getProjectsWithCondition(String sqlCondition)
+	{
 		Connection connection = ConnectionManager.getConnection();
 		String sql = "SELECT p.project_id, project_name, creator_id, username, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
 				+ "FROM sponsorme.project p "
@@ -90,13 +52,12 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 				+ "LEFT JOIN sponsorme.campaign c ON p.project_id = c.project_id "
 				+ "LEFT JOIN sponsorme.project_picture pp ON p.project_id = pp.project_id "
 				+ "LEFT JOIN sponsorme.backed_project bp on p.project_id = bp.project_id "
-				+ "WHERE p.creator_id = ?;";
+				+ sqlCondition;
 		
 		ArrayList<Project> projects = new ArrayList<>();
-		try (PreparedStatement statement = connection.prepareStatement(sql))
+		try (Statement statement = connection.createStatement())
 		{
-			statement.setInt(1, userId);
-			try (ResultSet result = statement.executeQuery())
+			try (ResultSet result = statement.executeQuery(sql))
 			{
 				while (result.next())
 				{

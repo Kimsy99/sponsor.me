@@ -22,9 +22,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <!-- <link rel="stylesheet" href="../styles/preview-item.css" /> -->
-    <!-- <link rel="stylesheet" href="../styles/project.css" /> -->
-    <link rel="stylesheet" href="../styles/back-project.css" />
+    <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css" /> -->
+    <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/project.css" /> -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/back-project.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <jsp:include page="./header.jsp"/>
   </head>
@@ -116,5 +116,5 @@
   <footer>
     <jsp:include page="./footer.jsp"/>
   </footer>
-  <script src="../js/select-pledge.js"></script>
+  <script src="${pageContext.request.contextPath}/js/select-pledge.js"></script>
 </html>

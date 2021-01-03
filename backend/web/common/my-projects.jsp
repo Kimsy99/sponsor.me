@@ -11,8 +11,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="stylesheet" href="../styles/preview-item.css" />
-    <link rel="stylesheet" href="../styles/project.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/preview-item.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/project.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <jsp:include page="./header.jsp"/>
   </head>
@@ -20,7 +20,7 @@
     <h1 style="padding-left: 80px">All my projects</h1>
     <div class="preview-item-container" style="margin: 20px">
       <%
-        ArrayList<Project> myProjects = ProjectStore.getInstance().getProjectsFromUser((int)session.getAttribute("uid"));
+        ArrayList<Project> myProjects = ProjectStore.getInstance().getProjectsByUser((int)session.getAttribute("uid"));
         
         for (Project project : myProjects)
         {
@@ -43,7 +43,7 @@
   </body>
   <<jsp:include page="./footer.jsp"/>
 
-  <script src="../js/script.js"></script>
-  <script src="../js/faq-text-field.js"></script>
-  <script src="../js/toggleProfile.js"></script>
+  <script src="${pageContext.request.contextPath}/js/script.js"></script>
+  <script src="${pageContext.request.contextPath}/js/faq-text-field.js"></script>
+  <script src="${pageContext.request.contextPath}/js/toggleProfile.js"></script>
 </html>
