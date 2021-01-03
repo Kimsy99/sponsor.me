@@ -71,7 +71,7 @@
         <%
           for (Project project : myProjects)
           {
-            float percentage = project.getFundingPercentage();
+            int percentage = project.getFundingPercentage();
         %>
         <a class="project-item <%=project.category.getDisplayName()%>" href="./project-item.jsp?pid=<%=project.id%>">
           <img src="${pageContext.request.contextPath}/images/project-pictures/<%=project.picture.name%>" class="image">

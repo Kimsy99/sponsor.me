@@ -20,13 +20,13 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 	public Project get(int projectId)
 	{
 		System.out.println("[ProjectStore] Retrieving project with project id " + projectId);
-		return getProjectsWithCondition("WHERE p.project_id = " + projectId).get(0);
+		return getProjectsWithCondition("WHERE p.project_id = " + projectId + " GROUP BY p.project_id, pp.picture_id ").get(0);
 	}
 	
 	public ArrayList<Project> getTopProjects(int limit, boolean shouldOrder)
 	{
 		System.out.println("[ProjectStore] Retrieving " + (limit == -1 ? "all" : limit) + (limit == 1 ? " project" : " projects"));
-		return getProjectsWithCondition("GROUP BY p.project_id "
+		return getProjectsWithCondition("GROUP BY p.project_id, pp.picture_id "
 				+ (shouldOrder ? "ORDER BY backer_num DESC " : "")
 				+ (limit == -1 ? ";" : "LIMIT 10;"));
 	}
@@ -34,13 +34,13 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 	public ArrayList<Project> getProjectsByUser(int userId)
 	{
 		System.out.println("[ProjectStore] Retrieving all projects by user with id " + userId);
-		return getProjectsWithCondition("WHERE p.creator_id = " + userId + " GROUP BY p.project_id");
+		return getProjectsWithCondition("WHERE p.creator_id = " + userId + " GROUP BY p.project_id, pp.picture_id ");
 	}
 	
 	public ArrayList<Project> getBackedProjectsByUser(int userId)
 	{
 		System.out.println("[ProjectStore] Retrieving projects backed by user with id " + userId);
-		return getProjectsWithCondition("WHERE bp.backer_id = " + userId + " GROUP BY p.project_id");
+		return getProjectsWithCondition("WHERE bp.backer_id = " + userId + " GROUP BY p.project_id, pp.picture_id ");
 	}
 	
 	public ArrayList<Project> findProjectsContainingString(String str)
@@ -80,7 +80,7 @@ public class ProjectStore extends DataStore<Project> implements AutoIncrementId
 	private ArrayList<Project> getProjectsWithCondition(String sqlCondition)
 	{
 		Connection connection = ConnectionManager.getConnection();
-		String sql = "SELECT p.project_id, project_name, creator_id, username, category, funding_goal, picture_name, small_description, creation_date, project_status, story, team, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
+		String sql = "SELECT p.project_id, p.project_name, p.creator_id, u.username, p.category, p.funding_goal, pp.picture_id, pp.picture_name, p.small_description, p.creation_date, c.project_status, c.story, p.team, count(*) AS backer_num, sum(backed_amount) AS backed_amount_sum "
 				+ "FROM sponsorme.project p "
 				+ "LEFT JOIN sponsorme.user u ON p.creator_id = u.user_id "
 				+ "LEFT JOIN sponsorme.campaign c ON p.project_id = c.project_id "
