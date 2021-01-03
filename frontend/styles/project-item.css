@@ -30,6 +30,7 @@
   min-width:400px;
   /* overflow:hidden; */
   position: relative;
+  align-self: center;
 }
 
 .heading-image{
@@ -161,13 +162,15 @@
 
 
 /* accordion */
+
 .questions-list{
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .question{
   grid-area: content;
-  width:100%;
+  width: 100%;
   align-self: center;
   justify-self: center;
 }
@@ -176,13 +179,12 @@
   color: #444;
   cursor: pointer;
   padding: 18px;
-  width: 100%;
   border: none;
   text-align: left;
   outline: none;
   font-size: 15px;
   transition: 0.4s;
-  width:80%;
+  width:100%;
 }
 
 .active, .accordion:hover {
@@ -194,7 +196,7 @@
   display: none;
   background-color: white;
   overflow: hidden;
-  width:80%;
+  width:100%;
 }
 /* add comment button */
 #add-comment{

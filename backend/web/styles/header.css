@@ -118,16 +118,17 @@ a{
 .mini-project-preview img{
   width:100px;
   /* height: 60px; */
-  height: auto;
-  /* align-items: center; */
+  height: 56.25px;
+  align-self: center;
 }
 .mini-project-preview-content{
   padding-left: 2px;
+  align-self: center;
 }
-.mini-project-preview h5{
-  margin: 0；
+.mini-project-preview-content h5{
+  margin: 0;
 }
-.mini-project-preview h6{
+.mini-project-preview-content h6{
   margin: 0;
   font-weight: bold;
   color: green;
