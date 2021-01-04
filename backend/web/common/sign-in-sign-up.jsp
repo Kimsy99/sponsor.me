@@ -44,7 +44,7 @@
                     <!-- <label class="form-input-label">Password</label> -->
                 </div>
                 <div class="buttons">
-                    <button type="submit">Sign In</button>
+                    <button class="submit-button" type="submit">Sign In</button>
                 </div>
             </form>
             <p style="color: red">${error_message}</p>
@@ -140,7 +140,7 @@
                                     required
                             />
                         </div>
-                        <button type="submit" onclick="document.getElementById('sign-up-form').submit();">Sign Up</button>
+                        <button class="submit-button"  type="submit" onclick="document.getElementById('sign-up-form').submit();">Sign Up</button>
                     </form>
             <%
                 }

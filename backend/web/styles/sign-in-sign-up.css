@@ -58,3 +58,20 @@
   border-radius: 20px;
   padding: 5px;
 }
+.submit-button{
+  width: 200px;
+  height: 40px;
+  justify-self: center;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: var(--bg-grey);
+  border: 2px solid var(--main-color);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.submit-button:hover{
+  background-color: var(--main-color);
+  color: white;
+}
