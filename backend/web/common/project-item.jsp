@@ -15,10 +15,12 @@
 <html lang="en">
   <head>
     <%
-      int uid = (int)session.getAttribute("uid");
+      int uid = 0;
       int pid = Integer.parseInt(request.getParameter("pid"));
       if (session.getAttribute("username") == null)
         session.setAttribute("redirect", request.getContextPath() + "/common/project-item.jsp?pid=" + pid);
+      else
+        uid = (int)session.getAttribute("uid");
     %>
     <title>Sponsor.me</title>
     <meta charset="UTF-8" />
