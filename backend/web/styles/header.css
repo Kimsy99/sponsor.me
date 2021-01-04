@@ -51,7 +51,7 @@ a{
 }
 .search-bar{
   width: 10vw;
-  height: 10px;
+  height: 20px;
 }
 .search-button{
   box-shadow: 0px 0px 0px transparent;
@@ -59,7 +59,9 @@ a{
   border: 0px solid transparent;
 
   text-shadow: 0px 0px 0px transparent;
-  background-color: var(--bg-grey)
+  background-color: var(--bg-grey);
+  height: 20px;
+  width: auto
 }
 @keyframes App-logo-spin {
   from {
@@ -103,7 +105,7 @@ a{
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #FF8A65;} */
+.dropdown-content a:hover {background-color: #FF8A65;}
 
 /* .dropdown:hover .dropdown-content {display: block;}*/ */
 
