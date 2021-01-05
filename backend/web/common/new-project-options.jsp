@@ -40,7 +40,7 @@
                 type="text"
                 name="stuff[]"
                 class=""
-                placeholder="Question"
+                placeholder="Reward Item Name"
               />
               <button type="button" class="remove-field"><i class="fas fa-trash-alt"></i></button>
             </div>
@@ -61,7 +61,7 @@
                       type="text"
                       name="option-name"
                       class=""
-                      placeholder="Question"
+                      placeholder="Reward Item Name"
                     />
             </div>
           </div>

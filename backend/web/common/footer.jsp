@@ -17,7 +17,7 @@
           <img class="icon" src="${pageContext.request.contextPath}/assets/footer-image/Account.svg" />
           <span>Account</span>
         </a>
-        <a class="menu-item" href="${pageContext.request.contextPath}/common/help.jsp">
+        <a class="menu-item">
           <img class="icon" src="${pageContext.request.contextPath}/assets/footer-image/Help.svg" />
           <span>Help</span>
         </a>
