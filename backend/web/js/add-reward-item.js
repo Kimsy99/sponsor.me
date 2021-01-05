@@ -2,7 +2,6 @@ $('.option-types-wrapper').each(function () {
   var $wrapper = $('.option-types', this);
   console.log($wrapper);
   $('.add-field', $(this)).click(function (e) {
-    console.log('add new item');
     $('.multi-field:first-child', $wrapper)
         .clone(true, true)
         .show()
@@ -18,7 +17,6 @@ $('.option-types-wrapper').each(function () {
 $('.reward-wrapper').each(function () {
   var $wrapper = $('.reward-items', this);
   $('.add-item', $(this)).click(function (e) {
-    console.log('add new field');
     $('.reward-item-template')
         .clone(true, true)
         .show()

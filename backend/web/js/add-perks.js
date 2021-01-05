@@ -5,7 +5,6 @@ function uniqueID(count){
 $('.perks-wrapper').each(function () {
   var $wrapper = $('.perks-items', this);
   $('.add-perk', $(this)).click(function (e) {
-    console.log('add new field');
     $('.perks-item-template')
         .clone(true, true)
         .removeClass('perks-item-template')
@@ -20,8 +19,9 @@ $('.perks-wrapper').each(function () {
   });
 
 
-  $('.multi-field .remove-field', $wrapper).click(function () {
-    if ($('.multi-field', $wrapper).length > 1)
-      $(this).parent('.multi-field').remove();
+  $('.remove-field', $wrapper).click(function () {
+    console.log("remove")
+    if ($('.perks-item', $wrapper).length > 1)
+      $(this).parent('.perks-item').remove();
   });
 });
