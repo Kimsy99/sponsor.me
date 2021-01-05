@@ -1,30 +1,16 @@
 # sponsor.me
 
-SIGN UP fields:
-username
-email
-password
-retype password
+There are 3 folder in this project
+1. Frontend -> html css and js code when we developing the frontend of the website
+2. Backend -> Java EE project
+3. Database backup -> database of this project
 
-OUTCOMES: successs, passwords do not match, username already exists
+In order to run the project
+1. Java SDK must be 11.
+2. In IntelliJ, open the backend folder of this project.
+3. Change the password in ConnectionManager.java -> password for connection to sql database
 
-LOG IN fields:
-username
-password
 
-Classes:
-[User]
-id
-username
-email
-passwordHash
-salt
-backedProjects
-createdProjects
-
-[Project]
-Project title
-contents
-goal amount
-deadline
-current amount
+Admin + user account
+Username: kim
+Password: admin
